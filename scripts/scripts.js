@@ -45,6 +45,13 @@ config.miloLibs = getMiloLibs();
   link.setAttribute('rel', 'stylesheet');
   link.setAttribute('href', `${config.miloLibs}/styles/styles.css`);
   document.head.appendChild(link);
+
+  if (!document.querySelector(`head > link[href="/styles/styles.css"]`)) {
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('href', '/styles/styles.css');
+    document.head.appendChild(link);
+  }
 }());
 
 const {
@@ -63,8 +70,8 @@ const {
   const navs = decorateNavs();
   await loadLCP({ blocks });
   import(`${config.miloLibs}/utils/fonts.js`);
-  loadTemplate();
   await loadArea({ blocks: [...navs, ...blocks] });
+  loadTemplate();
   const { default: loadModals } = await import(`${config.miloLibs}/blocks/modals/modals.js`);
   loadModals();
   loadDelayed();

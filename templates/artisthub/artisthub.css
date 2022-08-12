@@ -1,0 +1,159 @@
+/* buttons */
+
+a.button:any-link {
+  text-decoration: none;
+  border-radius: 40px;
+  padding: 4px 1.2em 5px 1.2em;
+  /*outline: none; (keep outline for a11n) */
+  text-align: center;
+  font-size: var(--body-font-size-xs);
+  font-style: normal; 
+  font-weight: 600;
+  line-height: var(--body-line-height);
+  cursor: pointer;
+  transition: background-color .3s, color .3s, border .3s;
+  border-width: 2px;
+  border-style: solid;
+  margin: 10px 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  min-width: 100px;
+}
+
+p.button-container {
+  display: flex;
+  margin: 10px 0;
+  padding-bottom: 0;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+p.button-container a.button {
+  margin: 0 0 12px 0;
+}
+
+p.button-container > a.button:not(:last-child),
+p.button-container > strong:not(:last-child),
+p.button-container > em:not(:last-child) {
+  margin-right: 16px;
+}
+
+a.button.xlarge:any-link {
+  padding: 13px 1.5em 13px 1.5em;
+  font-size: var(--body-font-size-m);
+}
+
+a.button.large:any-link {
+  padding: 10px 1.5em 10px 1.5em;
+}
+
+a.button.small:any-link {
+  padding: 4px 1em 4px 1em;
+  border-radius: 15px;
+  font-size: var(--body-font-size-xs);
+}
+
+a.button:any-link,
+a.button.primary:any-link {
+  color: var(--color-white);
+  background-color: var(--color-info-primary);
+  border-color: var(--color-info-primary);
+}
+
+a.button:any-link:hover,
+a.button.primary:any-link:hover {
+  background-color: var(--color-info-primary-hover);
+  border-color: var(--color-info-primary-hover);
+}
+
+a.button:any-link:active,
+a.button.primary:any-link:active {
+  background-color: var(--color-info-primary-down);
+  border-color: var(--color-info-primary-down);
+}
+
+a.button.secondary:any-link {
+  color: var(--color-black);
+  background-color: var(--color-info-secondary);
+  border-color: var(--color-info-secondary);
+}
+
+a.button.secondary:any-link:hover {
+  background-color: var(--color-info-secondary-hover);
+  border-color: var(--color-info-secondary-hover);
+}
+
+a.button.secondary:any-link:active {
+  background-color: var(--color-info-secondary-down);
+  border-color: var(--color-info-secondary-down);
+}
+
+a.button.accent:any-link {
+  color: var(--color-white);
+  background-color: var(--color-info-accent);
+  border-color: var(--color-info-accent);
+}
+
+a.button.accent:any-link:hover {
+  background-color: var(--color-info-accent-hover);
+  border-color: var(--color-info-accent-hover);
+}
+
+a.button.accent:any-link:active {
+  background-color: var(--color-info-accent-down);
+  border-color: var(--color-info-accent-down);
+}
+
+a.button.transparent:any-link {
+  color: var(--color-info-transparent);
+  border-color: var(--color-info-transparent);
+  background-color: var(--color-info-transparent-bg);
+}
+
+a.button.transparent:any-link:hover {
+  color: var(--color-info-transparent-hover);
+  border-color: var(--color-info-transparent-hover);
+  background-color: var(--color-info-transparent-bg-hover);
+}
+
+a.button.transparent:any-link:active {
+  color: var(--color-info-transparent-down);
+  border-color: var(--color-info-transparent-down);
+  background-color: var(--color-info-transparent-bg-down);
+}
+
+.marquee a.button.transparent:any-link {
+  color: var(--color-white);
+  border-color: var(--color-white);
+  background-color: var(--color-info-transparent-bg);
+}
+
+.marquee a.button.transparent:any-link:hover {
+  color: var(--color-white);
+  border-color: var(--color-white);
+  background-color: var(--color-info-transparent-bg-hover);
+}
+
+.marquee a.button.transparent:any-link:active {
+  color: var(--color-white);
+  border-color: var(--color-white);
+  background-color: var(--color-info-transparent-bg-down);
+}
+
+a.button > svg {
+  float: left;
+  display: inline;
+  width: 20px;
+  height: 20px;
+  margin: 8px 8px 8px 0;
+  fill: currentColor;
+  color: currentColor;
+}
+
+a.button > svg > use {
+  fill: currentColor;
+  color: currentColor;
+}
