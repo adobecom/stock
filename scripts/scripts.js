@@ -16,7 +16,7 @@ const PROD_LIBS = 'https://milo.adobe.com/libs';
 
 const config = {
   // imsClientId: 'college',
-  projectRoot: `${window.location.origin}/`,
+  projectRoot: `${window.location.origin}`,
   locales: {
     '': { ietf: 'en-US', tk: 'hah7vzn.css' },
     de: { ietf: 'de-DE', tk: 'hah7vzn.css' },
