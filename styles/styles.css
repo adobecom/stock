@@ -28,7 +28,65 @@
   --color-info-transparent-bg-down: rgba(0,0,0,0.2);
   --color-premium: #EBCF2D;
   --gradient-highlight-vertical: linear-gradient(15deg, #7c84fc, #ff4dd2);
-  --gradient-highlight-horizontal: linear-gradient(90deg, #ff4dd2, #7c84fc);
+  --gradient-highlight-horizontal: linear-gradient(90deg, #ff4dd2, #7c84fc);  --body-font-size-xxl: 28px;
+  --body-font-size-xl: 22px;
+  --body-font-size-l: 20px;
+  --body-font-size-m: 18px;
+  --body-font-size-s: 16px;
+  --body-font-size-xs: 14px;
+  --body-font-size-xxs: 12px;
+  --heading-font-weight: 700;
+  --heading-color: var(--color-gray-800);
+  --heading-line-height: 1.25;
+  --heading-font-size-xxxl: 45px;
+  --heading-font-size-xxl: 36px;
+  --heading-font-size-xl: 28px;
+  --heading-font-size-l: 24px;
+  --heading-font-size-m: 22px;
+  --heading-font-size-s: 18px;
+  --heading-font-size-xs: 14px;
+  --heading-font-size-xxs: 12px;
+  --max-width-block: 500px;
+  --max-width-text: 500px;
+  --gutter: 1.5rem;
+  --section-spacing: 64px;
+  --section-spacing-x-large: 90px;
+  --section-spacing-large: 90px;
+  --section-spacing-small: 50px;
+  --section-spacing-x-small: 38px;
+}
+@media screen and (min-width: 600px) {
+  :root {
+    --max-width-block: 700px;
+    --max-width-text: 700px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  :root {
+    --body-font-size-xxl: 28px;
+    --body-font-size-xl: 24px;
+    --body-font-size-l: 20px;
+    --body-font-size-m: 18px;
+    --body-font-size-s: 16px;
+    --body-font-size-xs: 14px;
+    --body-font-size-xxs: 12px;
+    --heading-font-size-xxxl: 60px;
+    --heading-font-size-xxl: 45px;
+    --heading-font-size-xl: 36px;
+    --heading-font-size-l: 32px;
+    --heading-font-size-m: 28px;
+    --heading-font-size-s: 22px;
+    --heading-font-size-xs: 18px;
+    --heading-font-size-xxs: 14px;
+    --max-width-block: 1264px;
+    --max-width-text: 600px;
+    --gutter: 2rem;
+    --section-spacing: 64px;
+    --section-spacing-x-large: 128px;
+    --section-spacing-large: 90px;
+    --section-spacing-small: 50px;
+    --section-spacing-x-small: 38px;
+  }
 }
 
 .detail-M {
@@ -44,22 +102,7 @@ body nav.gnav .gnav-brand {
   justify-content: flex-start
 }
 
-/* customize marquee for artisthub */
-
-.marquee .foreground {
-  justify-content: center;
-}
-
-.marquee .foreground .text {
-  max-width: 500px;
-}
-
-main .marquee .image img {
-  object-fit: contain;
-  max-width: 500px;
-}
-
-/* 'contained' columns by default */
+/* customize columns for artisthub */
 
 .columns {
   max-width: var(--grid-container-width);
