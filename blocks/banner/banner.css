@@ -37,6 +37,10 @@ main .banner .background {
   overflow: hidden;
 }
 
+main .banner:not(.light) .hero-animation-overlay {
+  background: #303030;
+}
+
 main .banner .background > div:first-child {
   position: relative;
 }
