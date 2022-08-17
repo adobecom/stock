@@ -152,7 +152,6 @@ main .banner .banner-column:not(:empty) {
 
 main .banner .banner-column:not(.banner-image):not(:empty) {
   padding: 32px 0;
-  max-width: 360px;
 }
 
 main .banner .banner-column:last-child:not(:empty) {
