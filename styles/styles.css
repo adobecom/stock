@@ -46,20 +46,11 @@
   --heading-font-size-s: 18px;
   --heading-font-size-xs: 14px;
   --heading-font-size-xxs: 12px;
-  --max-width-block: 500px;
-  --max-width-text: 500px;
-  --gutter: 1.5rem;
   --section-spacing: 64px;
   --section-spacing-x-large: 90px;
   --section-spacing-large: 90px;
   --section-spacing-small: 50px;
   --section-spacing-x-small: 38px;
-}
-@media screen and (min-width: 600px) {
-  :root {
-    --max-width-block: 700px;
-    --max-width-text: 700px;
-  }
 }
 @media screen and (min-width: 1000px) {
   :root {
@@ -78,9 +69,6 @@
     --heading-font-size-s: 22px;
     --heading-font-size-xs: 18px;
     --heading-font-size-xxs: 14px;
-    --max-width-block: 1264px;
-    --max-width-text: 600px;
-    --gutter: 2rem;
     --section-spacing: 64px;
     --section-spacing-x-large: 128px;
     --section-spacing-large: 90px;

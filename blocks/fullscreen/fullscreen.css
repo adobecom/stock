@@ -138,8 +138,7 @@ main .fullscreen .background .hero-animation-overlay p:first-child {
 }
 
 main .fullscreen .background p {
-  padding: 8px var(--gutter);
-  max-width: 360px;
+  padding: 8px 0;
   margin: 0 auto;
   text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.6);
   position: absolute;
