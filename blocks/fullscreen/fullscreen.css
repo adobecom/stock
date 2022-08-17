@@ -1,19 +1,19 @@
-main .section-wrapper.fullscreen-container,
-main .section-wrapper.fullscreen-container > div {
+main .section.fullscreen-container,
+main .section.fullscreen-container > div {
   padding: 0;
   margin: 0;
 }
 
-main .section-wrapper:first-of-type.fullscreen-container {
+main .section:first-of-type.fullscreen-container {
   margin-top: 0;
 }
 
-main .section-wrapper.fullscreen-container + .section-wrapper.sitemap-container,
-main .section-wrapper.fullscreen-container + .section-wrapper.footer-container {
+main .section.fullscreen-container + .section.sitemap-container,
+main .section.fullscreen-container + .section.footer-container {
   margin-top: 0;
 }
 
-main .section-wrapper.fullscreen-container > div {
+main .section.fullscreen-container > div {
     max-width: none;
 }
 

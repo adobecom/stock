@@ -1,7 +1,3 @@
-main .section-wrapper.carousel-container > div {
-  max-width: var(--max-width-block);
-}
-
 main .carousel {
   position: relative;
   width: 100%;
@@ -389,12 +385,6 @@ main .carousel-lightbox .carousel-dot picture {
 }
 
 @media screen and (max-width: 1085px) {
-  main .section-wrapper.carousel-container > div {
-    padding-left: 0;
-    padding-right: 0;
-    max-width: none;
-  }
-  
   main .carousel-slides,
   main .carousel-slide {
     width: 100%;

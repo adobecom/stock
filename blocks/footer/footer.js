@@ -10,42 +10,53 @@
  * governing permissions and limitations under the License.
  */
 import {
-  isNodeName,
+  transformLinkToAnimation,
 } from '../../scripts/stock-utils.js';
 
 export default function decorate($block) {
-  const $footerTag = document.querySelector('footer');
-
-  // Move default footer into a div called .footer-copyright
-  const $copyright = document.createElement('div');
-  $copyright.classList.add('footer-copyright');
-  const $footerElements = Array.from($footerTag.children);
-  $footerTag.appendChild($copyright);
-  $footerElements.forEach((div) => {
-    $copyright.append(div);
-  });
-
-  // Move elements from .footer block to the beginning of <footer>
-  const $footerContainer = $block.closest('.footer-container');
-  $footerContainer.classList.remove('section-wrapper');
-  $footerTag.prepend($footerContainer);
-
-  // Decorate social media icon list
-  const $inlineSVGicons = Array.from($block.querySelectorAll('svg.icon'));
-  $inlineSVGicons.forEach((icon) => {
-    let $c = icon.parentElement;
-    if ((isNodeName($c, 'a'))) {
-      $c = $c.parentElement;
-    }
-    if (!isNodeName($c, 'p')) {
-      const p = document.createElement('p');
-      $c.appendChild(p);
-      p.appendChild(icon);
-      $c = p;
-    }
-    if ($c.children.length > 1) {
-      $c.classList.add('icon-container');
-      icon.setAttribute('fill', 'currentColor');
+  const $pics = $block.querySelectorAll('picture');
+  $pics.forEach((pic) => {
+    if (pic.parentElement.tagName === 'P') {
+      // unwrap single picture if wrapped in p tag
+      const $parentDiv = pic.closest('div');
+      const $parentParagraph = pic.parentNode;
+      $parentDiv.insertBefore(pic, $parentParagraph);
     }
   });
+  const bg = $block.querySelector(':scope > div:first-of-type');
+  bg.classList.add('background');
+  Array.from(bg.querySelectorAll('p')).forEach((p) => p.classList.remove('button-container'));
+  Array.from(bg.querySelectorAll('a')).forEach((a) => a.classList.remove('button'));
+  let bgImg = bg.querySelector('picture');
+  // Set background to text value if there is no image:
+  if (!bgImg) {
+    const $a = bg.querySelector('a');
+    if ($a && $a.href.endsWith('.mp4')) {
+      transformLinkToAnimation($a);
+      bgImg = $a;
+    } else {
+      bg.style.background = bg.textContent;
+      bg.innerHTML = '';
+    }
+  } else if (bgImg.parentElement.tagName.toLowerCase === 'p') {
+    bgImg.parentElement.parentElement.appendChild(bgImg);
+  }
+  const content = $block.querySelector(':scope > div:nth-of-type(2)');
+  if (content) {
+    content.classList.add('banner-content');
+    const $cells = Array.from(content.children);
+    $cells.forEach(($cell) => {
+      $cell.classList.add('banner-column');
+      const picElement = $cell.querySelector('picture');
+      if (picElement) {
+        $cell.classList.add('banner-image');
+      }
+
+      // remove empty p from empty columns
+      const $emptyP = $cell.querySelector(':scope > p:first-child:last-child');
+      if ($emptyP && $emptyP.childNodes.length === 0) $emptyP.remove();
+    });
+  } else {
+    $block.classList.add('empty-content');
+  }
 }

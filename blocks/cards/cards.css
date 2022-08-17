@@ -22,16 +22,6 @@ main .cards {
     margin-right: auto;
 }
 
-main .cards-container p + .cards, 
-main .cards-container h1 + .cards, 
-main .cards-container h2 + .cards, 
-main .cards-container h3 + .cards, 
-main .cards-container h4 + .cards, 
-main .cards-container h5 + .cards,
-main .cards-container span.detail + .cards {
-    margin-top: var(--section-spacing-small);
-}
-
 main .cards.col-2-cards,
 main .cards.col-3-cards,
 main .cards.col-4-cards,
@@ -383,15 +373,7 @@ main .cards.horizontal .card {
         height: 200px;
     }
 
-    main .cards-container .cards:not(:last-of-type) {
-        margin-bottom: 24px;
-    }
-    
-    main .cards-container .cards:not(:first-of-type) {
-        margin-top: 24px;
-    }
-
-    main .section-wrapper > div > .cards + p.button-container {
+    main .section > div > .cards + p.button-container {
         justify-content: center;
     }
     

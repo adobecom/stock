@@ -5,7 +5,7 @@ main .tags {
     text-align: left;
 }
 
-main .section-wrapper .block.tags {
+main .section .block.tags {
     margin-bottom: var(--section-spacing-x-large);
 }
 

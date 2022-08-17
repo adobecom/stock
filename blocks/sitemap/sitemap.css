@@ -1,8 +1,8 @@
-main .section-wrapper.sitemap-container {
+main .section.sitemap-container {
     background-color: var(--color-gray-100);
 }
 
-main .section-wrapper.sitemap-container {
+main .section.sitemap-container {
     padding-top: var(--section-spacing-large);
     padding-bottom: var(--section-spacing-large);
     margin-top: var(--section-spacing-large);
