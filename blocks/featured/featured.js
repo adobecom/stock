@@ -18,7 +18,7 @@ import {
 function lazyDecorateVideo($cell, $a) {
   if (!$a || (!$a.href.endsWith('.mp4') && !$a.href.startsWith('https://www.youtube.com/watch') && !$a.href.startsWith('https://youtu.be/'))) return;
   const decorateVideo = () => {
-    if ($cell.classList.contains('column-picture')) return;
+    if ($cell.classList.contains('picture-column')) return;
     let youtube = null;
     let mp4 = null;
     if ($a.href.endsWith('.mp4')) {
@@ -28,10 +28,10 @@ function lazyDecorateVideo($cell, $a) {
     }
     $cell.innerHTML = '';
     if (youtube) {
-      $cell.classList.add('column-picture');
+      $cell.classList.add('picture-column');
       $cell.appendChild(youtube);
     } else if (mp4) {
-      $cell.classList.add('column-picture');
+      $cell.classList.add('picture-column');
       const $row = $cell.closest('.featured-row');
       const $cta = $row.querySelector('.button.accent') ?? $row.querySelector('.button');
       if ($cta) {
@@ -77,14 +77,14 @@ export default function decorate($block) {
     $row.classList.add('featured-row');
     const $featured = Array.from($row.children);
     $featured.forEach(($cell) => {
-      $cell.classList.add('column');
+      $cell.classList.add('featured-column');
       const $a = $cell.querySelector('a');
-      if ($a && $a.closest('.column').childNodes.length === 1 && ($a.href.endsWith('.mp4') || $a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
+      if ($a && $a.closest('.featured-column').childNodes.length === 1 && ($a.href.endsWith('.mp4') || $a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
         lazyDecorateVideo($cell, $a);
       } else {
         const $pic = $cell.querySelector('picture:first-child:last-child');
         if ($pic) {
-          $cell.classList.add('column-picture');
+          $cell.classList.add('picture-column');
           const $cta = $row.querySelector('.button.accent') ?? $row.querySelector('.button');
           console.log($cta);
           const $picParent = $pic.parentElement;

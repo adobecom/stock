@@ -29,19 +29,19 @@ main .featured .featured-row:last-child {
   padding-bottom: 0;
 }
 
-main .featured .column {
+main .featured .featured-column {
   width: 40%;
   min-width: 40%;
   max-width: 40%;
 }
 
-main .featured .column-picture {
+main .featured .picture-column {
   width: 60%;
   min-width: 60%;
   max-width: 60%;
 }
 
-main .featured .column:not(.column-picture) {
+main .featured .featured-column:not(.picture-column) {
   padding-left: 56px;
   padding-right: 56px;
 }
@@ -54,7 +54,7 @@ main .featured.small .featured-row:last-child {
   padding-bottom: 0;
 }
 
-main .featured.small .column {
+main .featured.small .featured-column {
   width: 50%;
   min-width: 50%;
   max-width: 50%;
@@ -62,24 +62,24 @@ main .featured.small .column {
   overflow: hidden;
 }
 
-main .featured.small .column-picture {
+main .featured.small .picture-column {
   width: 50%;
   min-width: 50%;
   max-width: 50%;
 }
 
-main .featured.small .column:not(.column-picture) {
+main .featured.small .featured-column:not(.picture-column) {
   padding-left: 40px;
   padding-right: 40px;
 }
 
-main .featured .column:first-child:not(.column-picture),
-main .featured.small .column:first-child:not(.column-picture) {
+main .featured .featured-column:first-child:not(.picture-column),
+main .featured.small .featured-column:first-child:not(.picture-column) {
   padding-left: 0;
 }
 
-main .featured .column:last-child:not(.column-picture),
-main .featured.small .column:last-child:not(.column-picture) {
+main .featured .featured-column:last-child:not(.picture-column),
+main .featured.small .featured-column:last-child:not(.picture-column) {
   padding-right: 0;
 }
 
@@ -112,26 +112,26 @@ main .featured.small span.detail {
   font-size: var(--detail-font-size-xs);
 }
 
-main .featured .column-picture {
+main .featured .picture-column {
   overflow: hidden;
   display: block;
   line-height: 0;
 }
 
-main .featured .column-picture video {
+main .featured .picture-column video {
   width: 100%;
   transform: translateX(-0.2%);
   min-width: 100.4%; /* ^ Fix for black line on the edges of videos */
   height: auto;
 }
 
-main .featured .column-picture img {
+main .featured .picture-column img {
   width: 100%;
   height: auto;
   transition: filter 0.3s, transform 0.3s;
 }
 
-main .featured .column-picture a {
+main .featured .picture-column a {
   display: block;
   line-height: 0;
 }
@@ -149,8 +149,8 @@ main .dark-theme .featured p {
 }
 
 @media screen and (max-width: 799px) {
-  main .featured .column,
-  main .featured.small .column {
+  main .featured .featured-column,
+  main .featured.small .featured-column {
     width: 100%;
     min-width: 100%;
     max-width: 100%;
@@ -160,17 +160,17 @@ main .dark-theme .featured p {
     flex-direction: column;
   }
 
-  main .featured .featured-row .column-picture {
+  main .featured .featured-row .picture-column {
     order: 2;
     margin-top: 16px;
   }
 
-  main .featured .featured-row .column {
+  main .featured .featured-row .featured-column {
     padding: 0;
     margin-bottom: 16px;
   }
 
-  main .featured.small .featured-row .column {
+  main .featured.small .featured-row .featured-column {
     padding: 0;
   }
 
