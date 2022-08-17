@@ -400,6 +400,10 @@ main .banner.center .banner-column:not(.banner-image) {
   }
 }
 
+main .banner .banner-content.has-inline-image .banner-column:not(:empty) {
+  max-width: unset;
+}
+
 /* laptop */
 
 @media screen and (min-width: 1000px) {

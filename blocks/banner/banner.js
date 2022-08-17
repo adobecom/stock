@@ -50,8 +50,8 @@ export default function decorate($block) {
       const picElement = $cell.querySelector('picture');
       if (picElement) {
         $cell.classList.add('banner-image');
+        content.classList.add('has-inline-image')
       }
-
       // remove empty p from empty columns
       const $emptyP = $cell.querySelector(':scope > p:first-child:last-child');
       if ($emptyP && $emptyP.childNodes.length === 0) $emptyP.remove();
