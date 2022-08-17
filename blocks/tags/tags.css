@@ -3,9 +3,6 @@ main .tags {
     margin-left: auto;
     margin-right: auto;
     text-align: left;
-}
-
-main .section .block.tags {
     margin-bottom: var(--section-spacing-x-large);
 }
 
@@ -31,8 +28,4 @@ main .tags > div a:not(:empty) {
 
 main .share + .tags {
     margin-top: var(--section-spacing-x-small);
-}
-
-main .share-container.tags-container .share {
-    margin-bottom: var(--section-spacing-x-small);
 }

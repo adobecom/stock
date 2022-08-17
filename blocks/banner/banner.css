@@ -445,10 +445,6 @@ main .banner .banner-content.has-inline-image .banner-column:not(:empty) {
     display: block;
   }
   
-  main .marquee .marquee-column:not(.marquee-image):not(:empty) {
-    max-width: unset;
-  }
-
   main .banner .banner-content .banner-column:nth-child(odd) {
     margin-right: auto;
     margin-left: 0;

@@ -40,18 +40,16 @@ function getMiloLibs() {
 }
 config.miloLibs = getMiloLibs();
 
-(async function loadStyle() {
-  const link = document.createElement('link');
-  link.setAttribute('rel', 'stylesheet');
-  link.setAttribute('href', `${config.miloLibs}/styles/styles.css`);
-  document.head.appendChild(link);
-
-  if (!document.querySelector(`head > link[href="/styles/styles.css"]`)) {
-    const link = document.createElement('link');
-    link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', '/styles/styles.css');
-    document.head.appendChild(link);
-  }
+(async function loadStyles() {
+  const miloStyle = document.createElement('link');
+  miloStyle.setAttribute('rel', 'stylesheet');
+  miloStyle.setAttribute('href', `${config.miloLibs}/styles/styles.css`);
+  document.head.appendChild(miloStyle);
+  
+  const repoStyle = document.createElement('link');
+  repoStyle.setAttribute('rel', 'stylesheet');
+  repoStyle.setAttribute('href', '/styles/styles.css');
+  document.head.appendChild(repoStyle);
 }());
 
 const {

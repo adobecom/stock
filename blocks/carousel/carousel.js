@@ -53,7 +53,7 @@ function carouselAndLightbox($block) {
   const incrementCurrentCarousel = (next = true) => {
     let $slides = $carouselSlides;
     let $navDots = $dots;
-    if ($wrapper.closest('.block.carousel').classList.contains('lightbox')) {
+    if ($wrapper.closest('.carousel').classList.contains('lightbox')) {
       $slides = $lightboxSlides;
       $navDots = $lightboxThumbnails;
     }
@@ -113,14 +113,14 @@ function carouselAndLightbox($block) {
   [...$expandButtons].forEach(($btn) => {
     $btn.addEventListener('click', () => {
       updateCarousel($lightboxSlides, $lightboxThumbnails, carouselIndex);
-      $wrapper.closest('.block.carousel').classList.add('lightbox');
+      $wrapper.closest('.carousel').classList.add('lightbox');
       $lightboxThumbnails[carouselIndex].focus({ preventScroll: true });
     });
   });
   const closeLightbox = () => {
     $wrapper.classList.add('no-animation');
     updateCarousel($carouselSlides, $dots, carouselIndex);
-    $wrapper.closest('.block.carousel').classList.remove('lightbox');
+    $wrapper.closest('.carousel').classList.remove('lightbox');
     setTimeout(() => {
       $wrapper.classList.remove('no-animation');
     }, 300);
@@ -140,14 +140,14 @@ function carouselAndLightbox($block) {
     }
   });
   $block.addEventListener('keydown', (e) => {
-    const $navDots = ($wrapper.closest('.block.carousel').classList.contains('lightbox')) ? $lightboxThumbnails : $dots;
+    const $navDots = ($wrapper.closest('.carousel').classList.contains('lightbox')) ? $lightboxThumbnails : $dots;
     if (e.key === 'ArrowLeft') {
       incrementCurrentCarousel(false);
       $navDots[carouselIndex].focus({ preventScroll: true });
     } else if (e.key === 'ArrowRight') {
       incrementCurrentCarousel(true);
       $navDots[carouselIndex].focus({ preventScroll: true });
-    } else if (e.key === 'Escape' && $wrapper.closest('.block.carousel').classList.contains('lightbox')) {
+    } else if (e.key === 'Escape' && $wrapper.closest('.carousel').classList.contains('lightbox')) {
       closeLightbox();
       $navDots[carouselIndex].focus({ preventScroll: true });
     }

@@ -1,42 +1,22 @@
-main .section.sitemap-container {
-    background-color: var(--color-gray-100);
-}
 
-main .section.sitemap-container {
-    padding-top: var(--section-spacing-large);
-    padding-bottom: var(--section-spacing-large);
-    margin-top: var(--section-spacing-large);
-}
-
-main .sitemap-container + .sitemap-container,
-main .marquee-container + .sitemap-container,
-main .separator-container + .sitemap-container,
-main .background-container + .sitemap-container {
-    margin-top: 0;
-}
-
-main .sitemap-container .sitemap ul,
-main .sitemap-container .sitemap li,
-main .sitemap-container .sitemap p {
+main .sitemap ul,
+main .sitemap li,
+main .sitemap p {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-main .sitemap-container > div {
-    max-width: 1440px;
-}
-
-main .sitemap-container .sitemap {
+main .sitemap {
     margin: 0 auto;
 }
 
-main .sitemap-container .sitemap p > ul {
+main .sitemap p > ul {
     display: flex;
     flex-wrap: wrap;
 }
 
-main .sitemap-container .sitemap p > ul > li {
+main .sitemap p > ul > li {
     padding: 0;
     padding-bottom: 30px;
     flex: 1 1 0px;
@@ -44,16 +24,16 @@ main .sitemap-container .sitemap p > ul > li {
     margin-right: 40px;
 }
 
-main .sitemap-container .sitemap p > ul > li:last-child {
+main .sitemap p > ul > li:last-child {
     margin-right: 0;
 }
 
-main .sitemap-container .sitemap p > ul li {
+main .sitemap p > ul li {
     padding: 8px 0;
 }
 
-main .sitemap-container .sitemap p > ul > li,
-main .sitemap-container .sitemap p > ul > li > a {
+main .sitemap p > ul > li,
+main .sitemap p > ul > li > a {
     text-transform: uppercase;
     color: #565656;
     font-weight: 700;
@@ -62,8 +42,8 @@ main .sitemap-container .sitemap p > ul > li > a {
     display: block;
 }
 
-main .sitemap-container .sitemap p > ul > li > ul > li,
-main .sitemap-container .sitemap p > ul > li > ul > li > a {
+main .sitemap p > ul > li > ul > li,
+main .sitemap p > ul > li > ul > li > a {
     color: #a1a1a1;
     font-weight: 400;
     font-size: 16px;
@@ -72,52 +52,52 @@ main .sitemap-container .sitemap p > ul > li > ul > li > a {
     text-transform: none;
 }
 
-main .sitemap-container .sitemap p > ul > li > ul {
+main .sitemap p > ul > li > ul {
     padding-top: 8px;
 }
 
-main .sitemap-container .sitemap p > ul > li a:hover {
+main .sitemap p > ul > li a:hover {
     color: #565656;
 }
 
-main .sitemap-container .sitemap p > ul > li > a:hover {
+main .sitemap p > ul > li > a:hover {
     text-decoration: underline;
 }
 
 @media screen and (max-width: 1240px) {
-    main .sitemap-container .sitemap p > ul {
+    main .sitemap p > ul {
         gap: 40px;
     }
     
-    main .sitemap-container .sitemap {
+    main .sitemap {
         max-width: 800px;
         padding-left: 80px;
     }
 
-    main .sitemap-container .sitemap p > ul > li {
+    main .sitemap p > ul > li {
         min-width: 200px;
         max-width: 20%;
     }
 }
 
 @media screen and (max-width: 920px) {
-    main .sitemap-container .sitemap p > ul > li {
+    main .sitemap p > ul > li {
         min-width: 27%;
         margin: 0;
     }
     
-    main .sitemap-container .sitemap {
+    main .sitemap {
         padding-left: 36px;
     }
 }
 
 @media screen and (max-width: 600px) {
-    main .sitemap-container .sitemap p > ul > li {
+    main .sitemap p > ul > li {
         min-width: 120px;
         max-width: 50%;
     }
     
-    main .sitemap-container .sitemap {
+    main .sitemap {
         padding-left: 8px;
     }
 }

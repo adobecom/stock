@@ -1,22 +1,3 @@
-main .section.fullscreen-container,
-main .section.fullscreen-container > div {
-  padding: 0;
-  margin: 0;
-}
-
-main .section:first-of-type.fullscreen-container {
-  margin-top: 0;
-}
-
-main .section.fullscreen-container + .section.sitemap-container,
-main .section.fullscreen-container + .section.footer-container {
-  margin-top: 0;
-}
-
-main .section.fullscreen-container > div {
-    max-width: none;
-}
-
 main .fullscreen {
   padding: 0;
   position: relative;

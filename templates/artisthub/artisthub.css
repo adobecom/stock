@@ -282,27 +282,6 @@ a.button.transparent:any-link:active {
   background-color: var(--color-info-transparent-bg-down);
 }
 
-.marquee:not(.light) a.button.transparent:any-link,
-.banner:not(.light) a.button.transparent:any-link {
-  color: var(--color-white);
-  border-color: var(--color-white);
-  background-color: var(--color-info-transparent-bg);
-}
-
-.marquee:not(.light) a.button.transparent:any-link:hover,
-.banner:not(.light) a.button.transparent:any-link:hover {
-  color: var(--color-white);
-  border-color: var(--color-white);
-  background-color: var(--color-info-transparent-bg-hover);
-}
-
-.marquee:not(.light) a.button.transparent:any-link:active,
-.banner:not(.light) a.button.transparent:any-link:active {
-  color: var(--color-white);
-  border-color: var(--color-white);
-  background-color: var(--color-info-transparent-bg-down);
-}
-
 a.button > svg {
   float: left;
   display: inline;
