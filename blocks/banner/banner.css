@@ -96,7 +96,7 @@ main .banner .background .hero-animation-overlay p:first-child {
 
 main .banner .background picture ~ p:not(:empty),
 main .banner .background > div > p:not(:first-child):not(:empty) {
-  padding: 8px 0;
+  padding: 8px;
   max-width: var(--grid-container-width);
   margin: 0 auto;
   text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.6);
@@ -147,7 +147,7 @@ main .banner .banner-column:not(:empty) {
   width: auto;
   z-index: 1;
   margin-left: 0;
-  max-width: 500px;
+  max-width: 400px;
 }
 
 main .banner .banner-column:not(.banner-image):not(:empty) {
@@ -453,7 +453,7 @@ main .banner.center .banner-column:not(.banner-image) {
   }
 
   main .banner .banner-column:not(:empty) {
-    width: 500px;
+    width: 400px;
   }
 
   main .banner .banner-image:not(:empty) {
