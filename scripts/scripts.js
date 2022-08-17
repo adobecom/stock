@@ -9,6 +9,10 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import {
+  decorateButtons,
+  turnH6intoDetailM,
+} from './stock-utils.js';
 
 // This can be changed to 'https://milo.adobe.com/libs'
 // if you don't have your /libs mapped to the milo origin.
@@ -64,6 +68,8 @@ const {
 
 (async function loadPage() {
   setConfig(config);
+  decorateButtons();
+  turnH6intoDetailM();
   const blocks = decorateArea();
   const navs = decorateNavs();
   await loadLCP({ blocks });

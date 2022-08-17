@@ -15,10 +15,10 @@ import {
   transformLinkToYoutubeEmbed,
 } from '../../scripts/stock-utils.js';
 
-function lazyDecorteVideo($column, $a) {
+function lazyDecorateVideo($cell, $a) {
   if (!$a || (!$a.href.endsWith('.mp4') && !$a.href.startsWith('https://www.youtube.com/watch') && !$a.href.startsWith('https://youtu.be/'))) return;
   const decorateVideo = () => {
-    if ($column.classList.contains('column-picture')) return;
+    if ($cell.classList.contains('column-picture')) return;
     let youtube = null;
     let mp4 = null;
     if ($a.href.endsWith('.mp4')) {
@@ -26,22 +26,22 @@ function lazyDecorteVideo($column, $a) {
     } else if ($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/')) {
       youtube = transformLinkToYoutubeEmbed($a);
     }
-    $column.innerHTML = '';
+    $cell.innerHTML = '';
     if (youtube) {
-      $column.classList.add('column-picture');
-      $column.appendChild(youtube);
+      $cell.classList.add('column-picture');
+      $cell.appendChild(youtube);
     } else if (mp4) {
-      $column.classList.add('column-picture');
-      const $row = $column.closest('.featured-row');
+      $cell.classList.add('column-picture');
+      const $row = $cell.closest('.featured-row');
       const $cta = $row.querySelector('.button.accent') ?? $row.querySelector('.button');
       if ($cta) {
         const a = createTag('a', {
           href: $cta.href, title: $cta.title, target: $cta.target, rel: $cta.rel,
         });
-        $column.appendChild(a);
+        $cell.appendChild(a);
         a.appendChild(mp4);
       } else {
-        $column.appendChild(mp4);
+        $cell.appendChild(mp4);
       }
     }
   };
@@ -63,10 +63,10 @@ function lazyDecorteVideo($column, $a) {
     intersectionObserver.observe(block);
   };
   if (document.readyState === 'complete') {
-    addIntersectionObserver($column);
+    addIntersectionObserver($cell);
   } else {
     window.addEventListener('load', () => {
-      addIntersectionObserver($column);
+      addIntersectionObserver($cell);
     });
   }
 }
@@ -76,29 +76,30 @@ export default function decorate($block) {
   $rows.forEach(($row) => {
     $row.classList.add('featured-row');
     const $featured = Array.from($row.children);
-    $featured.forEach(($column) => {
-      $column.classList.add('column');
-      const $a = $column.querySelector('a');
+    $featured.forEach(($cell) => {
+      $cell.classList.add('column');
+      const $a = $cell.querySelector('a');
       if ($a && $a.closest('.column').childNodes.length === 1 && ($a.href.endsWith('.mp4') || $a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
-        lazyDecorteVideoForColumn($column, $a);
+        lazyDecorateVideo($cell, $a);
       } else {
-        const $pic = $column.querySelector('picture:first-child:last-child');
+        const $pic = $cell.querySelector('picture:first-child:last-child');
         if ($pic) {
-          $column.classList.add('column-picture');
+          $cell.classList.add('column-picture');
           const $cta = $row.querySelector('.button.accent') ?? $row.querySelector('.button');
+          console.log($cta);
           const $picParent = $pic.parentElement;
-          $column.innerHTML = '';
+          $cell.innerHTML = '';
           if ($picParent.tagName.toLowerCase() === 'a') {
-            $column.appendChild($picParent);
+            $cell.appendChild($picParent);
             $picParent.appendChild($pic);
           } else if ($cta) {
             const a = createTag('a', {
               href: $cta.href, title: $cta.title, target: $cta.target, rel: $cta.rel,
             });
-            $column.appendChild(a);
+            $cell.appendChild(a);
             a.appendChild($pic);
           } else {
-            $column.appendChild($pic);
+            $cell.appendChild($pic);
           }
         }
       }
