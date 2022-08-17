@@ -20,7 +20,7 @@ main .featured.right {
 
 main .featured .featured-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: stretch;
   align-items: center;
   position: relative;
   box-sizing: border-box;
@@ -33,14 +33,10 @@ main .featured .featured-row:last-child {
 
 main .featured .featured-column {
   width: 40%;
-  min-width: 40%;
-  max-width: 40%;
 }
 
 main .featured .picture-column {
   width: 60%;
-  min-width: 60%;
-  max-width: 60%;
 }
 
 main .featured .featured-column:not(.picture-column) {
@@ -58,16 +54,12 @@ main .featured.small .featured-row:last-child {
 
 main .featured.small .featured-column {
   width: 50%;
-  min-width: 50%;
-  max-width: 50%;
   box-sizing: border-box;
   overflow: hidden;
 }
 
 main .featured.small .picture-column {
   width: 50%;
-  min-width: 50%;
-  max-width: 50%;
 }
 
 main .featured.small .featured-column:not(.picture-column) {
@@ -154,8 +146,6 @@ main .dark-theme .featured p {
   main .featured .featured-column,
   main .featured.small .featured-column {
     width: 100%;
-    min-width: 100%;
-    max-width: 100%;
   }
 
   main .featured .featured-row {

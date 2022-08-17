@@ -97,21 +97,3 @@ ul, ol {
   padding: 15px 0;
   padding-inline-start: 60px;
 }
-
-/* other small adjustments */
-
-img,
-video {
-  max-width: 100%;
-}
-
-/* prevent spacing below the picture tag */
-
-picture {
-  vertical-align: top;
-  display: inline;
-}
-
-picture img {
-  display: block;
-}
