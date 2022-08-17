@@ -4,8 +4,10 @@ main .featured {
   max-width: var(--grid-container-width);
 }
 
-main .featured.small {
-  max-width: 1000px;
+@media screen and (min-width: 1000px) {
+  main .featured.small {
+    max-width: 1000px;
+  }
 }
 
 main .featured.center {

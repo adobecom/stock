@@ -1,5 +1,5 @@
 /*
-  Media queries used in this project:
+  Media queries I want to use in this project....
 
   Mobile:
   0 - 599
@@ -109,6 +109,7 @@ video {
 
 picture {
   vertical-align: top;
+  display: inline;
 }
 
 picture img {
