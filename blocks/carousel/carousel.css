@@ -384,7 +384,7 @@ main .carousel-lightbox .carousel-dot picture {
   object-fit: contain;
 }
 
-@media screen and (max-width: 1085px) {
+@media screen and (max-width: 1020px) {
   main .carousel-slides,
   main .carousel-slide {
     width: 100%;

@@ -1,3 +1,160 @@
+/*
+  Media queries used in this project:
+
+  Mobile:
+  0 - 599
+
+  Tablet:
+  @media screen and (min-width: 600px)
+
+  Laptop:
+  @media screen and (min-width: 1000px)
+
+  Desktop:
+  @media screen and (min-width: 1120px)
+*/
+
+:root {
+  
+  /* colors */
+
+  --color-white: #FFF;
+  --color-gray-100: #F8F8F8;
+  --color-gray-200: #E8E8E8;
+  --color-gray-300: #D4D4D4;
+  --color-gray-400: #B6B6B6;
+  --color-gray-500: #909090;
+  --color-gray-600: #686868;
+  --color-gray-700: #444;
+  --color-gray-800: #242424;
+  --color-black: #000;
+  --color-brand-title: #000B1D;
+  --color-info-primary: #242424;
+  --color-info-primary-hover: #090909;
+  --color-info-primary-down: #000;
+  --color-info-secondary: #E8E8E8;
+  --color-info-secondary-hover: #d4d4d4;
+  --color-info-secondary-down: #cdcdcd;
+  --color-info-accent: #1473E6;
+  --color-info-accent-hover: #186dd4;
+  --color-info-accent-down: #1d62b6;
+  --color-info-accent-subtle: #486EC2;
+  --color-info-transparent: #4B4B4B;
+  --color-info-transparent-hover: #3d3d3d;
+  --color-info-transparent-down: #363636;
+  --color-info-transparent-bg: transparent;
+  --color-info-transparent-bg-hover: rgba(0,0,0,0.1);
+  --color-info-transparent-bg-down: rgba(0,0,0,0.2);
+  --color-premium: #EBCF2D;
+
+  --gradient-highlight-vertical: linear-gradient(15deg, #7c84fc, #ff4dd2);
+  --gradient-highlight-horizontal: linear-gradient(90deg, #ff4dd2, #7c84fc);
+
+  --heading-color: var(--color-gray-800);
+
+  /* font-sizes */
+
+  --body-font-size-xxl: 28px;
+  --body-font-size-xl: 22px;
+  --body-font-size-l: 20px;
+  --body-font-size-m: 18px;
+  --body-font-size-s: 16px;
+  --body-font-size-xs: 14px;
+  --body-font-size-xxs: 12px;
+
+  --heading-font-weight: 700;
+  --heading-line-height: 1.25;
+  --heading-font-size-xxxl: 45px;
+  --heading-font-size-xxl: 36px;
+  --heading-font-size-xl: 28px;
+  --heading-font-size-l: 24px;
+  --heading-font-size-m: 22px;
+  --heading-font-size-s: 18px;
+  --heading-font-size-xs: 14px;
+  --heading-font-size-xxs: 12px;
+
+  /* spacing between sections */
+
+  --section-spacing: 64px;
+  --section-spacing-x-large: 90px;
+  --section-spacing-large: 90px;
+  --section-spacing-small: 50px;
+  --section-spacing-x-small: 38px;
+}
+
+@media screen and (min-width: 1000px) {
+  :root {
+    --body-font-size-xxl: 28px;
+    --body-font-size-xl: 24px;
+    --body-font-size-l: 20px;
+    --body-font-size-m: 18px;
+    --body-font-size-s: 16px;
+    --body-font-size-xs: 14px;
+    --body-font-size-xxs: 12px;
+    --heading-font-size-xxxl: 60px;
+    --heading-font-size-xxl: 45px;
+    --heading-font-size-xl: 36px;
+    --heading-font-size-l: 32px;
+    --heading-font-size-m: 28px;
+    --heading-font-size-s: 22px;
+    --heading-font-size-xs: 18px;
+    --heading-font-size-xxs: 14px;
+    --section-spacing: 64px;
+    --section-spacing-x-large: 128px;
+    --section-spacing-large: 90px;
+    --section-spacing-small: 50px;
+    --section-spacing-x-small: 38px;
+  }
+}
+
+picture {
+  vertical-align: top;
+}
+
+picture img {
+  display: block;
+}
+
+p {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 12px;
+}
+
+p:empty {
+  padding: 0;
+}
+
+p.detail-M {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 12px;
+  letter-spacing: 0.72px;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: block;
+  font-weight: bold;
+}
+
+/* customize gnav for artisthub */
+
+body nav.gnav .gnav-brand {
+  justify-content: flex-start
+}
+
+/* customize columns for artisthub */
+
+.columns {
+  max-width: var(--grid-container-width);
+  margin: 0 auto;
+}
+
+.columns.middle {
+  align-items: center;
+}
+
+
+
 /* buttons */
 
 a.button:any-link {
@@ -125,19 +282,22 @@ a.button.transparent:any-link:active {
   background-color: var(--color-info-transparent-bg-down);
 }
 
-.marquee a.button.transparent:any-link {
+.marquee:not(.light) a.button.transparent:any-link,
+.banner:not(.light) a.button.transparent:any-link {
   color: var(--color-white);
   border-color: var(--color-white);
   background-color: var(--color-info-transparent-bg);
 }
 
-.marquee a.button.transparent:any-link:hover {
+.marquee:not(.light) a.button.transparent:any-link:hover,
+.banner:not(.light) a.button.transparent:any-link:hover {
   color: var(--color-white);
   border-color: var(--color-white);
   background-color: var(--color-info-transparent-bg-hover);
 }
 
-.marquee a.button.transparent:any-link:active {
+.marquee:not(.light) a.button.transparent:any-link:active,
+.banner:not(.light) a.button.transparent:any-link:active {
   color: var(--color-white);
   border-color: var(--color-white);
   background-color: var(--color-info-transparent-bg-down);
@@ -156,4 +316,64 @@ a.button > svg {
 a.button > svg > use {
   fill: currentColor;
   color: currentColor;
+}
+
+li {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+ul, ol {
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding: 15px 0;
+  padding-inline-start: 60px;
+}
+
+h1, h2, h3, h4 {
+  font-weight: var(--heading-font-weight);
+  line-height: var(--heading-line-height);
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+p:not(.detail-M) + h1,
+p:not(.detail-M) + h2,
+p:not(.detail-M) + h3,
+p:not(.detail-M) + h4
+p:not(.detail-M) + p.detail-M {
+  padding-top: var(--section-spacing);
+}
+
+h1 {
+  font-size: var(--heading-font-size-xxl);
+}
+
+h2 {
+  font-size: var(--heading-font-size-xl);
+}
+
+h3 {
+  font-size: var(--heading-font-size-m);
+}
+
+h4 {
+  font-size: var(--heading-font-size-s);
+}
+
+h5 {
+  font-size: var(--heading-font-size-xs);
+}
+
+img,
+video {
+  max-width: 100%;
 }

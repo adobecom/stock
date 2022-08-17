@@ -123,13 +123,18 @@ main .banner.large .background video {
 
 main .banner .banner-image p {
   text-align: left;
-  padding-bottom: 0;
-  padding-top: 2px;
+  padding: 0;
+}
+
+main .banner .banner-image p:last-child {
+  margin-bottom: 6px;
 }
 
 main .banner .banner-image {
   order: -1;
   padding-top: 24px;
+  margin: 2px 0;
+  vertical-align: top;
 }
 
 main .banner .banner-image img,
@@ -138,6 +143,7 @@ main .banner .banner-image video {
   object-fit: contain;
   height: 100%;
   width: 100%;
+  margin: 6px 0;
 }
 
 main .banner .banner-column:not(:empty) {
@@ -147,7 +153,7 @@ main .banner .banner-column:not(:empty) {
   width: auto;
   z-index: 1;
   margin-left: 0;
-  max-width: 400px;
+  max-width: 420px;
 }
 
 main .banner .banner-column:not(.banner-image):not(:empty) {
@@ -166,7 +172,6 @@ main .banner .banner-content {
   width: 100%;
   padding-top: 24px;
   padding-bottom: 24px;
-  padding: 0;
   max-width: var(--grid-container-width);
   margin-left: auto;
   margin-right: auto;
@@ -431,8 +436,8 @@ main .banner.center .banner-column:not(.banner-image) {
   main .banner .banner-content .banner-column {
     display: block;
   }
-
-  main .banner .banner-column {
+  
+  main .marquee .marquee-column:not(.marquee-image):not(:empty) {
     max-width: unset;
   }
 
@@ -452,10 +457,6 @@ main .banner.center .banner-column:not(.banner-image) {
     margin-left: auto;
   }
 
-  main .banner .banner-column:not(:empty) {
-    width: 400px;
-  }
-
   main .banner .banner-image:not(:empty) {
     width: 100%;
     max-width: 600px;
@@ -473,6 +474,7 @@ main .banner.center .banner-column:not(.banner-image) {
 
   main .banner .banner-column:not(.banner-image):not(:empty) {
     padding: 32px 0;
+    width: 420px;
   }
 
   main .banner .banner-image:not(:empty):nth-child(even) {
@@ -550,5 +552,17 @@ main .banner.center .banner-column:not(.banner-image) {
   main .banner.large.empty-content .background video {
     position: relative;
     max-height: var(--banner-height-lg);
+  }
+}
+
+/* desktop */
+
+@media screen and (min-width: 1120px) {
+  main .banner .banner-column:not(.banner-image):not(:empty) {
+    width: 520px;
+    max-width: unset;
+  }
+  main .banner .banner-column.banner-image:not(:empty) {
+    width: 100%;
   }
 }
