@@ -1,29 +1,11 @@
-main .featured-container .featured.large:first-child {
-  padding-top: var(--section-spacing-x-small);
-}
-
-main .featured-container .featured.large:last-child {
-  padding-bottom: var(--section-spacing-x-small);
-}
-
 main .featured {
-  --column-width-sm: 850px;
-  --column-width-md: 1000px;
-  --column-width-lg: 100%;
   margin-left: auto;
   margin-right: auto;
-}
-
-main .featured {
-  max-width: var(--column-width-md);
-}
-
-main .featured.large {
-  max-width: var(--column-width-lg);
+  max-width: var(--grid-container-width);
 }
 
 main .featured.small {
-  max-width: var(--column-width-sm);
+  max-width: 1000px;
 }
 
 main .featured.center {
@@ -40,10 +22,6 @@ main .featured .featured-row {
   align-items: center;
   position: relative;
   box-sizing: border-box;
-  padding-bottom: var(--section-spacing-small);
-}
-
-main .featured.large .featured-row {
   padding-bottom: var(--section-spacing-large);
 }
 
@@ -52,6 +30,31 @@ main .featured .featured-row:last-child {
 }
 
 main .featured .column {
+  width: 40%;
+  min-width: 40%;
+  max-width: 40%;
+}
+
+main .featured .column-picture {
+  width: 60%;
+  min-width: 60%;
+  max-width: 60%;
+}
+
+main .featured .column:not(.column-picture) {
+  padding-left: 56px;
+  padding-right: 56px;
+}
+
+main .featured.small .featured-row {
+  padding-bottom: var(--section-spacing-small);
+}
+
+main .featured.small .featured-row:last-child {
+  padding-bottom: 0;
+}
+
+main .featured.small .column {
   width: 50%;
   min-width: 50%;
   max-width: 50%;
@@ -59,53 +62,23 @@ main .featured .column {
   overflow: hidden;
 }
 
-main .featured .column:not(.column-picture) {
+main .featured.small .column-picture {
+  width: 50%;
+  min-width: 50%;
+  max-width: 50%;
+}
+
+main .featured.small .column:not(.column-picture) {
   padding-left: 40px;
   padding-right: 40px;
 }
 
-main .featured .column:first-child:not(.column-picture) {
-  padding-left: 0;
-}
-
-main .featured .column:last-child:not(.column-picture) {
-  padding-right: 0;
-}
-
-main .featured.large .column {
-  width: 40%;
-  min-width: 40%;
-  max-width: 40%;
-}
-
-main .featured.large .column-picture {
-  width: 60%;
-  min-width: 60%;
-  max-width: 60%;
-}
-
-main .featured.large .column:not(.column-picture) {
-  padding-left: 56px;
-  padding-right: 56px;
-}
-
-main .featured.large .column:first-child:not(.column-picture) {
-  padding-left: 0;
-}
-
-main .featured.large .column:last-child:not(.column-picture) {
-  padding-right: 0;
-}
-
-main .featured.small .column:not(.column-picture) {
-  padding-left: 32px;
-  padding-right: 32px;
-}
-
+main .featured .column:first-child:not(.column-picture),
 main .featured.small .column:first-child:not(.column-picture) {
   padding-left: 0;
 }
 
+main .featured .column:last-child:not(.column-picture),
 main .featured.small .column:last-child:not(.column-picture) {
   padding-right: 0;
 }
@@ -116,14 +89,6 @@ main .featured h2 {
 
 main .featured h3 {
   font-size: var(--heading-font-size-s);
-}
-
-main .featured.large h2 {
-  font-size: var(--heading-font-size-xl);
-}
-
-main .featured.large h3 {
-  font-size: var(--heading-font-size-l);
 }
 
 main .featured.small h2 {
@@ -143,17 +108,8 @@ main .featured span.detail {
   font-size: var(--detail-font-size-s);
 }
 
-main .featured.large p {
-  font-size: var(--body-font-size-m);
-  color: var(--body-color);
-}
-
 main .featured.small span.detail {    
   font-size: var(--detail-font-size-xs);
-}
-
-main .featured.large span.detail {    
-  font-size: var(--detail-font-size-m);
 }
 
 main .featured .column-picture {
@@ -193,6 +149,13 @@ main .dark-theme .featured p {
 }
 
 @media screen and (max-width: 799px) {
+  main .featured .column,
+  main .featured.small .column {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+
   main .featured .featured-row {
     flex-direction: column;
   }
@@ -204,20 +167,11 @@ main .dark-theme .featured p {
 
   main .featured .featured-row .column {
     padding: 0;
-    width: 100%;
-    min-width: 100%;
-    max-width: var(--max-width-mobile);
     margin-bottom: 16px;
-  }
-
-  main .featured.large .featured-row .column {
-    padding: 0;
-    max-width: var(--max-width-mobile);
   }
 
   main .featured.small .featured-row .column {
     padding: 0;
-    max-width: var(--max-width-mobile);
   }
 
   main .featured.small h2 {
