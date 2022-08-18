@@ -44,6 +44,14 @@ main .featured-columns .featured-column:not(.picture-column) {
   padding-right: 56px;
 }
 
+main .featured-columns:first-child {
+  margin-top: var(--section-spacing-small);
+}
+
+main .featured-columns:last-child {
+  margin-bottom: var(--section-spacing-small);
+}
+
 main .featured.small .featured-row {
   padding-bottom: var(--section-spacing-small);
 }
@@ -177,9 +185,5 @@ main .dark-theme .featured-columns p {
 
 main .cards + .featured-columns {
   margin-top: var(--section-spacing-large);
-  margin-bottom: var(--section-spacing-large);
-}
-
-main .featured-columns:last-child {
   margin-bottom: var(--section-spacing-large);
 }

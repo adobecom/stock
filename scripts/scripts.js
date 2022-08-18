@@ -74,8 +74,8 @@ const {
   const navs = decorateNavs();
   await loadLCP({ blocks });
   import(`${config.miloLibs}/utils/fonts.js`);
-  await loadArea({ blocks: [...navs, ...blocks] });
   loadTemplate();
+  await loadArea({ blocks: [...navs, ...blocks] });
   const { default: loadModals } = await import(`${config.miloLibs}/blocks/modals/modals.js`);
   loadModals();
   loadDelayed();

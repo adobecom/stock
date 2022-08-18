@@ -404,6 +404,20 @@ main .banner .banner-content.has-inline-image .banner-column:not(:empty) {
   max-width: unset;
 }
 
+main .banner .banner-content h1:first-child,
+main .banner .banner-content h2:first-child,
+main .banner .banner-content h3:first-child,
+main .banner .banner-content h4:first-child,
+main .banner .banner-content p.detail-M {
+  padding-top: 0;
+}
+
+main .banner .banner-content p.button-container:last-child a,
+main .banner .banner-content p.button-container:last-child {
+  margin-bottom: 0;
+}
+
+
 /* laptop */
 
 @media screen and (min-width: 1000px) {
@@ -437,8 +451,9 @@ main .banner .banner-content.has-inline-image .banner-column:not(:empty) {
   main .banner .banner-content {
     display: grid;
     grid-template-columns: auto auto;
-    justify-items: start;
     align-items: center;
+    justify-items: start;
+    justify-content: space-between;
   }
 
   main .banner .banner-content .banner-column {
@@ -557,6 +572,12 @@ main .banner .banner-content.has-inline-image .banner-column:not(:empty) {
     position: relative;
     max-height: var(--banner-height-lg);
   }
+
+  main .banner .banner-column:not(.banner-image):not(:empty):first-child {
+    width: 450px;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
 }
 
 /* desktop */
@@ -566,6 +587,7 @@ main .banner .banner-content.has-inline-image .banner-column:not(:empty) {
     width: 520px;
     max-width: unset;
   }
+  
   main .banner .banner-column.banner-image:not(:empty) {
     width: 100%;
   }
