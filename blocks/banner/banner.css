@@ -583,7 +583,8 @@ main .banner .banner-content p.button-container:last-child {
 /* desktop */
 
 @media screen and (min-width: 1120px) {
-  main .banner .banner-column:not(.banner-image):not(:empty) {
+  main .banner .banner-column:not(.banner-image):not(:empty),
+  main .banner .banner-column:not(.banner-image):not(:empty):first-child {
     width: 520px;
     max-width: unset;
   }
