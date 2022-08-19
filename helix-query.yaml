@@ -5,6 +5,9 @@ indices:
   site:
     include:
       - '/pages/artisthub/'
+      - '/pages/artisthub/**'
+      - '/pages/artisthub/**/**'
+      - '/pages/artisthub/**/**/**'
     exclude:
       - '/drafts/**''
       - '/docs/**''
@@ -23,7 +26,7 @@ indices:
         value: |
           attribute(el, 'content')
       tags:
-        select: head > meta[name="tags"]
+        select: head > meta[property="article:tag"]
         value: |
           attribute(el, 'content')
       description:
