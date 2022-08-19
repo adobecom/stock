@@ -10,24 +10,12 @@ indices:
       - '/docs/**''
     target: /pages/artisthub/query-index
     properties:
-      authors:
-        select: head > meta[name="authors"]
-        value: |
-          attribute(el, 'content')
       title:
         select: head > meta[property="og:title"]
         value: |
           attribute(el, 'content')
-      publicationDate:
-        select: head > meta[name="publication-date"]
-        value: |
-          dateValue(attribute(el, 'content'), 'MM-DD-YYYY')
-      image:
-        select: head > meta[property="og:image"]
-        value: |
-          match(attribute(el, 'content'), 'https:\/\/[^/]+(\/.*)')
-      description:
-        select: head > meta[name="description"]
+      authors:
+        select: head > meta[name="authors"]
         value: |
           attribute(el, 'content')
       categories:
@@ -38,6 +26,18 @@ indices:
         select: head > meta[name="tags"]
         value: |
           attribute(el, 'content')
+      description:
+        select: head > meta[name="description"]
+        value: |
+          attribute(el, 'content')
+      image:
+        select: head > meta[property="og:image"]
+        value: |
+          match(attribute(el, 'content'), 'https:\/\/[^/]+(\/.*)')
+      publicationDate:
+        select: head > meta[name="publication-date"]
+        value: |
+          dateValue(attribute(el, 'content'), 'MM-DD-YYYY')
       lastModified:
         select: none
         value: |
