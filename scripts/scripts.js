@@ -18,7 +18,7 @@ import {
 // if you don't have your /libs mapped to the milo origin.
 const PROD_LIBS = 'https://milo.adobe.com/libs';
 
-const config = {
+export const config = {
   // imsClientId: 'college',
   projectRoot: `${window.location.origin}`,
   locales: {
@@ -57,9 +57,6 @@ config.miloLibs = getMiloLibs();
 }());
 
 const {
-  decorateArea,
-  decorateNavs,
-  loadLCP,
   loadArea,
   loadDelayed,
   loadTemplate,
@@ -70,12 +67,7 @@ const {
   setConfig(config);
   decorateButtons();
   turnH6intoDetailM();
-  const blocks = decorateArea();
-  const navs = decorateNavs();
-  await loadLCP({ blocks });
-  import(`${config.miloLibs}/utils/fonts.js`);
-  loadTemplate();
-  await loadArea({ blocks: [...navs, ...blocks] });
+  await loadArea();
   const { default: loadModals } = await import(`${config.miloLibs}/blocks/modals/modals.js`);
   loadModals();
   loadDelayed();
