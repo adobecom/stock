@@ -1,7 +1,7 @@
 main .breadcrumbs {
-    padding: 5px 0 4px 0;
-    margin: var(--section-spacing) auto;
-    max-width: 1440px;
+    padding: 5px 0 4px 10px;
+    margin: 0 auto;
+    max-width: none;
     position: relative;
     box-sizing: border-box;
     display: flex;
@@ -11,38 +11,43 @@ main .breadcrumbs {
     text-align: center;
 }
 
-main .breadcrumbs div {
+@media screen and (min-width: 1440px) {
+  main .breadcrumbs {
+    padding: 5px 0 4px 36px;
+    max-width: 1440px
+  }
+}
+
+main .breadcrumbs ul {
+  max-width: 99.9vh;
+  overflow: hidden;
+}
+
+main .breadcrumbs ul {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    padding: 0;
     white-space: nowrap;
-}
-
-main .breadcrumbs div:last-child {
-    min-width: 0;
-    text-overflow: ellipsis;
+    list-style-type: none;
 }
 
 main .breadcrumbs .icon {
     min-height: 40px;
 }
 
-main .breadcrumbs p {
+main .breadcrumbs li {
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin: 0;
+    padding: 10px 0;
     cursor: default;
 }
 
-main .breadcrumbs p:first-child {
+main .breadcrumbs li:first-child {
     margin-left: 4px;
 }
 
-main .breadcrumbs p,
+main .breadcrumbs li,
 main .breadcrumbs a {
     color: #707070;
     font-weight: 400;
@@ -56,12 +61,25 @@ main .breadcrumbs a:hover {
     text-decoration: underline;
 }
 
-main .breadcrumbs > div > div:not(:first-child):before {
+main .breadcrumbs ul li:not(:first-child):before {
     content: '/';
     color: #707070;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.4;
     display: inline-block;
-    margin-right: 6px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  main .breadcrumbs li,
+  main .breadcrumbs a {
+      color: #707070;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1.4;
+      box-sizing: border-box;
+      text-decoration: none;
+  }
 }
