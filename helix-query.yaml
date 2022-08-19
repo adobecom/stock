@@ -10,7 +10,7 @@ indices:
       - '/docs/**''
     target: /pages/artisthub/query-index
     properties:
-      author:
+      authors:
         select: head > meta[name="authors"]
         value: |
           attribute(el, 'content')
@@ -18,7 +18,7 @@ indices:
         select: head > meta[property="og:title"]
         value: |
           attribute(el, 'content')
-      date:
+      publicationDate:
         select: head > meta[name="publication-date"]
         value: |
           dateValue(attribute(el, 'content'), 'MM-DD-YYYY')
