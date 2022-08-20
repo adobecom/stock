@@ -12,7 +12,7 @@
 import {
   isNodeName,
   createTag,
-} from '../../scripts/stock-utils.js';
+} from '../../scripts/utils.js';
 
 // eslint-disable-next-line no-unused-vars
 export default function decorate($block) {

@@ -13,7 +13,7 @@ import {
   createTag,
   transformLinkToAnimation,
   transformLinkToYoutubeEmbed,
-} from '../../scripts/stock-utils.js';
+} from '../../scripts/utils.js';
 
 function lazyDecorateVideo($cell, $a) {
   if (!$a || (!$a.href.endsWith('.mp4') && !$a.href.startsWith('https://www.youtube.com/watch') && !$a.href.startsWith('https://youtu.be/'))) return;

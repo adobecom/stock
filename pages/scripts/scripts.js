@@ -9,14 +9,12 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-import {
-  decorateButtons,
-  turnH6intoDetailM,
-} from './stock-utils.js';
 
-const PROJECT_LIBS = 'https://milo.adobe.com/libs';
-const PROJECT_STYLES = '/pages/styles/styles.css';
-const PROJECT_CONFIG = {
+import { setLibs, decorateButtons, turnH6intoDetailM } from './utils.js';
+
+const LIBS = 'https://milo.adobe.com/libs';
+const STYLES = '/pages/styles/styles.css';
+const CONFIG = {
   // imsClientId: 'college',
   contentRoot: '/pages',
   codeRoot: '/pages',
@@ -38,18 +36,11 @@ const PROJECT_CONFIG = {
  * ------------------------------------------------------------
  */
 
-function getMiloLibs() {
-  const { hostname } = window.location;
-  if (!hostname.includes('hlx.page')
-    && !hostname.includes('hlx.live')
-    && !hostname.includes('localhost')) return PROJECT_LIBS;
-  const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
-  return branch === 'local' ? 'http://localhost:6456/libs' : `https://${branch}.milo.pink/libs`;
-}
-const miloLibs = getMiloLibs();
+const miloLibs = setLibs(LIBS);
 
 (function loadStyles() {
-  const paths = [`${miloLibs}/styles/styles.css`, PROJECT_STYLES];
+  const paths = [`${miloLibs}/styles/styles.css`];
+  if (STYLES) { paths.push(STYLES); }
   paths.forEach((path) => {
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
@@ -65,7 +56,7 @@ const {
 } = await import(`${miloLibs}/utils/utils.js`);
 
 (async function loadPage() {
-  setConfig({ ...PROJECT_CONFIG, miloLibs });
+  setConfig({ ...CONFIG, miloLibs });
   decorateButtons();
   turnH6intoDetailM();
   await loadArea();
@@ -73,5 +64,3 @@ const {
   loadModals();
   loadDelayed();
 }());
-
-export default PROJECT_CONFIG;

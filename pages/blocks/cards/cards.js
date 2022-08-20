@@ -11,7 +11,7 @@
  */
 import {
   transformLinkToAnimation,
-} from '../../scripts/stock-utils.js';
+} from '../../scripts/utils.js';
 
 export default function decorate($block) {
   const $cards = Array.from($block.children);

@@ -11,7 +11,7 @@
  */
 import {
   isNodeName,
-} from '../../scripts/stock-utils.js';
+} from '../../scripts/utils.js';
 
 export default function decorate($block) {
   // console.log($block);

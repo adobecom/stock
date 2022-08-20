@@ -144,3 +144,36 @@ export function decorateButtons() {
     }
   });
 }
+
+/*
+ * ------------------------------------------------------------
+ * Edit below at your own risk
+ * ------------------------------------------------------------
+ */
+
+export const [setLibs, getLibs] = (() => {
+  let libs;
+  return [
+    (prodLibs) => {
+      const { hostname } = window.location;
+      if (!hostname.includes('hlx.page')
+        && !hostname.includes('hlx.live')
+        && !hostname.includes('localhost')) {
+          libs = prodLibs;
+      } else {
+        const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
+        switch (branch) {
+          case branch === 'local':
+            libs = 'http://localhost:6456/libs';
+            break;
+          case branch.indexOf('--') > -1:
+            libs = `https://${branch}.hlx.page/libs`;
+            break;
+          default:
+            libs = `https://${branch}--milo--adobecom.hlx.page/libs`;
+        }
+      }
+      return libs;
+    }, () => libs,
+  ];
+})();
