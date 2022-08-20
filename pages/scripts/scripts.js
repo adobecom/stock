@@ -14,11 +14,9 @@ import {
   turnH6intoDetailM,
 } from './stock-utils.js';
 
-// This can be changed to 'https://milo.adobe.com/libs'
-// if you don't have '/libs' mapped to the milo origin.
-const PROD_LIBS = 'https://milo.adobe.com/libs';
-
-export const config = {
+const PROJECT_LIBS = 'https://milo.adobe.com/libs';
+const PROJECT_STYLES = '/pages/styles/styles.css';
+const PROJECT_CONFIG = {
   // imsClientId: 'college',
   contentRoot: '/pages',
   codeRoot: '/pages',
@@ -40,45 +38,40 @@ export const config = {
  * ------------------------------------------------------------
  */
 
-/**
- * The logic to decide where to load milo from.
- *
- * @returns {String} the libs path for milo
- */
 function getMiloLibs() {
   const { hostname } = window.location;
   if (!hostname.includes('hlx.page')
     && !hostname.includes('hlx.live')
-    && !hostname.includes('localhost')) return PROD_LIBS;
+    && !hostname.includes('localhost')) return PROJECT_LIBS;
   const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
   return branch === 'local' ? 'http://localhost:6456/libs' : `https://${branch}.milo.pink/libs`;
 }
-config.miloLibs = getMiloLibs();
+const miloLibs = getMiloLibs();
 
-(async function loadStyles() {
-  const miloStyle = document.createElement('link');
-  miloStyle.setAttribute('rel', 'stylesheet');
-  miloStyle.setAttribute('href', `${config.miloLibs}/styles/styles.css`);
-  document.head.appendChild(miloStyle);
-  
-  const repoStyle = document.createElement('link');
-  repoStyle.setAttribute('rel', 'stylesheet');
-  repoStyle.setAttribute('href', '/styles/styles.css');
-  document.head.appendChild(repoStyle);
+(function loadStyles() {
+  const paths = [`${miloLibs}/styles/styles.css`];
+  paths.forEach((path) => {
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('href', path);
+    document.head.appendChild(link);
+  });
 }());
 
 const {
   loadArea,
   loadDelayed,
   setConfig,
-} = await import(`${config.miloLibs}/utils/utils.js`);
+} = await import(`${miloLibs}/utils/utils.js`);
 
 (async function loadPage() {
-  setConfig(config);
+  setConfig({ ...PROJECT_CONFIG, miloLibs });
   decorateButtons();
   turnH6intoDetailM();
   await loadArea();
-  const { default: loadModals } = await import(`${config.miloLibs}/blocks/modals/modals.js`);
+  const { default: loadModals } = await import(`${miloLibs}/blocks/modals/modals.js`);
   loadModals();
   loadDelayed();
 }());
+
+export default PROJECT_CONFIG;
