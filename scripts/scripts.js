@@ -9,6 +9,10 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import {
+  decorateButtons,
+  turnH6intoDetailM,
+} from './stock-utils.js';
 
 // This can be changed to 'https://milo.adobe.com/libs'
 // if you don't have your /libs mapped to the milo origin.
@@ -40,11 +44,16 @@ function getMiloLibs() {
 }
 config.miloLibs = getMiloLibs();
 
-(async function loadStyle() {
-  const link = document.createElement('link');
-  link.setAttribute('rel', 'stylesheet');
-  link.setAttribute('href', `${config.miloLibs}/styles/styles.css`);
-  document.head.appendChild(link);
+(async function loadStyles() {
+  const miloStyle = document.createElement('link');
+  miloStyle.setAttribute('rel', 'stylesheet');
+  miloStyle.setAttribute('href', `${config.miloLibs}/styles/styles.css`);
+  document.head.appendChild(miloStyle);
+  
+  const repoStyle = document.createElement('link');
+  repoStyle.setAttribute('rel', 'stylesheet');
+  repoStyle.setAttribute('href', '/styles/styles.css');
+  document.head.appendChild(repoStyle);
 }());
 
 const {
@@ -56,6 +65,8 @@ const {
 
 (async function loadPage() {
   setConfig(config);
+  decorateButtons();
+  turnH6intoDetailM();
   await loadArea();
   const { default: loadModals } = await import(`${config.miloLibs}/blocks/modals/modals.js`);
   loadModals();

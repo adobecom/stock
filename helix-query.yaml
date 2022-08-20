@@ -1,0 +1,47 @@
+version: 1
+# See https://www.hlx.live/docs/setup-indexing.
+
+indices:
+  site:
+    include:
+      - '/pages/artisthub/'
+      - '/pages/artisthub/**'
+      - '/pages/artisthub/**/**'
+      - '/pages/artisthub/**/**/**'
+    exclude:
+      - '/drafts/**''
+      - '/docs/**''
+    target: /pages/artisthub/query-index
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: |
+          attribute(el, 'content')
+      authors:
+        select: head > meta[name="authors"]
+        value: |
+          attribute(el, 'content')
+      categories:
+        select: head > meta[name="categories"]
+        value: |
+          attribute(el, 'content')
+      tags:
+        select: head > meta[property="article:tag"]
+        value: |
+          attribute(el, 'content')
+      description:
+        select: head > meta[name="description"]
+        value: |
+          attribute(el, 'content')
+      image:
+        select: head > meta[property="og:image"]
+        value: |
+          match(attribute(el, 'content'), 'https:\/\/[^/]+(\/.*)')
+      publicationDate:
+        select: head > meta[name="publication-date"]
+        value: |
+          dateValue(attribute(el, 'content'), 'MM-DD-YYYY')
+      lastModified:
+        select: none
+        value: |
+          parseTimestamp(headers['last-modified'], 'ddd, DD MMM YYYY hh:mm:ss GMT')

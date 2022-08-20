@@ -1,0 +1,99 @@
+/*
+  Media queries I want to use in this project....
+
+  Mobile:
+  0 - 599
+
+  Tablet:
+  @media screen and (min-width: 600px)
+
+  Laptop:
+  @media screen and (min-width: 1000px)
+
+  Desktop:
+  @media screen and (min-width: 1120px)
+*/
+
+/* customize gnav for artisthub */
+
+body nav.gnav .gnav-brand {
+  justify-content: flex-start
+}
+
+/* cusomize typography for artisthub */
+
+p {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 12px;
+}
+
+p:empty {
+  padding: 0;
+}
+
+p.detail-M {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 12px;
+  letter-spacing: 0.72px;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: block;
+  font-weight: bold;
+}
+
+h1, h2, h3, h4 {
+  font-weight: var(--heading-font-weight);
+  line-height: var(--heading-line-height);
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+p:not(.detail-M) + h1,
+p:not(.detail-M) + h2,
+p:not(.detail-M) + h3,
+p:not(.detail-M) + h4
+p:not(.detail-M) + p.detail-M {
+  padding-top: var(--section-spacing);
+}
+
+h1 {
+  font-size: var(--heading-font-size-xxl);
+}
+
+h2 {
+  font-size: var(--heading-font-size-xl);
+}
+
+h3 {
+  font-size: var(--heading-font-size-m);
+}
+
+h4 {
+  font-size: var(--heading-font-size-s);
+}
+
+h5 {
+  font-size: var(--heading-font-size-xs);
+}
+
+li {
+  margin: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+ul, ol {
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding: 15px 0;
+  padding-inline-start: 60px;
+}
