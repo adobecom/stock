@@ -49,7 +49,7 @@ function getMiloLibs() {
 const miloLibs = getMiloLibs();
 
 (function loadStyles() {
-  const paths = [`${miloLibs}/styles/styles.css`];
+  const paths = [`${miloLibs}/styles/styles.css`, PROJECT_STYLES];
   paths.forEach((path) => {
     const link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
