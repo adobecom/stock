@@ -114,7 +114,7 @@ ul, ol {
   padding-inline-start: 60px;
 }
 
-main > .section > .content {
+main > .section > .content:not(:first-child) {
   margin-top: var(--section-spacing);
 }
 
@@ -129,9 +129,15 @@ main > .section > .cards + .content > p.button-container:first-child {
 }
 
 main > .section:not(:empty):not(:first-child) {
-  padding-top: var(--section-spacing)
+  padding-top: var(--section-spacing);
 }
 
 main > .section:not(:empty):last-child {
-  padding-bottom: var(--section-spacing)
+  padding-bottom: var(--section-spacing);
+}
+
+main > .section.has-background,
+.fragment > .section.has-background {
+  padding-bottom: var(--section-spacing);
+  padding-top: var(--section-spacing);
 }

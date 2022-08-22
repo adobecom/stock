@@ -54,23 +54,6 @@ export function transformLinkToAnimation($a) {
   return $video;
 }
 
-export function transformLinkToYoutubeEmbed($a) {
-  if (!$a || !($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
-    return null;
-  }
-  const $video = createTag('div', { class: 'embed embed-youtube' });
-  const url = new URL($a.href);
-  const usp = new URLSearchParams(url.search);
-  let vid = usp.get('v');
-  if (url.host === 'youtu.be') vid = url.pathname.substr(1);
-  $video.innerHTML = /* html */`
-  <div class="youtube-container">
-    <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;rel=0&amp;controls=1&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=${vid}" frameBorder="0" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
-  </div>
-  `;
-  return $video;
-}
-
 export function turnH6intoDetailM() {
   document.querySelectorAll('h6').forEach(($h6) => {
     const $p = document.createElement('p');
@@ -85,7 +68,7 @@ export function turnH6intoDetailM() {
 }
 
 export function decorateButtons() {
-  const $blocksWithoutButton = ['header', 'footer', 'breadcrumbs', 'sitemap', 'embed', 'quote', 'images', 'title', 'share', 'tags'];
+  const $blocksWithoutButton = ['breadcrumbs', 'sitemap', 'images'];
   const isNodeName = (node, name) => {
     if (!node || typeof node !== 'object') return false;
     return node.nodeName.toLowerCase() === name.toLowerCase();
@@ -143,6 +126,42 @@ export function decorateButtons() {
       }
     }
   });
+}
+
+export function transformLinkToYoutubeEmbed($a) {
+  if (!$a || !($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
+    return null;
+  }
+  const $video = createTag('div', { class: 'embed embed-youtube' });
+  const url = new URL($a.href);
+  const usp = new URLSearchParams(url.search);
+  let vid = usp.get('v');
+  if (url.host === 'youtu.be') vid = url.pathname.substr(1);
+  $video.innerHTML = /* html */`
+  <div class="youtube-container">
+    <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;rel=0&amp;controls=1&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=${vid}" frameBorder="0" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
+  </div>
+  `;
+  return $video;
+}
+
+export function customSpacings() {
+  Array.from(document.querySelectorAll('.section-metadata')).forEach(($section) => {
+    if ($section.classList.contains('section-metadata')) {
+      if ($section.textContent.toLowerCase().includes('background')) {
+        $section.parentElement.classList.add('has-background');
+        const $next = $section.parentElement.nextElementSibling;
+        if ($next && ($next.querySelector(':scope > .banner:first-child') || $next.querySelector(':scope > div:first-child .fragment > .section:first-child > .banner:first-child'))) {
+          $next.style.paddingTop = '0';
+        }
+        const $prev = $section.parentElement.previousElementSibling;
+        if ($prev && ($prev.querySelector(':scope > .banner:last-child') || $prev.querySelector(':scope > div:last-child .fragment > .section:last-child > .banner:last-child'))) {
+          $prev.style.paddingBottom = '0';
+        }
+      }
+      $section.remove();
+    }
+  });  
 }
 
 /*
