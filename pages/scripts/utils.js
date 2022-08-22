@@ -145,14 +145,15 @@ export function transformLinkToYoutubeEmbed($a) {
   return $video;
 }
 
-export function unwrapSingularFragments() {
-  Array.from(document.querySelectorAll('.section > div:first-child:last-child .fragment')).forEach(($fragment) => {
-    const $section = $fragment.closest('main > .section');
+export function unwrapFragments() {
+  Array.from(document.querySelectorAll('.fragment')).forEach(($fragment) => {
+  const $section = $fragment.closest('main > .section');
+  const $div = $fragment.closest('main > .section > div');
     Array.from($fragment.childNodes).forEach(($node) => {
       $section.parentNode.insertBefore($node, $section);
     });
-    $section.remove();
-    $fragment.remove();
+    $div.remove();
+    if ($section.childElementCount === 0) $section.remove();
   });
 }
 
