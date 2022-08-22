@@ -14,10 +14,6 @@ main .banner {
   color: var(--color-white);
 }
 
-main .banner + .separator {
-  margin-top: 0;
-}
-
 main .banner h1,
 main .banner h2 {
   font-size: var(--heading-font-size-xl);

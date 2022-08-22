@@ -49,6 +49,10 @@ main .cards .card {
     position: relative;
 }
 
+main .cards a .card-text {
+  text-decoration: none;
+}
+
 main .cards .card-text {
     padding: 16px;
     padding-bottom: 20px;

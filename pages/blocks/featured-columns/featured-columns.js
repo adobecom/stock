@@ -86,7 +86,6 @@ export default function decorate($block) {
         if ($pic) {
           $cell.classList.add('picture-column');
           const $cta = $row.querySelector('.button.accent') ?? $row.querySelector('.button');
-          console.log($cta);
           const $picParent = $pic.parentElement;
           $cell.innerHTML = '';
           if ($picParent.tagName.toLowerCase() === 'a') {

@@ -44,11 +44,11 @@ main .featured-columns .featured-column:not(.picture-column) {
   padding-right: 56px;
 }
 
-main .featured-columns:first-child {
+main .featured-columns {
   margin-top: var(--section-spacing-small);
 }
 
-main .featured-columns:last-child {
+main .featured-columns {
   margin-bottom: var(--section-spacing-small);
 }
 

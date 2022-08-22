@@ -9,19 +9,16 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-import {
-  isNodeName,
-} from '../../scripts/utils.js';
 
 export default function decorate($block) {
   // Decorate social media icon list
   const $inlineSVGicons = Array.from($block.querySelectorAll('svg.icon'));
   $inlineSVGicons.forEach((icon) => {
     let $c = icon.parentElement;
-    if ((isNodeName($c, 'a'))) {
+    if ($c.nodeName.toLowerCase() === 'a') {
       $c = $c.parentElement;
     }
-    if (!isNodeName($c, 'p')) {
+    if ($c.nodeName.toLowerCase() != 'p') {
       const p = document.createElement('p');
       $c.appendChild(p);
       p.appendChild(icon);

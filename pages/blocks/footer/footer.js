@@ -36,10 +36,10 @@ export default function decorate($block) {
   // const $inlineSVGicons = Array.from($block.querySelectorAll('svg.icon'));
   // $inlineSVGicons.forEach((icon) => {
   //   let $c = icon.parentElement;
-  //   if ((isNodeName($c, 'a'))) {
+  //   if ($c.nodeName.toLowerCase() === 'a') {
   //     $c = $c.parentElement;
   //   }
-  //   if (!isNodeName($c, 'p')) {
+  //   if ($c.nodeName.toLowerCase() != 'p') {
   //     const p = document.createElement('p');
   //     $c.append(p);
   //     p.append(icon);
