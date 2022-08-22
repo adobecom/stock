@@ -12,9 +12,10 @@
 
 import { 
   setLibs, 
+  unwrapSingularFragments, 
   decorateButtons, 
   turnH6intoDetailM, 
-  customSpacings 
+  customSpacings,
 } from './utils.js';
 
 const LIBS = 'https://milo.adobe.com/libs';
@@ -60,10 +61,11 @@ const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/u
   setConfig({ ...CONFIG, miloLibs });
   document.body.style.visibility = 'hidden';
   await loadArea();
+  unwrapSingularFragments();
   decorateButtons();
   turnH6intoDetailM();
-  document.body.style.removeProperty("visibility");
   customSpacings();
+  document.body.style.removeProperty("visibility");
   const { default: loadModals } = await import(`${miloLibs}/blocks/modals/modals.js`);
   loadModals();
   loadDelayed();

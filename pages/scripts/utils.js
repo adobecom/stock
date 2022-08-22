@@ -145,22 +145,32 @@ export function transformLinkToYoutubeEmbed($a) {
   return $video;
 }
 
+export function unwrapSingularFragments() {
+  Array.from(document.querySelectorAll('.section > div:first-child:last-child .fragment')).forEach(($fragment) => {
+    const $section = $fragment.closest('main > .section');
+    Array.from($fragment.childNodes).forEach(($node) => {
+      $section.parentNode.insertBefore($node, $section);
+    });
+    $section.remove();
+    $fragment.remove();
+  });
+}
+
 export function customSpacings() {
-  Array.from(document.querySelectorAll('.section-metadata')).forEach(($section) => {
-    if ($section.classList.contains('section-metadata')) {
-      if ($section.textContent.toLowerCase().includes('background')) {
-        $section.parentElement.classList.add('has-background');
-        const $next = $section.parentElement.nextElementSibling;
-        if ($next && ($next.querySelector(':scope > .banner:first-child') || $next.querySelector(':scope > div:first-child .fragment > .section:first-child > .banner:first-child'))) {
-          $next.style.paddingTop = '0';
-        }
-        const $prev = $section.parentElement.previousElementSibling;
-        if ($prev && ($prev.querySelector(':scope > .banner:last-child') || $prev.querySelector(':scope > div:last-child .fragment > .section:last-child > .banner:last-child'))) {
-          $prev.style.paddingBottom = '0';
-        }
+  Array.from(document.querySelectorAll('.section-metadata')).forEach(($sm) => {
+    if ($sm.textContent.toLowerCase().includes('background')) {
+      const $section = $sm.closest('main > section');
+      $sm.parentElement.classList.add('has-background');
+      const $next = $sm.parentElement.nextElementSibling;
+      if ($next && $next.querySelector(':scope > .banner:first-child')) {
+        $next.style.paddingTop = '0';
       }
-      $section.remove();
+      const $prev = $sm.parentElement.previousElementSibling;
+      if ($prev && $prev.querySelector(':scope > .banner:last-child')) {
+        $prev.style.paddingBottom = '0';
+      }
     }
+    $sm.remove();
   });  
 }
 
