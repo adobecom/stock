@@ -1,5 +1,20 @@
 
-const { createTag } = await import(`${getLibs()}/utils/utils.js`);
+export function createTag(tag, attributes, html) {
+  const el = document.createElement(tag);
+  if (html) {
+    if (html instanceof HTMLElement) {
+      el.append(html);
+    } else {
+      el.insertAdjacentHTML('beforeend', html);
+    }
+  }
+  if (attributes) {
+    Object.entries(attributes).forEach(([key, val]) => {
+      el.setAttribute(key, val);
+    });
+  }
+  return el;
+}
 
 export function transformLinkToAnimation($a) {
   if (!$a || !$a.href.includes('.mp4')) {
