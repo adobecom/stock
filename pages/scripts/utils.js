@@ -1,25 +1,5 @@
-export function createTag(name, attrs) {
-  const el = document.createElement(name);
-  if (typeof attrs === 'object') {
-    for (const [key, value] of Object.entries(attrs)) {
-      el.setAttribute(key, value);
-    }
-  }
-  return el;
-}
 
-export function isNodeName(node, name) {
-  if (!node || typeof node !== 'object') return false;
-  return node.nodeName.toLowerCase() === name.toLowerCase();
-}
-
-export function createSVG(id) {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `/icons.svg#${id}`);
-  svg.appendChild(use);
-  return svg;
-}
+const { createTag } = await import(`${getLibs()}/utils/utils.js`);
 
 export function transformLinkToAnimation($a) {
   if (!$a || !$a.href.includes('.mp4')) {

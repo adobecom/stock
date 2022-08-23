@@ -10,10 +10,10 @@
  * governing permissions and limitations under the License.
  */
 import {
-  createTag,
   transformLinkToAnimation,
   transformLinkToYoutubeEmbed,
 } from '../../scripts/utils.js';
+const { createTag } = await import(`${getLibs()}/utils/utils.js`);
 
 function lazyDecorateVideo($cell, $a) {
   if (!$a || (!$a.href.endsWith('.mp4') && !$a.href.startsWith('https://www.youtube.com/watch') && !$a.href.startsWith('https://youtu.be/'))) return;
