@@ -12,7 +12,9 @@
 import {
   transformLinkToAnimation,
   transformLinkToYoutubeEmbed,
+  getLibs,
 } from '../../scripts/utils.js';
+
 const { createTag } = await import(`${getLibs()}/utils/utils.js`);
 
 function lazyDecorateVideo($cell, $a) {
