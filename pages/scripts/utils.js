@@ -184,3 +184,16 @@ export const [setLibs, getLibs] = (() => {
     }, () => libs,
   ];
 })();
+
+/* link out to external links */
+export function externalLinks() {
+  const links = document.querySelectorAll('a[href]');
+
+  links.forEach((linkItem) => {
+    const linkValue = linkItem.getAttribute('href');
+
+    if (linkValue.includes('//') && !linkValue.includes('stock.adobe')) {
+      linkItem.setAttribute('target', '_blank');
+    }
+  });
+}

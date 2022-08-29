@@ -16,6 +16,7 @@ import {
   decorateButtons, 
   turnH6intoDetailM, 
   customSpacings,
+  externalLinks,
 } from './utils.js';
 
 const LIBS = 'https://milo.adobe.com/libs';
@@ -63,6 +64,7 @@ const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/u
   await loadArea();
   unwrapFragments();
   decorateButtons();
+  externalLinks();
   turnH6intoDetailM();
   customSpacings();
   document.body.style.removeProperty("visibility");
