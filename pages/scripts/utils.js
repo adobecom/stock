@@ -1,3 +1,11 @@
+export function createTag(name, attrs) {
+  const el = document.createElement(name);
+  if (typeof attrs === 'object') {
+    Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+  }
+  return el;
+}
+
 export function transformLinkToAnimation($a) {
   if (!$a || !$a.href.includes('.mp4')) {
     return null;

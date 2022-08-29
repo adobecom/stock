@@ -9,8 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-import { createSVG, getLibs } from '../../scripts/utils.js';
-const { createTag } = await import(`${getLibs()}/utils/utils.js`);
+import { createSVG, createTag } from '../../scripts/utils.js';
 
 /**
  * The carousel's navigation
