@@ -192,7 +192,7 @@ export function externalLinks() {
   links.forEach((linkItem) => {
     const linkValue = linkItem.getAttribute('href');
 
-    if (linkValue.includes('//') && !linkValue.includes('stock.adobe')) {
+    if (linkValue.includes('//') && !(linkValue.includes('stock.adobe') && linkValue.includes('pages'))) {
       linkItem.setAttribute('target', '_blank');
     }
   });
