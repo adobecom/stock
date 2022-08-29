@@ -11,12 +11,4 @@
  */
 
 export default function decorate($block) {
-  const $separator = $block.querySelector(':scope > div:first-of-type');
-  $separator.classList.add('container');
-  const $otherCells = Array.from($block.querySelectorAll(':scope > div:not(:first-of-type)'));
-  $otherCells.forEach(($cell) => {
-    if ($cell) {
-      $block.parentNode.insertBefore($cell, $block.nextSibling);
-    }
-  });
 }

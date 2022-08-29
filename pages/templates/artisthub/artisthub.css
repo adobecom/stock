@@ -20,6 +20,33 @@ body nav.gnav .gnav-brand {
   justify-content: flex-start
 }
 
+body nav.gnav .gnav-brand picture img {
+  width: auto;
+}
+
+body header.gnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+body header.gnav + main {
+  margin-top: 65px;
+}
+
+@media screen and (min-width: 600px) {
+  main .breadcrumbs {
+    padding-left: 18px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  main .breadcrumbs {
+    padding-left: 20px;
+  }
+}
+
 /* cusomize typography for artisthub */
 
 p {
@@ -96,4 +123,32 @@ ul, ol {
   margin-inline-end: 0;
   padding: 15px 0;
   padding-inline-start: 60px;
+}
+
+main > .section > .content:not(:first-child) {
+  margin-top: var(--section-spacing);
+}
+
+main > .section > .content + .cards {
+  margin-top: var(--section-spacing-x-small);
+}
+
+main > .section > .cards + .content > p.button-container:first-child {
+  justify-content: center;
+  text-align: center;
+  margin-top: 0;
+}
+
+main > .section:not(:empty):not(:first-child) {
+  padding-top: var(--section-spacing);
+}
+
+main > .section:not(:empty):last-child {
+  padding-bottom: var(--section-spacing);
+}
+
+main > .section.has-background,
+.fragment > .section.has-background {
+  padding-bottom: var(--section-spacing);
+  padding-top: var(--section-spacing);
 }

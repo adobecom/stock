@@ -1,6 +1,6 @@
 main .separator {
     padding: 12px 0;
-    margin: var(--section-spacing) 0;
+    margin: 0;
     position: relative;
     box-sizing: border-box;
     display: flex;
@@ -13,7 +13,7 @@ main .separator {
     font-weight: bold;
 }
 
-main .separator .container {
+main .separator > div {
     width: 100%;
     justify-content: flex-start;
     max-width: var(--grid-container-width);
@@ -21,11 +21,11 @@ main .separator .container {
     text-align: left;
 }
 
-main .separator .container :first-child {
+main .separator > div :first-child {
     margin-left: 0;
 }
 
-main .separator .container :last-child {
+main .separator > div :last-child {
     margin-right: 0;
 }
 

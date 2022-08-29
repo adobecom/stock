@@ -10,7 +10,14 @@
  * governing permissions and limitations under the License.
  */
 
-import { setLibs, decorateButtons, turnH6intoDetailM } from './utils.js';
+import { 
+  setLibs, 
+  unwrapFragments, 
+  decorateButtons, 
+  turnH6intoDetailM, 
+  customSpacings,
+  externalLinks,
+} from './utils.js';
 
 const LIBS = 'https://milo.adobe.com/libs';
 const STYLES = '/pages/styles/styles.css';
@@ -53,9 +60,14 @@ const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/u
 
 (async function loadPage() {
   setConfig({ ...CONFIG, miloLibs });
-  decorateButtons();
-  turnH6intoDetailM();
+  document.body.style.visibility = 'hidden';
   await loadArea();
+  unwrapFragments();
+  decorateButtons();
+  externalLinks();
+  turnH6intoDetailM();
+  customSpacings();
+  document.body.style.removeProperty("visibility");
   const { default: loadModals } = await import(`${miloLibs}/blocks/modals/modals.js`);
   loadModals();
   loadDelayed();

@@ -1,24 +1,9 @@
 export function createTag(name, attrs) {
   const el = document.createElement(name);
   if (typeof attrs === 'object') {
-    for (const [key, value] of Object.entries(attrs)) {
-      el.setAttribute(key, value);
-    }
+    Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
   }
   return el;
-}
-
-export function isNodeName(node, name) {
-  if (!node || typeof node !== 'object') return false;
-  return node.nodeName.toLowerCase() === name.toLowerCase();
-}
-
-export function createSVG(id) {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `/icons.svg#${id}`);
-  svg.appendChild(use);
-  return svg;
 }
 
 export function transformLinkToAnimation($a) {
@@ -54,23 +39,6 @@ export function transformLinkToAnimation($a) {
   return $video;
 }
 
-export function transformLinkToYoutubeEmbed($a) {
-  if (!$a || !($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
-    return null;
-  }
-  const $video = createTag('div', { class: 'embed embed-youtube' });
-  const url = new URL($a.href);
-  const usp = new URLSearchParams(url.search);
-  let vid = usp.get('v');
-  if (url.host === 'youtu.be') vid = url.pathname.substr(1);
-  $video.innerHTML = /* html */`
-  <div class="youtube-container">
-    <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;rel=0&amp;controls=1&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=${vid}" frameBorder="0" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
-  </div>
-  `;
-  return $video;
-}
-
 export function turnH6intoDetailM() {
   document.querySelectorAll('h6').forEach(($h6) => {
     const $p = document.createElement('p');
@@ -85,7 +53,7 @@ export function turnH6intoDetailM() {
 }
 
 export function decorateButtons() {
-  const $blocksWithoutButton = ['header', 'footer', 'breadcrumbs', 'sitemap', 'embed', 'quote', 'images', 'title', 'share', 'tags'];
+  const $blocksWithoutButton = ['breadcrumbs', 'sitemap', 'images'];
   const isNodeName = (node, name) => {
     if (!node || typeof node !== 'object') return false;
     return node.nodeName.toLowerCase() === name.toLowerCase();
@@ -145,6 +113,53 @@ export function decorateButtons() {
   });
 }
 
+export function transformLinkToYoutubeEmbed($a) {
+  if (!$a || !($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
+    return null;
+  }
+  const $video = createTag('div', { class: 'embed embed-youtube' });
+  const url = new URL($a.href);
+  const usp = new URLSearchParams(url.search);
+  let vid = usp.get('v');
+  if (url.host === 'youtu.be') vid = url.pathname.substr(1);
+  $video.innerHTML = /* html */`
+  <div class="youtube-container">
+    <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;rel=0&amp;controls=1&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=${vid}" frameBorder="0" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
+  </div>
+  `;
+  return $video;
+}
+
+export function unwrapFragments() {
+  Array.from(document.querySelectorAll('.fragment')).forEach(($fragment) => {
+  const $section = $fragment.closest('main > .section');
+  const $div = $fragment.closest('main > .section > div');
+    Array.from($fragment.childNodes).forEach(($node) => {
+      $section.parentNode.insertBefore($node, $section);
+    });
+    $div.remove();
+    if ($section.childElementCount === 0) $section.remove();
+  });
+}
+
+export function customSpacings() {
+  Array.from(document.querySelectorAll('.section-metadata')).forEach(($sm) => {
+    if ($sm.textContent.toLowerCase().includes('background')) {
+      const $section = $sm.closest('main > section');
+      $sm.parentElement.classList.add('has-background');
+      const $next = $sm.parentElement.nextElementSibling;
+      if ($next && $next.querySelector(':scope > .banner:first-child')) {
+        $next.style.paddingTop = '0';
+      }
+      const $prev = $sm.parentElement.previousElementSibling;
+      if ($prev && $prev.querySelector(':scope > .banner:last-child')) {
+        $prev.style.paddingBottom = '0';
+      }
+    }
+    $sm.remove();
+  });  
+}
+
 /*
  * ------------------------------------------------------------
  * Edit below at your own risk
@@ -177,3 +192,16 @@ export const [setLibs, getLibs] = (() => {
     }, () => libs,
   ];
 })();
+
+/* link out to external links */
+export function externalLinks() {
+  const links = document.querySelectorAll('a[href]');
+
+  links.forEach((linkItem) => {
+    const linkValue = linkItem.getAttribute('href');
+
+    if (linkValue.includes('//') && !(linkValue.includes('stock.adobe') && linkValue.includes('pages'))) {
+      linkItem.setAttribute('target', '_blank');
+    }
+  });
+}

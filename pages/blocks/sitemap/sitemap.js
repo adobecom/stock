@@ -11,10 +11,4 @@
  */
 
 export default function decorate($block) {
-  const $otherCells = Array.from($block.querySelectorAll(':scope > div:not(:first-of-type)'));
-  $otherCells.forEach(($cell) => {
-    if ($cell) {
-      $block.parentNode.insertBefore($cell, $block.nextSibling);
-    }
-  });
 }

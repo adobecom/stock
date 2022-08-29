@@ -17,7 +17,6 @@ export default function decorate($block) {
   const $pics = $block.querySelectorAll('picture');
   $pics.forEach((pic) => {
     if (pic.parentElement.tagName === 'P') {
-      // unwrap single picture if wrapped in p tag
       const $parentDiv = pic.closest('div');
       const $parentParagraph = pic.parentNode;
       $parentDiv.insertBefore(pic, $parentParagraph);

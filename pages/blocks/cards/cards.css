@@ -44,9 +44,12 @@ main .cards .card {
     overflow: hidden;
     width: 100%;
     min-width: 200px;
-    max-width: var(--max-width-mobile);
     margin: 0;
     position: relative;
+}
+
+main .cards a {
+  text-decoration: none;
 }
 
 main .cards .card-text {
@@ -382,6 +385,10 @@ main .cards.horizontal .card {
     main .cards.col-3-cards .card-banner .icon {
         top: 132px;
     }
+
+    main .cards + .cards {
+      margin-top: 24px;
+    }
 }
 
 @media screen and (max-width: 1200px) {
@@ -435,11 +442,10 @@ main .cards.horizontal .card {
     main .cards.col-5-cards,
     main .cards.col-6-cards {
         flex-wrap: wrap;
-        max-width: var(--max-width-mobile);
     }
 
     main .cards .card {
-        max-width: 500px;
+      max-width: 500px;
     }
 }
 
