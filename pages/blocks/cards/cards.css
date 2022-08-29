@@ -48,7 +48,7 @@ main .cards .card {
     position: relative;
 }
 
-main .cards a .card-text {
+main .cards a {
   text-decoration: none;
 }
 
