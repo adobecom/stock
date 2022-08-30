@@ -160,6 +160,27 @@ export function customSpacings() {
   });  
 }
 
+export function createSVG(path, name = undefined) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(name !== undefined) ? "#" : ""}${name}`);
+  svg.appendChild(use);
+  console.log(svg);
+  return svg;
+}
+
+export function externalLinks() {
+  const links = document.querySelectorAll('a[href]');
+
+  links.forEach((linkItem) => {
+    const linkValue = linkItem.getAttribute('href');
+
+    if (linkValue.includes('//') && !(linkValue.includes('stock.adobe') && linkValue.includes('pages'))) {
+      linkItem.setAttribute('target', '_blank');
+    }
+  });
+}
+
 /*
  * ------------------------------------------------------------
  * Edit below at your own risk
@@ -192,16 +213,3 @@ export const [setLibs, getLibs] = (() => {
     }, () => libs,
   ];
 })();
-
-/* link out to external links */
-export function externalLinks() {
-  const links = document.querySelectorAll('a[href]');
-
-  links.forEach((linkItem) => {
-    const linkValue = linkItem.getAttribute('href');
-
-    if (linkValue.includes('//') && !(linkValue.includes('stock.adobe') && linkValue.includes('pages'))) {
-      linkItem.setAttribute('target', '_blank');
-    }
-  });
-}
