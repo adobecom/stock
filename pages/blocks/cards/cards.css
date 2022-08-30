@@ -149,7 +149,7 @@ main .cards .card-banner {
     min-width: 40px;
 }
 
-main .cards .card-banner p {
+main .cards .card-banner > div:not(:empty) {
     margin-top: 28px;
     width: auto;
     margin-left: auto;

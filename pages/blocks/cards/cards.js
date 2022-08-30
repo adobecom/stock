@@ -10,6 +10,7 @@
  * governing permissions and limitations under the License.
  */
 import {
+  createTag,
   transformLinkToAnimation,
 } from '../../scripts/utils.js';
 
@@ -64,8 +65,12 @@ export default function decorate($block) {
           $cell.classList.add('card-link');
           hasLink = true;
         }
-      } else if (index === 3) {
+      } else if (index === 3 && $block.querySelector('.card-text')) {
         $cell.classList.add('card-banner');
+        const $cardTag = createTag('div');
+        $cardTag.innerHTML = $cell.innerHTML;
+        $cell.innerHTML = '';
+        $cell.appendChild($cardTag);
       } else {
         $cell.remove();
       }
