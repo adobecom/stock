@@ -9,25 +9,25 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-import { createSVG, createTag } from '../../scripts/utils.js';
+import { createTag } from '../../scripts/utils.js';
 
 /**
  * The carousel's navigation
  * @param {element} $block The container of the carousel
  */
 function carouselAndLightbox($block) {
-  const $wrapper = $block.querySelector('.carousel-wrapper');
-  const $lightbox = $block.querySelector('.carousel-lightbox');
-  const $expandButtons = $wrapper.querySelectorAll('.carousel-expand');
-  const $carouselSlides = $wrapper.querySelectorAll('.carousel-slide');
-  const $lightboxSlides = $lightbox.querySelectorAll('.carousel-slide');
-  const $dots = $wrapper.querySelectorAll('.carousel-dot');
-  const $carouselPrevious = $wrapper.querySelector('.carousel-previous');
-  const $carouselNext = $wrapper.querySelector('.carousel-next');
-  const $lightboxPrevious = $lightbox.querySelector('.carousel-previous');
-  const $lightboxNext = $lightbox.querySelector('.carousel-next');
-  const $lightboxThumbnails = $lightbox.querySelectorAll('.carousel-dot');
-  const $closeLightbox = $lightbox.querySelector('.carousel-close-lightbox');
+  const $wrapper = $block.querySelector('.image-carousel-wrapper');
+  const $lightbox = $block.querySelector('.image-carousel-lightbox');
+  const $expandButtons = $wrapper.querySelectorAll('.image-carousel-expand');
+  const $carouselSlides = $wrapper.querySelectorAll('.image-carousel-slide');
+  const $lightboxSlides = $lightbox.querySelectorAll('.image-carousel-slide');
+  const $dots = $wrapper.querySelectorAll('.image-carousel-dot');
+  const $carouselPrevious = $wrapper.querySelector('.image-carousel-previous');
+  const $carouselNext = $wrapper.querySelector('.image-carousel-next');
+  const $lightboxPrevious = $lightbox.querySelector('.image-carousel-previous');
+  const $lightboxNext = $lightbox.querySelector('.image-carousel-next');
+  const $lightboxThumbnails = $lightbox.querySelectorAll('.image-carousel-dot');
+  const $closeLightbox = $lightbox.querySelector('.image-carousel-close-lightbox');
   const updateCarousel = ($slides, $navDots, index) => {
     const current = $slides[index];
     const prev = $slides[index - 1] ?? $slides[[...$slides].length - 1];
@@ -50,7 +50,7 @@ function carouselAndLightbox($block) {
   const incrementCurrentCarousel = (next = true) => {
     let $slides = $carouselSlides;
     let $navDots = $dots;
-    if ($wrapper.closest('.carousel').classList.contains('lightbox')) {
+    if ($wrapper.closest('.image-carousel').classList.contains('lightbox')) {
       $slides = $lightboxSlides;
       $navDots = $lightboxThumbnails;
     }
@@ -110,14 +110,14 @@ function carouselAndLightbox($block) {
   [...$expandButtons].forEach(($btn) => {
     $btn.addEventListener('click', () => {
       updateCarousel($lightboxSlides, $lightboxThumbnails, carouselIndex);
-      $wrapper.closest('.carousel').classList.add('lightbox');
+      $wrapper.closest('.image-carousel').classList.add('lightbox');
       $lightboxThumbnails[carouselIndex].focus({ preventScroll: true });
     });
   });
   const closeLightbox = () => {
     $wrapper.classList.add('no-animation');
     updateCarousel($carouselSlides, $dots, carouselIndex);
-    $wrapper.closest('.carousel').classList.remove('lightbox');
+    $wrapper.closest('.image-carousel').classList.remove('lightbox');
     setTimeout(() => {
       $wrapper.classList.remove('no-animation');
     }, 300);
@@ -137,14 +137,14 @@ function carouselAndLightbox($block) {
     }
   });
   $block.addEventListener('keydown', (e) => {
-    const $navDots = ($wrapper.closest('.carousel').classList.contains('lightbox')) ? $lightboxThumbnails : $dots;
+    const $navDots = ($wrapper.closest('.image-carousel').classList.contains('lightbox')) ? $lightboxThumbnails : $dots;
     if (e.key === 'ArrowLeft') {
       incrementCurrentCarousel(false);
       $navDots[carouselIndex].focus({ preventScroll: true });
     } else if (e.key === 'ArrowRight') {
       incrementCurrentCarousel(true);
       $navDots[carouselIndex].focus({ preventScroll: true });
-    } else if (e.key === 'Escape' && $wrapper.closest('.carousel').classList.contains('lightbox')) {
+    } else if (e.key === 'Escape' && $wrapper.closest('.image-carousel').classList.contains('lightbox')) {
       closeLightbox();
       $navDots[carouselIndex].focus({ preventScroll: true });
     }
@@ -159,42 +159,42 @@ function carouselAndLightbox($block) {
  */
 function buildCarousel($imgSlides, $block, aspectRatio = '50%') {
   $block.innerHTML = '';
-  const $wrapper = createTag('div', { class: 'carousel-wrapper' });
-  const $controls = createTag('div', { class: 'carousel-controls' });
-  const $slides = createTag('div', { class: 'carousel-slides' });
-  const $dots = createTag('div', { class: 'carousel-dots' });
+  const $wrapper = createTag('div', { class: 'image-carousel-wrapper' });
+  const $controls = createTag('div', { class: 'image-carousel-controls' });
+  const $slides = createTag('div', { class: 'image-carousel-slides' });
+  const $dots = createTag('div', { class: 'image-carousel-dots' });
   const $slideswrapper = createTag('div');
   $wrapper.appendChild($controls);
   $wrapper.appendChild($slides);
   $wrapper.appendChild($dots);
   $slides.appendChild($slideswrapper);
   $block.appendChild($wrapper);
-  const $prev = createTag('button', { class: 'carousel-arrow carousel-previous', 'aria-label': 'Previous slide' });
-  const $next = createTag('button', { class: 'carousel-arrow carousel-next', 'aria-label': 'Next slide' });
-  $prev.appendChild(createSVG('chevron'));
-  $next.appendChild(createSVG('chevron'));
+  const $prev = createTag('button', { class: 'image-carousel-arrow image-carousel-previous', 'aria-label': 'Previous slide' });
+  const $next = createTag('button', { class: 'image-carousel-arrow image-carousel-next', 'aria-label': 'Next slide' });
+  // $prev.appendChild(createSVG('chevron'));
+  // $next.appendChild(createSVG('chevron'));
   $controls.appendChild($prev);
   $controls.appendChild($next);
   $imgSlides.forEach(($imgSlide, index) => {
-    const $slide = createTag('div', { class: 'carousel-slide' });
+    const $slide = createTag('div', { class: 'image-carousel-slide' });
     $slide.appendChild($imgSlide.img);
     $imgSlide.img.tabIndex = 0;
     $imgSlide.ariaLabel = `Slide ${index + 1}`;
-    const $expandButton = createTag('button', { class: 'carousel-expand', 'aria-label': 'Open in full screen' });
-    $expandButton.appendChild(createSVG('expand'));
+    const $expandButton = createTag('button', { class: 'image-carousel-expand', 'aria-label': 'Open in full screen' });
+    // $expandButton.appendChild(createSVG('expand'));
     $slide.appendChild($expandButton);
     $slideswrapper.appendChild($slide);
-    const $dot = createTag('button', { class: 'carousel-dot', 'aria-label': `Slide ${index + 1}` });
+    const $dot = createTag('button', { class: 'image-carousel-dot', 'aria-label': `Slide ${index + 1}` });
     $dots.appendChild($dot);
     if ($imgSlide.caption !== null) $slide.appendChild($imgSlide.caption);
   });
   const $lightbox = $wrapper.cloneNode(true);
-  $lightbox.classList.add('carousel-lightbox');
-  const $closeButton = createTag('button', { class: 'carousel-close-lightbox', 'aria-label': 'Close full screen' });
-  $closeButton.appendChild(createSVG('close'));
+  $lightbox.classList.add('image-carousel-lightbox');
+  const $closeButton = createTag('button', { class: 'image-carousel-close-lightbox', 'aria-label': 'Close full screen' });
+  // $closeButton.appendChild(createSVG('close'));
   $lightbox.appendChild($closeButton);
   $block.appendChild($lightbox);
-  const $lightboxThumbnails = $lightbox.querySelectorAll('.carousel-dot');
+  const $lightboxThumbnails = $lightbox.querySelectorAll('.image-carousel-dot');
   [...$lightboxThumbnails].forEach(($thumbnail, index) => {
     $thumbnail.appendChild($imgSlides[index].img.cloneNode(true));
   });
@@ -222,6 +222,7 @@ export default function decorate($block) {
       }
       if (nextElement && nextElement.childNodes.length !== 0 && nextElement.textContent !== '') $caption = nextElement;
     }
+    if ($caption) [...$caption.querySelectorAll('br')].forEach((br) => br.remove());
     $imgSlides.push({ img: $picture, caption: $caption });
     // Find the aspect ratio of the shortest image
     const $img = $picture.querySelector('img');

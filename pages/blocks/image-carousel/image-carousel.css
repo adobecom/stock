@@ -1,14 +1,14 @@
-main .carousel {
+main .image-carousel {
   position: relative;
   width: 100%;
   max-height: 700px;
   overflow: hidden;
   padding-bottom: 20px;
-  max-width: 1000px;
+  max-width: var(--grid-container-width);
   margin: 0 auto;
 }
 
-main .carousel-wrapper {
+main .image-carousel-wrapper {
   width: 100%;
   margin: 0 auto;
   white-space: nowrap;
@@ -16,29 +16,28 @@ main .carousel-wrapper {
   user-select: none;
 }
 
-main .carousel-slides {
-  width: 919px;
+main .image-carousel-slides {
   overflow: hidden;
   margin: 0 auto;
 }
 
-main .carousel-slide ,
-main .carousel-slides > div {
+main .image-carousel-slide ,
+main .image-carousel-slides > div {
   background-color: #ffffff;
   width: 800px;
 }
 
-main .carousel-wrapper,
-main .carousel-slide ,
-main .carousel-slides,
-main .carousel-slides > div {
+main .image-carousel-wrapper,
+main .image-carousel-slide ,
+main .image-carousel-slides,
+main .image-carousel-slides > div {
   height: 100%;
   max-height: 680px;
   min-height: 200px;
   box-sizing: border-box;
 }
 
-main .carousel-slides > div {
+main .image-carousel-slides > div {
   position: relative;
   display: flex;
   position: relative;
@@ -46,7 +45,7 @@ main .carousel-slides > div {
   padding-bottom: 50%;
 }
 
-main .carousel-slide {
+main .image-carousel-slide {
   position: absolute;
   top: 0;
   left: 200%;
@@ -59,7 +58,7 @@ main .carousel-slide {
   background: #ffffff;
 }
 
-main .carousel-slide p {
+main .image-carousel-slide p {
   position: absolute;
   bottom: 10px;
   left: 10px;
@@ -74,12 +73,12 @@ main .carousel-slide p {
   font-style: italic;
 }
 
-main .carousel-slide a {
+main .image-carousel-slide a {
   color: white;
 }
 
-main .carousel-slide img,
-main .carousel-slide picture {
+main .image-carousel-slide img,
+main .image-carousel-slide picture {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -88,36 +87,41 @@ main .carousel-slide picture {
   margin: 0;
 }
 
-main .carousel-slide picture {
+main .image-carousel-slide picture {
   filter: brightness(0.2);
   transition: filter 0.3s;
 }
 
-main .no-animation .carousel-slide,
-main .no-animation .carousel-slide picture {
+main .no-animation .image-carousel-slide,
+main .no-animation .image-carousel-slide picture {
   transition: none;
 }
 
-main .carousel-slide.slide-active {
+main .image-carousel-slide.slide-active {
   left: 0;
   z-index: 2;
 }
 
-main .carousel-slide.slide-active picture {
+main .image-carousel-slide.slide-active picture {
   filter: none;
 }
 
-main .carousel-slide.slide-prev {
+main .image-carousel-slide.slide-prev {
   left: -800px;
   z-index: 1;
 }
 
-main .carousel-slide.slide-next {
+main .image-carousel-slide.slide-next {
   left: 800px;
   z-index: 1;
 }
 
-main .carousel-controls {
+main .image-carousel-slide.slide-next,
+main .image-carousel-slide.slide-prev {
+  cursor: pointer;
+}
+
+main .image-carousel-controls {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -126,10 +130,13 @@ main .carousel-controls {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding-left: 32px;
+  padding-right: 32px;
+  box-sizing: border-box;
   z-index: 3;
 }
 
-main .carousel-arrow {
+main .image-carousel-arrow {
   background-color: #ffffff;
   transition: border 0.2s;
   user-select: none;
@@ -147,29 +154,29 @@ main .carousel-arrow {
   box-sizing: border-box;
 }
 
-main .carousel-arrow:hover {
+main .image-carousel-arrow:hover {
   border: 1px solid rgb(116, 116, 116, 0.8);
   transition: border 0.5s;
 }
 
-main .carousel-arrow:active {
+main .image-carousel-arrow:active {
   background-color: #fafafa;
 }
 
-main .carousel-arrow svg {
+main .image-carousel-arrow svg {
   height: 18px;
   width: 18px;
 }
 
-main .carousel-previous {
+main .image-carousel-previous {
   order: -2;
 }
 
-main .carousel-previous svg {
+main .image-carousel-previous svg {
   transform: rotate(180deg)
 }
 
-main .carousel-dots {
+main .image-carousel-dots {
   position: absolute;
   bottom: 0;
   display: flex;
@@ -180,7 +187,7 @@ main .carousel-dots {
   transform: translateY(16px);
 }
 
-main .carousel-dot {
+main .image-carousel-dot {
   background-color: #E8E8E8;
   border: none;
   display: block;
@@ -193,15 +200,15 @@ main .carousel-dot {
   margin: 0 8px;
 }
 
-main .no-animation .carousel-dot {
+main .no-animation .image-carousel-dot {
   transition: none;
 }
 
-main .carousel-dot.dot-active {
+main .image-carousel-dot.dot-active {
   background-color: #6E6E6E;
 }
 
-main .carousel-expand {
+main .image-carousel-expand {
   background-color: #ffffff;
   transition: background 0.2s;
   user-select: none;
@@ -220,20 +227,20 @@ main .carousel-expand {
   display: none;
 }
 
-main .carousel-expand svg {
+main .image-carousel-expand svg {
   height: 16px;
   width: 16px;
 }
 
-main .carousel-expand:hover {
+main .image-carousel-expand:hover {
   background: #fafafa;
 }
 
-main .carousel-slide.slide-active .carousel-expand {
+main .image-carousel-slide.slide-active .image-carousel-expand {
   display: flex;
 }
 
-main .carousel-lightbox {
+main .image-carousel-lightbox {
   position: fixed;
   top: 0;
   left: 0;
@@ -245,7 +252,7 @@ main .carousel-lightbox {
   display: none;
 }
 
-main .carousel-lightbox .carousel-slide p {
+main .image-carousel-lightbox .image-carousel-slide p {
   position: unset;
   bottom: unset;
   left: unset;
@@ -256,21 +263,21 @@ main .carousel-lightbox .carousel-slide p {
   font-size: var(--body-font-size-m);
 }
 
-main .carousel-lightbox .carousel-dots {
+main .image-carousel-lightbox .image-carousel-dots {
   transform: none;
   bottom: 3rem;
 }
 
-main .carousel-lightbox .carousel-slide .carousel-expand,
-main .carousel-lightbox .carousel-slide.slide-active .carousel-expand {
+main .image-carousel-lightbox .image-carousel-slide .image-carousel-expand,
+main .image-carousel-lightbox .image-carousel-slide.slide-active .image-carousel-expand {
   display: none;
 }
 
-main .carousel.lightbox .carousel-lightbox {
+main .image-carousel.lightbox .image-carousel-lightbox {
   display: block;
 }
 
-main .carousel-lightbox .carousel-close-lightbox {
+main .image-carousel-lightbox .image-carousel-close-lightbox {
   padding: 4px;
   background: transparent;
   border: none;
@@ -281,15 +288,15 @@ main .carousel-lightbox .carousel-close-lightbox {
   cursor: pointer;
 }
 
-main .carousel-lightbox .carousel-close-lightbox svg {
+main .image-carousel-lightbox .image-carousel-close-lightbox svg {
   height: 18px;
   width: 18px;
 }
 
-main .carousel-lightbox .carousel-slide,
-main .carousel-lightbox .carousel-slide.slide-active,
-main .carousel-lightbox .carousel-slide.slide-prev,
-main .carousel-lightbox .carousel-slide.slide-next {
+main .image-carousel-lightbox .image-carousel-slide,
+main .image-carousel-lightbox .image-carousel-slide.slide-active,
+main .image-carousel-lightbox .image-carousel-slide.slide-prev,
+main .image-carousel-lightbox .image-carousel-slide.slide-next {
   left: 0;
   background: transparent;
   width: 100%;
@@ -299,13 +306,13 @@ main .carousel-lightbox .carousel-slide.slide-next {
   transition: opacity 0.2s;
 }
 
-main .carousel-lightbox .carousel-slide.slide-active {
+main .image-carousel-lightbox .image-carousel-slide.slide-active {
   opacity: 1;
   pointer-events: all
 }
 
-main .carousel-lightbox .carousel-slide img,
-main .carousel-lightbox .carousel-slide picture {
+main .image-carousel-lightbox .image-carousel-slide img,
+main .image-carousel-lightbox .image-carousel-slide picture {
   height: auto;
   width: auto;
   max-height: 100%;
@@ -315,7 +322,7 @@ main .carousel-lightbox .carousel-slide picture {
   align-items: center;
 }
 
-main .carousel-lightbox .carousel-slides {
+main .image-carousel-lightbox .image-carousel-slides {
   position: absolute;
   top: 0;
   left: 0;
@@ -328,7 +335,7 @@ main .carousel-lightbox .carousel-slides {
   align-items: flex-end;
 }
 
-main .carousel-lightbox .carousel-controls {
+main .image-carousel-lightbox .image-carousel-controls {
   top: 49%;
   left: 0;
   transform: translateY(-50%);
@@ -336,7 +343,7 @@ main .carousel-lightbox .carousel-controls {
   box-sizing: border-box;
 }
 
-main .carousel-lightbox .carousel-slides > div {
+main .image-carousel-lightbox .image-carousel-slides > div {
   background: transparent;
   width: 90%;
   height: 90%;
@@ -346,20 +353,20 @@ main .carousel-lightbox .carousel-slides > div {
   padding: 0;
 }
 
-main .carousel-lightbox .carousel-slide {
+main .image-carousel-lightbox .image-carousel-slide {
   height: 100%;
   width: 100%;
   max-height: 100%;
   min-height: unset;
 }
 
-main .carousel-lightbox .carousel-slide picture {
+main .image-carousel-lightbox .image-carousel-slide picture {
   filter: none;
   height: auto;
   width: 100%;
 }
 
-main .carousel-lightbox .carousel-dot {
+main .image-carousel-lightbox .image-carousel-dot {
   height: 50px;
   max-height: 50px;
   width: auto;
@@ -372,93 +379,94 @@ main .carousel-lightbox .carousel-dot {
   box-sizing: content-box;
 }
 
-main .carousel-lightbox .carousel-dot.dot-active {
+main .image-carousel-lightbox .image-carousel-dot.dot-active {
   outline: 2px solid #E8E8E8;
   outline-offset: -2px;
 }
 
-main .carousel-lightbox .carousel-dot img,
-main .carousel-lightbox .carousel-dot picture {
+main .image-carousel-lightbox .image-carousel-dot img,
+main .image-carousel-lightbox .image-carousel-dot picture {
   height: 100%;
   width: auto;
   object-fit: contain;
 }
 
-@media screen and (max-width: 1020px) {
-  main .carousel-slides,
-  main .carousel-slide {
-    width: 100%;
-    box-sizing: border-box;
-  }
+main .image-carousel-slides,
+main .image-carousel-slide {
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  main .carousel-slides > div {
-    width: 90%;
-    box-sizing: border-box;
-    transform: none;
-  }
+main .image-carousel-slides > div {
+  width: 90%;
+  box-sizing: border-box;
+  transform: none;
+}
 
-  main .carousel-slide.slide-prev {
-    left: -100%;
-  }
-  
-  main .carousel-slide.slide-next {
-    left: 100%;
-  }
+main .image-carousel-slide.slide-prev {
+  left: -100%;
+}
 
-  main .carousel-slide {
-    padding: 8px;
-  }
+main .image-carousel-slide.slide-next {
+  left: 100%;
+}
 
-  main .carousel-slide p {
-    position: absolute;
-    bottom: 8px;
-    left: 8px;
-    width: calc(100% - 16px);
-  }
-  
-  main .carousel-controls {
-    padding-left: 4px;
-    padding-right: 4px;
-    box-sizing: border-box;
-  }
+main .image-carousel-slide {
+  padding: 8px;
+}
 
-  main .carousel-dots {
-    transform: translateY(20px);
-  }
+main .image-carousel-slide p {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  width: calc(100% - 16px);
+}
 
-  main .carousel {
-    padding-bottom: 24px;
-  }
+main .image-carousel-controls {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+main .image-carousel-dots {
+  transform: translateY(20px);
+}
+
+main .image-carousel {
+  padding-bottom: 24px;
 }
 
 @media screen and (max-width: 600px) {
-  main .carousel-slide {
+  main .image-carousel {
+    max-width: unset;
+  }
+
+  main .image-carousel-slide {
     padding: 4px;
   }
 
-  main .carousel-slide p {
+  main .image-carousel-slide p {
     position: absolute;
     bottom: 4px;
     left: 4px;
     width: calc(100% - 8px);
   }
 
-  main .carousel-expand {
+  main .image-carousel-expand {
     top: 10px;
     right: 10px;
   }
 
-  main .carousel-lightbox .carousel-controls {
+  main .image-carousel-lightbox .image-carousel-controls {
     padding: 2px;
   }
 }
 
 @media screen and (max-height: 600px) {
-  main .carousel-lightbox .carousel-dots {
+  main .image-carousel-lightbox .image-carousel-dots {
     bottom: 8px;
   }
 
-  main .carousel-lightbox .carousel-slides {
+  main .image-carousel-lightbox .image-carousel-slides {
     height: calc(100% - 58px);
   }
 }
