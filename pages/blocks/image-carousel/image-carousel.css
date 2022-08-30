@@ -277,6 +277,10 @@ main .image-carousel-lightbox .image-carousel-slide.slide-active .image-carousel
   display: none;
 }
 
+main .image-carousel.lightbox {
+  z-index: 400;
+}
+
 main .image-carousel.lightbox .image-carousel-lightbox {
   display: block;
 }
