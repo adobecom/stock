@@ -11,22 +11,7 @@
  */
 
 export default function decorate($block) {
-  // Decorate social media icon list
-  const $inlineSVGicons = Array.from($block.querySelectorAll('svg.icon'));
-  $inlineSVGicons.forEach((icon) => {
-    let $c = icon.parentElement;
-    if ($c.nodeName.toLowerCase() === 'a') {
-      $c = $c.parentElement;
-    }
-    if ($c.nodeName.toLowerCase() != 'p') {
-      const p = document.createElement('p');
-      $c.appendChild(p);
-      p.appendChild(icon);
-      $c = p;
-    }
-    if ($c.children.length > 1) {
-      $c.classList.add('icon-container');
-      icon.setAttribute('fill', 'currentColor');
-    }
+  Array.from($block.children).forEach(($div) => {
+    if (!$div.querySelector('img')) $div.classList.add('image-rows-caption');
   });
 }
