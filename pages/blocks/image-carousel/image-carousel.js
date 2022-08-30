@@ -209,6 +209,8 @@ export default function decorate($block) {
   const $imgs = $block.querySelectorAll('picture');
   const $imgSlides = [];
   let aspectRatio;
+  const $ps = Array.from($block.querySelectorAll('p'));
+  $ps.forEach(($p) => { [...$p.querySelectorAll('br')].forEach((br) => br.remove()) });
   [...$imgs].forEach(($picture) => {
     // unwrap picture if wrapped in p tag
     if ($picture.parentElement.tagName === 'P') {
@@ -225,7 +227,7 @@ export default function decorate($block) {
       }
       if (nextElement && nextElement.childNodes.length !== 0 && nextElement.textContent !== '') $caption = nextElement;
     }
-    if ($caption) [...$caption.querySelectorAll('br')].forEach((br) => br.remove());
+    if ($caption.innerHTML.trim() === '') $caption = null;
     $imgSlides.push({ img: $picture, caption: $caption });
     // Find the aspect ratio of the shortest image
     const $img = $picture.querySelector('img');
