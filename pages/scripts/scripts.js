@@ -61,11 +61,11 @@ const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/u
 (async function loadPage() {
   setConfig({ ...CONFIG, miloLibs });
   document.body.style.visibility = 'hidden';
+  decorateButtons();
+  turnH6intoDetailM();
   await loadArea();
   unwrapFragments();
-  decorateButtons();
   externalLinks();
-  turnH6intoDetailM();
   customSpacings();
   document.body.style.removeProperty("visibility");
   const { default: loadModals } = await import(`${miloLibs}/blocks/modals/modals.js`);

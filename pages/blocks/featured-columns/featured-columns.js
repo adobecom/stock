@@ -46,20 +46,16 @@ function lazyDecorateVideo($cell, $a) {
     }
   };
   const addIntersectionObserver = (block) => {
-    const observer = (entries) => {
+    const intersectionObserver = new IntersectionObserver((entries) => {
       const entry = entries[0];
-      if (entry.isIntersecting) {
-        if (entry.intersectionRatio >= 0.25) {
-          decorateVideo();
-        }
+      if (entry.intersectionRatio > 0 || entry.isIntersecting) {
+        decorateVideo();
       }
-    };
-    const options = {
+    }, {
       root: null,
-      rootMargin: '0px',
-      threshold: [0.0, 0.25],
-    };
-    const intersectionObserver = new IntersectionObserver(observer, options);
+      rootMargin: '300px',
+      threshold: 0,
+    });
     intersectionObserver.observe(block);
   };
   if (document.readyState === 'complete') {
@@ -77,15 +73,17 @@ export default function decorate($block) {
     $row.classList.add('featured-row');
     const $featured = Array.from($row.children);
     $featured.forEach(($cell) => {
+      const $ps = $cell.querySelectorAll('p');
+      [...$ps].forEach(($p) => { if ($p.childNodes.length === 0) $p.remove() })
       $cell.classList.add('featured-column');
       const $a = $cell.querySelector('a');
-      if ($a && $a.closest('.featured-column').childNodes.length === 1 && ($a.href.endsWith('.mp4') || $a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
+      if ($a && $cell.childNodes.length === 1 && ($a.href.endsWith('.mp4') || $a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
         lazyDecorateVideo($cell, $a);
       } else {
         const $pic = $cell.querySelector('picture:first-child:last-child');
         if ($pic) {
           $cell.classList.add('picture-column');
-          const $cta = $row.querySelector('.button.accent') ?? $row.querySelector('.button');
+          const $cta = $row.querySelector('a.button.accent') ?? $row.querySelector('a.button');
           const $picParent = $pic.parentElement;
           $cell.innerHTML = '';
           if ($picParent.tagName.toLowerCase() === 'a') {
