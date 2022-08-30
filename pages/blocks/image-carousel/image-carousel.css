@@ -73,6 +73,10 @@ main .image-carousel-slide p {
   font-style: italic;
 }
 
+main .image-carousel-slide:not(.slide-active) p {
+  pointer-events: none;
+}
+
 main .image-carousel-slide a {
   color: white;
 }

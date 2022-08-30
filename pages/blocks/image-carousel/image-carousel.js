@@ -9,7 +9,10 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-import { createTag } from '../../scripts/utils.js';
+import { 
+  createTag,
+  createSVG,
+} from '../../scripts/utils.js';
 
 /**
  * The carousel's navigation
@@ -171,8 +174,8 @@ function buildCarousel($imgSlides, $block, aspectRatio = '50%') {
   $block.appendChild($wrapper);
   const $prev = createTag('button', { class: 'image-carousel-arrow image-carousel-previous', 'aria-label': 'Previous slide' });
   const $next = createTag('button', { class: 'image-carousel-arrow image-carousel-next', 'aria-label': 'Next slide' });
-  // $prev.appendChild(createSVG('chevron'));
-  // $next.appendChild(createSVG('chevron'));
+  $prev.appendChild(createSVG('/pages/blocks/image-carousel/image-carousel.svg', 'chevron'));
+  $next.appendChild(createSVG('/pages/blocks/image-carousel/image-carousel.svg', 'chevron'));
   $controls.appendChild($prev);
   $controls.appendChild($next);
   $imgSlides.forEach(($imgSlide, index) => {
@@ -181,7 +184,7 @@ function buildCarousel($imgSlides, $block, aspectRatio = '50%') {
     $imgSlide.img.tabIndex = 0;
     $imgSlide.ariaLabel = `Slide ${index + 1}`;
     const $expandButton = createTag('button', { class: 'image-carousel-expand', 'aria-label': 'Open in full screen' });
-    // $expandButton.appendChild(createSVG('expand'));
+    $expandButton.appendChild(createSVG('/pages/blocks/image-carousel/image-carousel.svg', 'expand'));
     $slide.appendChild($expandButton);
     $slideswrapper.appendChild($slide);
     const $dot = createTag('button', { class: 'image-carousel-dot', 'aria-label': `Slide ${index + 1}` });
@@ -191,7 +194,7 @@ function buildCarousel($imgSlides, $block, aspectRatio = '50%') {
   const $lightbox = $wrapper.cloneNode(true);
   $lightbox.classList.add('image-carousel-lightbox');
   const $closeButton = createTag('button', { class: 'image-carousel-close-lightbox', 'aria-label': 'Close full screen' });
-  // $closeButton.appendChild(createSVG('close'));
+  $closeButton.appendChild(createSVG('/pages/blocks/image-carousel/image-carousel.svg', 'close'));
   $lightbox.appendChild($closeButton);
   $block.appendChild($lightbox);
   const $lightboxThumbnails = $lightbox.querySelectorAll('.image-carousel-dot');
