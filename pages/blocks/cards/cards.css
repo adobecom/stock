@@ -1,11 +1,12 @@
 /*-- Cards Variants --*/
-/* [default, overlay, horizontal, nocrop] */
+/* [default, overlay, horizontal, nocrop, borderless] */
 /* Default cards show an image at the top and text at the bottom */
 /* Overlay cards show an image in the background and a dark overlay with white text in front */
 /* Horizontal cards show an image on the left and text on the right */
-/* The 'nocrop' variant shows the entire width of the image, and adjusts the height accordingly, as compared to the 
+/* The 'nocrop' variant shows the entire width of the image, and adjusts the height accordingly, as compared to the
 default image option where the height is set and the width crops accordingly. Only works on default card.
 Please make sure to use the same height for each card in a card-set if you use 'nocrop' */
+/* The 'nocrop' variant shows the cards with out the border. It's also a variant that's best used for featured mentors section.*/
 
 main .cards {
     display: flex;
@@ -48,6 +49,11 @@ main .cards .card {
     position: relative;
 }
 
+main .cards.borderless .card {
+  border: unset;
+  border-radius: unset;
+}
+
 main .cards a {
   text-decoration: none;
 }
@@ -58,6 +64,11 @@ main .cards .card-text {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+}
+
+main .cards.borderless .card-text {
+    padding: unset;
+    padding-top: 20px;
 }
 
 main .cards.horizontal .card-text {
@@ -78,6 +89,11 @@ main .cards .card-text span.detail {
 
 main .cards .card-text > :first-child {
     padding-top: 0;
+}
+
+main .cards.borderless .card-text > :first-child {
+    min-height: unset;
+    padding-bottom: 8px;
 }
 
 main .cards .card-text > :last-child {
@@ -113,21 +129,21 @@ main .cards .card-text span.detail + * {
     min-height: 54px;
 }
 
-main .card .card-text p, 
-main .card .card-text h1, 
-main .card .card-text h2, 
-main .card .card-text h3, 
-main .card .card-text h4, 
+main .card .card-text p,
+main .card .card-text h1,
+main .card .card-text h2,
+main .card .card-text h3,
+main .card .card-text h4,
 main .card .card-text h5,
 main .card .card-text span.detail {
     padding-top: 2px;
     padding-bottom: 2px;
 }
 
-main .card .card-text h1, 
-main .card .card-text h2, 
-main .card .card-text h3, 
-main .card .card-text h4, 
+main .card .card-text h1,
+main .card .card-text h2,
+main .card .card-text h3,
+main .card .card-text h4,
 main .card .card-text h5 {
     font-size: var(--heading-font-size-xs);
     min-height: 47px;
@@ -264,13 +280,13 @@ main .cards.overlay .card-text {
     min-height: 208px;
 }
 
-main .cards.overlay .card-text p, 
-main .cards.overlay .card-text h1, 
-main .cards.overlay .card-text h2, 
-main .cards.overlay .card-text h3, 
-main .cards.overlay .card-text h4, 
-main .cards.overlay .card-text h5, 
-main .cards.overlay .card-text span.detail, 
+main .cards.overlay .card-text p,
+main .cards.overlay .card-text h1,
+main .cards.overlay .card-text h2,
+main .cards.overlay .card-text h3,
+main .cards.overlay .card-text h4,
+main .cards.overlay .card-text h5,
+main .cards.overlay .card-text span.detail,
 main .cards.overlay .card-text a {
     color: var(--color-white);
     min-height: unset;
@@ -379,7 +395,7 @@ main .cards.horizontal .card {
     main .section > div > .cards + p.button-container {
         justify-content: center;
     }
-    
+
     main .cards.col-1-cards .card-banner .icon,
     main .cards.col-2-cards .card-banner .icon,
     main .cards.col-3-cards .card-banner .icon {
@@ -419,7 +435,7 @@ main .cards.horizontal .card {
     main .cards.col-6-cards .card {
         flex-basis: 25%;
     }
-    
+
     main .cards.horizontal .card {
         flex-basis: 50%;
     }
@@ -434,7 +450,7 @@ main .cards.horizontal .card {
     main .cards.col-6-cards .card {
         flex-basis: 100%;
     }
-    
+
     main .cards,
     main .cards.col-2-cards,
     main .cards.col-3-cards,
