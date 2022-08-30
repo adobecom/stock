@@ -1,0 +1,79 @@
+main .image-rows {
+  max-width: var(--grid-container-width);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+}
+
+main .image-rows > div:not(.image-rows-caption) > div {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+main .image-rows > div > div > *:not(:last-child) {
+  margin-right: 32px;
+}
+
+main .image-rows > div + div:not(.image-rows-caption) {
+  margin-top: 32px;
+}
+
+main .image-rows picture {
+  display: block;
+}
+
+main .image-rows p {
+  max-width: 800px;
+  padding-bottom: 0;
+}
+
+main .image-rows h1,
+main .image-rows h2,
+main .image-rows h3,
+main .image-rows h4,
+main .image-rows h5,
+main .image-rows span.detail {
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main .image-rows svg.icon {
+  height: 28px;
+  transition: filter 0.3s;
+  display: inline-block;
+  fill: currentColor;
+  width: 28px;
+  margin: 4px 8px;
+  color: #adadad;
+}
+
+main .image-rows a svg.icon:hover {
+  filter: brightness(0.7);
+}
+
+main .image-rows p.icon-container,
+main .image-rows p.icon-container a {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  color: #adadad;
+  padding-bottom: 0;
+}
+
+@media screen and (max-width: 900px) {
+  main .image-rows > div > div > *:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  main .image-rows > div + div:not(.image-rows-caption) {
+    margin-top: 8px;
+  }
+}
+
+main .image-rows + .image-rows {
+  margin-top: var(--section-spacing);
+}
