@@ -160,10 +160,10 @@ export function customSpacings() {
   });  
 }
 
-export function createSVG(path, name) {
+export function createSVG(path, name = undefined) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}#${name}`);
+  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(name !== undefined) ? "#" : ""}${name}`);
   svg.appendChild(use);
   console.log(svg);
   return svg;
