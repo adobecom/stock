@@ -130,8 +130,8 @@ export function transformLinkToYoutubeEmbed($a) {
   return $video;
 }
 
-export function unwrapFragments() {
-  Array.from(document.querySelectorAll('.fragment')).forEach(($fragment) => {
+export function unwrapSingularFragments() {
+  Array.from(document.querySelectorAll('main > .section > div > div > div > .fragment')).forEach(($fragment) => {
   const $section = $fragment.closest('main > .section');
   const $div = $fragment.closest('main > .section > div');
     Array.from($fragment.childNodes).forEach(($node) => {

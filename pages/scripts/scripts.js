@@ -12,7 +12,7 @@
 
 import { 
   setLibs, 
-  unwrapFragments, 
+  unwrapSingularFragments, 
   decorateButtons, 
   turnH6intoDetailM, 
   customSpacings,
@@ -64,7 +64,7 @@ const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/u
   decorateButtons();
   turnH6intoDetailM();
   await loadArea();
-  unwrapFragments();
+  unwrapSingularFragments();
   externalLinks();
   customSpacings();
   document.body.style.removeProperty("visibility");
