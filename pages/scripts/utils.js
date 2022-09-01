@@ -39,7 +39,7 @@ export function transformLinkToAnimation($a) {
   return $video;
 }
 
-export function turnH6intoDetailM(scope = document) {
+export async function turnH6intoDetailM(scope = document) {
   scope.querySelectorAll('h6').forEach(($h6) => {
     const $p = document.createElement('p');
     $p.classList.add('detail-M');
@@ -144,7 +144,7 @@ export function unwrapSingularFragments() {
   });
 }
 
-export function customSpacings() {
+export async function customSpacings() {
   // Adjust spacing for sections that have a background color
   Array.from(document.querySelectorAll('.section-metadata')).forEach(($sm) => {
     if ($sm.textContent.toLowerCase().includes('background')) {
@@ -170,7 +170,7 @@ export function customSpacings() {
   }
 }
 
-export function gnavUnderline() {
+export async function gnavUnderline() {
   const { href } = window.location;
   if (!href.includes('artisthub')) return;
 
@@ -195,7 +195,7 @@ export function createSVG(path, name = undefined) {
   return svg;
 }
 
-export function externalLinks() {
+export async function externalLinks() {
   const links = document.querySelectorAll('a[href]');
 
   links.forEach((linkItem) => {
