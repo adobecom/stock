@@ -161,13 +161,6 @@ export function customSpacings() {
     }
     $sm.remove();
   });
-  // Remove white space between some blocks and the footer
-  const blocksWithNoSpaceBetweenFooter = ['banner', 'separator'];
-  const lastSection = document.querySelector('main > .section:last-child');
-  const lastBlock = lastSection.querySelector(':scope > div:last-child');
-  if (blocksWithNoSpaceBetweenFooter.some((e) => lastBlock.classList.contains(e))) {
-    lastSection.style.paddingBottom = '0';
-  }
 }
 
 export function gnavUnderline() {
