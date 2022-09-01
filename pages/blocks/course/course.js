@@ -20,6 +20,57 @@ function createTag(name, attrs) {
   return el;
 }
 
+function handlize(string) {
+  return string.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '');
+}
+
+function buildCards($block, payload) {
+  const $cardsTray = createTag('div', { class: 'cards horizontal' });
+  const $contentArea = $block.querySelector('.content-area');
+
+  payload.tabs[payload.tabs.length - 1].content.forEach((category, index) => {
+    const $htmlHolder = document.createElement('div');
+    $htmlHolder.innerHTML = category.innerContent;
+    const $liWithLink = $htmlHolder.querySelectorAll('li');
+
+    for (let i = 0; i < $liWithLink.length; i += 1) {
+      const $picture = $liWithLink[i].querySelector('picture');
+      const $link = $liWithLink[i].querySelector('a');
+
+      const $card = createTag('div', { class: 'card' });
+      const $linkLayer = createTag('a', { class: 'card-container-link' });
+      const $cardText = createTag('div', { class: 'card-text' });
+      const $grayText = createTag('p', { class: 'detail-M', id: handlize(category.subHeading) });
+
+      const $h3 = createTag('div', { class: handlize($link.textContent) });
+      $h3.textContent = $link.textContent;
+      $linkLayer.href = $link.href;
+      $grayText.textContent = category.subHeading;
+      
+      if ($picture) {
+        const $pictureWrapper = createTag('div', { class: 'card-picture' });
+        $pictureWrapper.append($picture);
+        $linkLayer.append($pictureWrapper);
+      }
+
+      if (index === 0) {
+        $linkLayer.setAttribute('download', 'true');
+      } else {
+        $linkLayer.setAttribute('target', '_blank');
+      }
+
+      $cardText.append($grayText, $h3);
+      $linkLayer.append($cardText);
+      $card.append($linkLayer);
+      $cardsTray.append($card);
+
+      $liWithLink[i].remove();
+    }
+    $contentArea.append($cardsTray);
+    $htmlHolder.remove();
+  });
+}
+
 function injectFBSDK() {
   const script = `<!-- Load Facebook SDK for JavaScript -->
     <div id="fb-root"></div>
@@ -44,28 +95,26 @@ function loadTranscript($block, payload) {
   $contentArea.textContent = payload.videos[payload.videoIndex].Transcript;
 }
 
-function loadTabContent($block, payload, index) {
-  const $contentArea = $block.querySelector('.content-area');
-  $contentArea.innerHTML = payload.tabs[index].content;
-
-  // build cards if there are <li> with <a>
-  const isLastTab = index === payload.tabs.length - 1;
-  const $listItems = $contentArea.querySelectorAll('li');
-  const $liWithLink = [];
-  for (let i = 0; i < $listItems.length; i += 1) {
-    const $link = $listItems[i].querySelector('a');
-    if ($link) {
-      $liWithLink.push($link);
+function removeEmptyList($block) {
+  const $lists = $block.querySelectorAll('ul');
+  for (let i = 0; i < $lists.length; i += 1) {
+    if ($lists.innerHTML === '') {
+      $lists.remove();
     }
   }
+}
 
-  if ($liWithLink.length > 0 && isLastTab) {
-    for (let i = 0; i < $liWithLink.length; i += 1) {
-      const $picture = $liWithLink[i].querySelector('picture');
-      if ($picture) {
+function getURLExtension(url) {
+  return url.split(/[#?]/)[0].split('.').pop().trim();
+}
 
-      }
-    }
+function loadTabContent($block, payload, index) {
+  const $contentArea = $block.querySelector('.content-area');
+  if (index === payload.tabs.length - 1) {
+    $contentArea.innerHTML = '';
+    buildCards($block, payload);
+  } else {
+    $contentArea.innerHTML = payload.tabs[index].content;
   }
 }
 
@@ -188,16 +237,41 @@ async function buildPayload($block, payload) {
   payload.videos = await fetchVideos(videoSpreadSheetUrl);
   rows.shift();
 
-  rows.forEach(($row) => {
+  rows.forEach(($row, index, array) => {
     const firstCol = $row.querySelector('div');
     const heading = firstCol.textContent;
     firstCol.remove();
     const content = $row.querySelector('div').innerHTML;
-    payload.tabs.push({
-      heading,
-      content,
-    });
+    if (index < array.length - 2) {
+      payload.tabs.push({
+        heading,
+        content,
+      });
+    } else if (heading !== '') {
+      const $firstInnerCol = $row.querySelector('div');
+      const subHeading = $firstInnerCol.textContent;
+      $firstInnerCol.remove();
+      const innerContent = $row.querySelector('div').innerHTML;
+      payload.tabs.push({
+        heading,
+        content: [{
+          subHeading,
+          innerContent,
+        }],
+      });
+    } else {
+      const $firstInnerCol = $row.querySelector('div');
+      const subHeading = $firstInnerCol.textContent;
+      $firstInnerCol.remove();
+      const innerContent = $row.querySelector('div').innerHTML;
+      payload.tabs[payload.tabs.length - 1].content.push({
+        subHeading,
+        innerContent,
+      });
+    }
   });
+
+  console.log(payload.tabs);
 }
 
 export default async function decorate($block) {

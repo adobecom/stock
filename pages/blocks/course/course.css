@@ -1,0 +1,498 @@
+
+
+/* load cards style inside course block */
+
+main .course .cards {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  margin: 0;
+  margin-top: var(--section-spacing);
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 24px;
+  max-width: var(--grid-container-width);
+}
+
+main .course .cards.col-2-cards,
+main .course .cards.col-3-cards,
+main .course .cards.col-4-cards,
+main .course .cards.col-5-cards,
+main .course .cards.col-6-cards {
+  flex-wrap: nowrap;
+}
+
+main .course .cards .card > a {
+  color: unset;
+  font-weight: unset;
+  font-size: unset;
+  line-height: unset;
+}
+
+main .course .cards .card {
+  background: white;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+  min-width: 200px;
+  margin: 0;
+  position: relative;
+}
+
+main .course .cards.borderless .card {
+  border: unset;
+  border-radius: unset;
+}
+
+main .course .cards a {
+  text-decoration: none;
+}
+
+main .course .cards .card-text {
+  padding: 16px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+main .course .cards.borderless .card-text {
+  padding: unset;
+  padding-top: 20px;
+}
+
+main .course .cards.horizontal .card-text {
+  padding-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+main .course .cards .card-text span.detail {
+  text-transform: none;
+  color: #505050;
+  font-weight: 400;
+  padding: 0;
+  letter-spacing: 0;
+}
+
+main .course .cards .card-text > :first-child {
+  padding-top: 0;
+}
+
+main .course .cards.borderless .card-text > :first-child {
+  min-height: unset;
+  padding-bottom: 8px;
+}
+
+main .course .cards .card-text > :last-child {
+  padding-bottom: 0;
+}
+
+main .course .cards:not(.horizontal):not(.overlay) .card-text > p:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+main .course .cards:not(.horizontal):not(.overlay) .card-text > .button-container:last-child {
+  justify-self: flex-end;
+  align-self: flex-end;
+  margin-top: auto;
+  margin-bottom: 0;
+  padding-top: 20px;
+  padding-bottom: 0;
+  width: 100%;
+  border-top: 1px solid #EAEAEA;
+  justify-content: space-between;
+}
+
+main .course .cards:not(.horizontal):not(.overlay) .card-text > .button-container:last-child a {
+  min-width: none;
+}
+
+main .course .cards:not(.horizontal):not(.overlay) .card-text > .button-container:last-child a:only-child {
+  margin-left: auto;
+}
+
+main .course .cards .card-text span.detail + * {
+  padding-top: 2px;
+  min-height: 54px;
+}
+
+main .card .card-text p,
+main .card .card-text h1,
+main .card .card-text h2,
+main .card .card-text h3,
+main .card .card-text h4,
+main .card .card-text h5,
+main .card .card-text span.detail {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+main .card .card-text h1,
+main .card .card-text h2,
+main .card .card-text h3,
+main .card .card-text h4,
+main .card .card-text h5 {
+  font-size: var(--heading-font-size-xs);
+  min-height: 47px;
+}
+
+main .card .card-text p {
+  font-size: var(--body-font-size-xs);
+  color: #747474;
+}
+
+main .course .cards .card-banner {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+  user-select: none;
+  min-height: 40px;
+  min-width: 40px;
+}
+
+main .course .cards .card-banner p {
+  margin-top: 28px;
+  width: auto;
+  margin-left: auto;
+  font-size: 12px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 1px;
+  background: #1473e6;
+  padding: 8px 12px;
+  border-radius: 4px 0px 0px 4px;
+}
+
+main .course .cards .card-banner .icon {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  height: 40px;
+  width: 40px;
+  z-index: 2;
+}
+
+main .course .cards .card-banner .icon {
+  top: 132px;
+}
+
+main .course .cards.col-5-cards .card-banner .icon {
+  top: 82px;
+}
+
+main .course .cards.col-1-cards .card-banner .icon,
+main .course .cards.col-2-cards .card-banner .icon,
+main .course .cards.col-3-cards .card-banner .icon {
+  top: 232px;
+}
+
+main .course .cards.overlay.cards.col-1-cards .card-banner .icon,
+main .course .cards.overlay.cards.col-2-cards .card-banner .icon,
+main .course .cards.overlay.cards.col-3-cards .card-banner .icon,
+main .course .cards.overlay .card-banner .icon {
+  top: auto;
+  bottom: 28px;
+}
+
+main .course .cards .card-picture img,
+main .course .cards .card-picture video {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+
+main .course .cards .card-picture video {
+  min-width: 101%;
+  transform: translateX(-0.5%);
+}
+
+main .course .cards.col-5-cards .card-picture img,
+main .course .cards.col-5-cards .card-picture video {
+  height: 150px;
+}
+
+main .course .cards.col-1-cards .card-picture img,
+main .course .cards.col-2-cards .card-picture img,
+main .course .cards.col-3-cards .card-picture img,
+main .course .cards.col-1-cards .card-picture video,
+main .course .cards.col-2-cards .card-picture video,
+main .course .cards.col-3-cards .card-picture video {
+  height: 300px;
+}
+
+main .course .cards.overlay.cards.col-1-cards .card-picture img,
+main .course .cards.overlay.cards.col-2-cards .card-picture img,
+main .course .cards.overlay.cards.col-3-cards .card-picture img,
+main .course .cards.overlay .card-picture img,
+main .course .cards.overlay.cards.col-1-cards .card-picture video,
+main .course .cards.overlay.cards.col-2-cards .card-picture video,
+main .course .cards.overlay.cards.col-3-cards .card-picture video,
+main .course .cards.overlay .card-picture video {
+  height: 100%;
+}
+
+main .course .cards.overlay .card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  z-index: 2;
+  background: transparent linear-gradient(180deg, #0000001A 0%, #000000CC 100%) 0% 0% no-repeat padding-box;
+}
+
+main .course .cards.overlay .card-picture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+main .course .cards.overlay .card-text {
+  z-index: 3;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  min-height: 208px;
+}
+
+main .course .cards.overlay .card-text p,
+main .course .cards.overlay .card-text h1,
+main .course .cards.overlay .card-text h2,
+main .course .cards.overlay .card-text h3,
+main .course .cards.overlay .card-text h4,
+main .course .cards.overlay .card-text h5,
+main .course .cards.overlay .card-text span.detail,
+main .course .cards.overlay .card-text a {
+  color: var(--color-white);
+  min-height: unset;
+}
+
+main .course .cards.horizontal .card {
+  display: flex;
+  width: 100%;
+}
+
+main .course .cards .card > a {
+  color: unset;
+  border-color: unset;
+  background: unset;
+  border-radius: unset;
+  padding: unset;
+  margin: unset;
+  height: 100%;
+  text-align: unset;
+  transition: unset;
+  border: unset;
+  white-space: unset;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+main .course .cards.horizontal .card-container-link {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+}
+
+main .course .cards.horizontal {
+  flex-wrap: wrap;
+}
+
+main .course .cards.col-3-cards.horizontal {
+  flex-wrap: nowrap;
+}
+
+main .course .cards.horizontal.col-4-cards {
+  max-width: 900px;
+}
+main .course .cards.horizontal .card {
+  flex-basis: 40%;
+  max-width: 375px;
+}
+
+main .course .cards.horizontal.col-4-cards .card {
+  flex-basis: 50%;
+  width: 100%;
+}
+
+main .course .cards.horizontal .card-picture {
+  width: 110px;
+  min-width: 110px;
+}
+
+main .course .cards.horizontal.cards.col-1-cards .card-picture img,
+main .course .cards.horizontal.cards.col-2-cards .card-picture img,
+main .course .cards.horizontal.cards.col-3-cards .card-picture img,
+main .course .cards.horizontal .card-picture img,
+main .course .cards.horizontal.cards.col-1-cards .card-picture video,
+main .course .cards.horizontal.cards.col-2-cards .card-picture video,
+main .course .cards.horizontal.cards.col-3-cards .card-picture video,
+main .course .cards.horizontal .card-picture video {
+  height: 100%;
+}
+
+main .course .cards.horizontal .card-picture img,
+main .course .cards.horizontal .card-picture video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 110px;
+}
+
+main .course .cards.horizontal .card {
+  min-height: 128px;
+}
+
+@media screen and (max-width: 999px) {
+  main .course .cards.col-4-cards {
+    flex-wrap: wrap;
+  }
+
+  main .course .cards.col-4-cards .card {
+    flex-basis: calc(50% - 16px);
+  }
+
+  main .course .cards.horizontal.col-4-cards .card {
+    flex-basis: 100%;
+  }
+
+  main .course .cards.col-1-cards .card-picture img,
+  main .course .cards.col-2-cards .card-picture img,
+  main .course .cards.col-3-cards .card-picture img,
+  main .course .cards.col-1-cards .card-picture video,
+  main .course .cards.col-2-cards .card-picture video,
+  main .course .cards.col-3-cards .card-picture video {
+    height: 200px;
+  }
+
+  main .section > div > .cards + p.button-container {
+    justify-content: center;
+  }
+
+  main .course .cards.col-1-cards .card-banner .icon,
+  main .course .cards.col-2-cards .card-banner .icon,
+  main .course .cards.col-3-cards .card-banner .icon {
+    top: 132px;
+  }
+
+  main .course .cards + .cards {
+    margin-top: 24px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  main .course .cards.col-5-cards {
+    flex-wrap: wrap;
+  }
+
+  main .course .cards.col-5-cards .card {
+    flex-basis: 25%;
+  }
+
+  main .course .cards.col-3-cards.horizontal {
+    flex-wrap: wrap;
+    max-width: 600px;
+  }
+
+  main .course .cards.col-3-cards.horizontal .card {
+    flex-basis: 100%;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1420px) {
+  main .course .cards.col-6-cards {
+    flex-wrap: wrap;
+  }
+
+  main .course .cards.col-6-cards .card {
+    flex-basis: 25%;
+  }
+
+  main .course .cards.horizontal .card {
+    flex-basis: 50%;
+  }
+}
+
+@media screen and (max-width: 799px) {
+  main .course .cards .card,
+  main .course .cards.col-2-cards .card,
+  main .course .cards.col-3-cards .card,
+  main .course .cards.col-4-cards .card,
+  main .course .cards.col-5-cards .card,
+  main .course .cards.col-6-cards .card {
+    flex-basis: 100%;
+  }
+
+  main .course .cards,
+  main .course .cards.col-2-cards,
+  main .course .cards.col-3-cards,
+  main .course .cards.col-4-cards,
+  main .course .cards.col-5-cards,
+  main .course .cards.col-6-cards {
+    flex-wrap: wrap;
+  }
+
+  main .course .cards .card {
+    max-width: 500px;
+  }
+}
+
+main .course .cards + p,
+main .course .cards + a {
+  margin-top: -20px;
+  padding-top: 0;
+}
+
+main .course .cards.nocrop:not(.horizontal):not(.overlay) .card-picture img,
+main .course .cards.nocrop:not(.horizontal):not(.overlay) .card-picture video {
+  height: auto;
+  object-fit: contain;
+}
+
+/* Hover Animations */
+
+main .course .cards:not(.horizontal) .card-container-link .card-picture {
+  overflow: hidden;
+}
+
+main .course .cards:not(.horizontal) .card-container-link .card-picture img,
+main .course .cards:not(.horizontal) .card-container-link .card-picture video {
+  transition: filter 0.3s, transform 0.3s;
+}
+
+main .course .cards:not(.horizontal) .card-container-link:hover .card-picture img,
+main .course .cards:not(.horizontal) .card-container-link:focus .card-picture img,
+main .course .cards:not(.horizontal) .card-container-link:hover .card-picture video,
+main .course .cards:not(.horizontal) .card-container-link:focus .card-picture video {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+}
+
+main .course .cards.horizontal .card-container-link {
+  transition: filter 0.3s;
+}
+
+main .course .cards.horizontal .card-container-link:focus,
+main .course .cards.horizontal .card-container-link:hover {
+  filter: brightness(0.9);
+}
