@@ -39,8 +39,8 @@ export function transformLinkToAnimation($a) {
   return $video;
 }
 
-export function turnH6intoDetailM() {
-  document.querySelectorAll('h6').forEach(($h6) => {
+export function turnH6intoDetailM(scope = document) {
+  scope.querySelectorAll('h6').forEach(($h6) => {
     const $p = document.createElement('p');
     $p.classList.add('detail-M');
     const attrs = $h6.attributes;
@@ -52,13 +52,13 @@ export function turnH6intoDetailM() {
   });
 }
 
-export function decorateButtons() {
-  const $blocksWithoutButton = ['breadcrumbs', 'sitemap', 'images'];
+export function decorateButtons(scope = document) {
+  const $blocksWithoutButton = ['sitemap', 'image-carousel', 'image-rows'];
   const isNodeName = (node, name) => {
     if (!node || typeof node !== 'object') return false;
     return node.nodeName.toLowerCase() === name.toLowerCase();
   }
-  document.querySelectorAll(':scope a').forEach(($a) => {
+  scope.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent || $a.href;
     const $block = $a.closest('div.section > div');
     const blockNames = [];
@@ -130,12 +130,14 @@ export function transformLinkToYoutubeEmbed($a) {
   return $video;
 }
 
-export function unwrapFragments() {
-  Array.from(document.querySelectorAll('.fragment')).forEach(($fragment) => {
+export function unwrapSingularFragments() {
+  Array.from(document.querySelectorAll('main > .section > div > div > div > .fragment')).forEach(($fragment) => {
   const $section = $fragment.closest('main > .section');
   const $div = $fragment.closest('main > .section > div');
     Array.from($fragment.childNodes).forEach(($node) => {
       $section.parentNode.insertBefore($node, $section);
+      decorateButtons($node);
+      turnH6intoDetailM($node);
     });
     $div.remove();
     if ($section.childElementCount === 0) $section.remove();
@@ -160,12 +162,28 @@ export function customSpacings() {
   });  
 }
 
+export function gnavUnderline() {
+  const { href } = window.location;
+  if (!href.includes('artisthub')) return;
+
+  let regex = /\/artisthub\/([^\/\\]+)/gi;
+  const match = regex.exec(href);
+  regex.lastIndex = 0;
+  if (!(match && match.length > 1)) return;
+
+  const $links = Array.from(document.querySelectorAll('.gnav-navitem > a'));
+  $links.forEach(($a) => {
+    const linkMatch = regex.exec($a.href);
+    if (linkMatch && linkMatch.length > 1 && linkMatch[1] === match[1]) $a.classList.add('active-page');
+    regex.lastIndex = 0;
+  });
+}
+
 export function createSVG(path, name = undefined) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
   use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(name !== undefined) ? "#" : ""}${name}`);
   svg.appendChild(use);
-  console.log(svg);
   return svg;
 }
 
