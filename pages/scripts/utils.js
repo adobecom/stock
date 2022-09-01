@@ -58,7 +58,6 @@ export function decorateButtons(scope = document) {
     if (!node || typeof node !== 'object') return false;
     return node.nodeName.toLowerCase() === name.toLowerCase();
   }
-  console.log(scope);
   scope.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent || $a.href;
     const $block = $a.closest('div.section > div');
