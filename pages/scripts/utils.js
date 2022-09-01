@@ -161,6 +161,23 @@ export function customSpacings() {
   });  
 }
 
+export function gnavUnderline() {
+  const { href } = window.location;
+  if (!href.includes('artisthub')) return;
+
+  let regex = /\/artisthub\/([^\/\\]+)/gi;
+  const match = regex.exec(href);
+  regex.lastIndex = 0;
+  if (!(match && match.length > 1)) return;
+
+  const $links = Array.from(document.querySelectorAll('.gnav-navitem > a'));
+  $links.forEach(($a) => {
+    const linkMatch = regex.exec($a.href);
+    if (linkMatch && linkMatch.length > 1 && linkMatch[1] === match[1]) $a.classList.add('active-page');
+    regex.lastIndex = 0;
+  });
+}
+
 export function createSVG(path, name = undefined) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');

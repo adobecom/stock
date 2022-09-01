@@ -17,6 +17,7 @@ import {
   turnH6intoDetailM, 
   customSpacings,
   externalLinks,
+  gnavUnderline,
 } from './utils.js';
 
 const LIBS = 'https://milo.adobe.com/libs';
@@ -67,8 +68,20 @@ const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/u
   unwrapSingularFragments();
   externalLinks();
   customSpacings();
+  gnavUnderline();
   document.body.style.removeProperty("visibility");
   const { default: loadModals } = await import(`${miloLibs}/blocks/modals/modals.js`);
   loadModals();
   loadDelayed();
+
+  
+  const { href } = window.location;
+  if (!href.includes('artisthub')) return;
+
+  let regex = /\/artisthub\/([^/]+)/g;
+  const match = regex.exec(href);
+  if (!(match && match.length > 1)) return;
+
+  const $links = document.querySelectorAll('.gnav-navitem > a');
+  console.log($links);
 }());
