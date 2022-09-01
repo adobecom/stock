@@ -1,0 +1,45 @@
+main .video {
+  max-width: var(--grid-container-width);
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+main .video div {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+main .video.full-width,
+main .video.full.width,
+main .video.fullwidth {
+  padding: 0;
+  max-width: unset;
+}
+
+main .video.no-controls,
+main .video.no.controls,
+main .video.nocontrols {
+  pointer-events: none;
+}
+
+main .video .vid-wrapper {
+  left: 0;
+  width: 100%;
+  height: 0;
+  position: relative;
+  padding-bottom: 56.25%;
+}
+
+main .video iframe,
+main .video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  height: 100%;
+  width: 100%;
+}
