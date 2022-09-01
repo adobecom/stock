@@ -145,21 +145,29 @@ export function unwrapSingularFragments() {
 }
 
 export function customSpacings() {
+  // Adjust spacing for sections that have a background color
   Array.from(document.querySelectorAll('.section-metadata')).forEach(($sm) => {
     if ($sm.textContent.toLowerCase().includes('background')) {
-      const $section = $sm.closest('main > section');
-      $sm.parentElement.classList.add('has-background');
-      const $next = $sm.parentElement.nextElementSibling;
+      const $section = $sm.closest('main > .section');
+      $section.classList.add('has-background');
+      const $next = $section.nextElementSibling;
       if ($next && $next.querySelector(':scope > .banner:first-child')) {
         $next.style.paddingTop = '0';
       }
-      const $prev = $sm.parentElement.previousElementSibling;
+      const $prev = $section.previousElementSibling;
       if ($prev && $prev.querySelector(':scope > .banner:last-child')) {
         $prev.style.paddingBottom = '0';
       }
     }
     $sm.remove();
-  });  
+  });
+  // Remove white space between some blocks and the footer
+  const blocksWithNoSpaceBetweenFooter = ['banner', 'separator'];
+  const lastSection = document.querySelector('main > .section:last-child');
+  const lastBlock = lastSection.querySelector(':scope > div:last-child');
+  if (blocksWithNoSpaceBetweenFooter.some((e) => lastBlock.classList.contains(e))) {
+    lastSection.style.paddingBottom = '0';
+  }
 }
 
 export function gnavUnderline() {

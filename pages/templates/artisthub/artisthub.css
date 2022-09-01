@@ -153,10 +153,6 @@ main > .section.has-background,
   padding-top: var(--section-spacing);
 }
 
-main .section.center .columns {
-  text-align: center;
-}
-
 /* customize articles */
 
 ul, ol {
