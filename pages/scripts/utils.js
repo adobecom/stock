@@ -39,8 +39,8 @@ export function transformLinkToAnimation($a) {
   return $video;
 }
 
-export function turnH6intoDetailM() {
-  document.querySelectorAll('h6').forEach(($h6) => {
+export function turnH6intoDetailM(scope = document) {
+  scope.querySelectorAll('h6').forEach(($h6) => {
     const $p = document.createElement('p');
     $p.classList.add('detail-M');
     const attrs = $h6.attributes;
@@ -137,6 +137,7 @@ export function unwrapSingularFragments() {
     Array.from($fragment.childNodes).forEach(($node) => {
       $section.parentNode.insertBefore($node, $section);
       decorateButtons($node);
+      turnH6intoDetailM($node);
     });
     $div.remove();
     if ($section.childElementCount === 0) $section.remove();
