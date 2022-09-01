@@ -52,13 +52,14 @@ export function turnH6intoDetailM() {
   });
 }
 
-export function decorateButtons() {
-  const $blocksWithoutButton = ['breadcrumbs', 'sitemap', 'images'];
+export function decorateButtons(scope = document) {
+  const $blocksWithoutButton = ['sitemap', 'image-carousel', 'image-rows'];
   const isNodeName = (node, name) => {
     if (!node || typeof node !== 'object') return false;
     return node.nodeName.toLowerCase() === name.toLowerCase();
   }
-  document.querySelectorAll(':scope a').forEach(($a) => {
+  console.log(scope);
+  scope.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent || $a.href;
     const $block = $a.closest('div.section > div');
     const blockNames = [];
@@ -136,6 +137,7 @@ export function unwrapSingularFragments() {
   const $div = $fragment.closest('main > .section > div');
     Array.from($fragment.childNodes).forEach(($node) => {
       $section.parentNode.insertBefore($node, $section);
+      decorateButtons($node);
     });
     $div.remove();
     if ($section.childElementCount === 0) $section.remove();
