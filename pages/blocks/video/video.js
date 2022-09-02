@@ -95,7 +95,6 @@ function runLazyObserver($block) {
 }
 
 export default function lazyDecorate($block) {
-  console.log($block);
   if (document.readyState === 'complete') {
     runLazyObserver($block);
   } else {

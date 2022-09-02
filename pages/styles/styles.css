@@ -232,7 +232,8 @@ a.button > svg > use {
   color: currentColor;
 }
 
-.center p.button-container {
+.center .content p.button-container,
+.section .center p.button-container {
   justify-content: center;
 }
 

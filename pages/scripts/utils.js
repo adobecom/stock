@@ -145,21 +145,22 @@ export function unwrapSingularFragments() {
 }
 
 export function customSpacings() {
+  // Adjust spacing for sections that have a background color
   Array.from(document.querySelectorAll('.section-metadata')).forEach(($sm) => {
     if ($sm.textContent.toLowerCase().includes('background')) {
-      const $section = $sm.closest('main > section');
-      $sm.parentElement.classList.add('has-background');
-      const $next = $sm.parentElement.nextElementSibling;
+      const $section = $sm.closest('main > .section');
+      $section.classList.add('has-background');
+      const $next = $section.nextElementSibling;
       if ($next && $next.querySelector(':scope > .banner:first-child')) {
         $next.style.paddingTop = '0';
       }
-      const $prev = $sm.parentElement.previousElementSibling;
+      const $prev = $section.previousElementSibling;
       if ($prev && $prev.querySelector(':scope > .banner:last-child')) {
         $prev.style.paddingBottom = '0';
       }
     }
     $sm.remove();
-  });  
+  });
 }
 
 export function gnavUnderline() {
