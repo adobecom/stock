@@ -13,6 +13,7 @@
 function createTag(name, attrs) {
   const el = document.createElement(name);
   if (typeof attrs === 'object') {
+    // eslint-disable-next-line no-restricted-syntax
     for (const [key, value] of Object.entries(attrs)) {
       el.setAttribute(key, value);
     }
@@ -28,12 +29,14 @@ function buildCards($block, payload) {
   const $cardsTray = createTag('div', { class: 'cards horizontal' });
   const $contentArea = $block.querySelector('.content-area');
 
+  let tabCounts = 0;
   payload.tabs[payload.tabs.length - 1].content.forEach((category, index) => {
     const $htmlHolder = document.createElement('div');
     $htmlHolder.innerHTML = category.innerContent;
     const $liWithLink = $htmlHolder.querySelectorAll('li');
 
     for (let i = 0; i < $liWithLink.length; i += 1) {
+      tabCounts += 1;
       const $picture = $liWithLink[i].querySelector('picture');
       const $link = $liWithLink[i].querySelector('a');
 
@@ -46,7 +49,7 @@ function buildCards($block, payload) {
       $h3.textContent = $link.textContent;
       $linkLayer.href = $link.href;
       $grayText.textContent = category.subHeading;
-      
+
       if ($picture) {
         const $pictureWrapper = createTag('div', { class: 'card-picture' });
         $pictureWrapper.append($picture);
@@ -69,43 +72,71 @@ function buildCards($block, payload) {
     $contentArea.append($cardsTray);
     $htmlHolder.remove();
   });
+
+  if (tabCounts <= 6) {
+    $cardsTray.classList.add(`col-${tabCounts}-cards`);
+  }
 }
 
 function injectFBSDK() {
-  const script = `<!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-    fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>`;
-
+  const $holder = createTag('div', { id: 'fb-root' });
+  const $sdkScript = createTag('script');
+  $sdkScript.innerHTML = '(function(d, s, id) {\n    var js, fjs = d.getElementsByTagName(s)[0];\n    if (d.getElementById(id)) return;\n    js = d.createElement(s); js.id = id;\n    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";\n    fjs.parentNode.insertBefore(js, fjs);\n    }(document, \'script\', \'facebook-jssdk\'));'
   const body = document.querySelector('body');
+  body.prepend($holder, $sdkScript);
 }
 
-function decorateSocialShareLinks($block, payload) {
+function makeTwitterButton() {
+  const $twitter = createTag('span');
+  const $button = createTag('a', {
+    href: 'https://twitter.com/share?ref_src=twsrc%5Etfw',
+    className: 'twitter-share-button',
+    'data-show-count': false,
+  });
+  const $script = createTag('script', {
+    async: true,
+    src: 'https://platform.twitter.com/widgets.js',
+    charSet: 'utf-8',
+  });
+  $button.textContent = 'Tweet';
+  $twitter.append($button, $script);
+  return $twitter;
+}
 
+function decorateSocialShareLinks() {
+  const $wrapper = createTag('div', { class: 'social-wrapper' });
+  const $heading = createTag('div', { class: 'social-heading' });
+  const $socialButtons = createTag('div', { class: 'social-buttons' });
+
+  $wrapper.append($heading, $socialButtons);
+
+  // FB
+  injectFBSDK();
+  $socialButtons.append(createTag('div', {
+    class: 'fb-share-button',
+    'data-href': window.location.href,
+    'data-layout': 'button',
+  }));
+
+  // Twitter
+  $socialButtons.append(makeTwitterButton());
+  
+  // LinkedIn
+  return $wrapper;
 }
 
 function loadTranscript($block, payload) {
   const $contentArea = $block.querySelector('.content-area');
   $contentArea.innerHTML = '';
-  $contentArea.textContent = payload.videos[payload.videoIndex].Transcript;
-}
 
-function removeEmptyList($block) {
-  const $lists = $block.querySelectorAll('ul');
-  for (let i = 0; i < $lists.length; i += 1) {
-    if ($lists.innerHTML === '') {
-      $lists.remove();
-    }
+  const paragraphs = payload.videos[payload.videoIndex].Transcript.split('\n');
+  if (paragraphs.length > 0) {
+    paragraphs.forEach((p) => {
+      const $p = createTag('p');
+      $p.textContent = p;
+      $contentArea.append($p);
+    });
   }
-}
-
-function getURLExtension(url) {
-  return url.split(/[#?]/)[0].split('.').pop().trim();
 }
 
 function loadTabContent($block, payload, index) {
@@ -125,6 +156,9 @@ function decorateTabbedArea($block, payload) {
 
   payload.tabs.forEach((tab, index) => {
     const $tab = createTag('a', { class: 'tab' });
+    if (index === 0) {
+      $tab.classList.add('active');
+    }
     $tab.textContent = tab.heading;
     $tabs.append($tab);
 
@@ -205,8 +239,15 @@ function decorateVideoList($block, payload) {
     $listItem.append($clickable);
     $clickable.append($titleSpan, $durationSpan);
 
+    if (index === 0) {
+      $clickable.classList.add('active');
+    }
+
     $clickable.addEventListener('click', () => {
+      const $allVideoButtons = $list.querySelectorAll('.video-player-list-link');
       if (payload.videoIndex !== index) {
+        $allVideoButtons[payload.videoIndex].classList.remove('active');
+        $allVideoButtons[index].classList.add('active');
         payload.videoIndex = index;
         loadVideo($block, payload);
       }
@@ -218,6 +259,7 @@ function decorateVideoList($block, payload) {
 
 function decorateVideoPlayer($block, payload) {
   const $videoPlayerWrapper = createTag('div', { class: 'video-player-wrapper' });
+  const $videoMenu = createTag('div', { class: 'video-player-menu' });
   const $videoPlayer = createTag('video', {
     class: 'video-player',
     controls: true,
@@ -225,8 +267,10 @@ function decorateVideoPlayer($block, payload) {
     preload: 'metadata',
   });
   const $videoList = decorateVideoList($block, payload);
+  const $shareCourse = decorateSocialShareLinks($block);
 
-  $videoPlayerWrapper.append($videoPlayer, $videoList);
+  $videoMenu.append($videoList, $shareCourse);
+  $videoPlayerWrapper.append($videoPlayer, $videoMenu);
   $block.append($videoPlayerWrapper);
   loadVideo($block, payload);
 }
@@ -270,8 +314,6 @@ async function buildPayload($block, payload) {
       });
     }
   });
-
-  console.log(payload.tabs);
 }
 
 export default async function decorate($block) {

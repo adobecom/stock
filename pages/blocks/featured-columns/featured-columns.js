@@ -15,6 +15,10 @@ import {
   createTag,
 } from '../../scripts/utils.js';
 
+function addShadedBackground($block) {
+  $block.parentElement.style.backgroundColor = '#f4f4f4';
+}
+
 function lazyDecorateVideo($cell, $a) {
   if (!$a || (!$a.href.endsWith('.mp4') && !$a.href.startsWith('https://www.youtube.com/watch') && !$a.href.startsWith('https://youtu.be/'))) return;
   const decorateVideo = () => {
@@ -68,6 +72,10 @@ function lazyDecorateVideo($cell, $a) {
 }
 
 export default function decorate($block) {
+  if ($block.classList.contains('person')) {
+    addShadedBackground($block);
+  }
+
   const $rows = Array.from($block.children);
   $rows.forEach(($row) => {
     $row.classList.add('featured-row');

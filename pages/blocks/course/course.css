@@ -1,5 +1,91 @@
+main .course {
+  max-width: var(--grid-container-width);
+  margin: var(--section-spacing-small) auto;
+}
 
+main .course .video-player-wrapper {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 40px;
+}
 
+main .course .video-player {
+  width: 70%;
+}
+
+main .course .video-player-menu {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+main .course .video-player-list {
+  padding: 24px;
+  padding-left: 48px;
+  background-color: #f4f4f4;
+}
+
+main .course .video-player-list-link {
+  display: flex;
+  color: var(--text-color);
+  justify-content: space-between;
+}
+
+main .course .video-player-list-link.active {
+  font-weight: 600;
+}
+
+main .course .tabbed-area {
+  width: 70%;
+}
+
+main .course .tabs {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 8%;
+  margin-bottom: 40px;
+}
+
+main .course .tabs .tab {
+  padding: 2px;
+  color:  var(--text-color);
+  font-size: 20px;
+}
+
+main .course .tabs .tab.active {
+  font-weight: 600;
+  border-bottom: solid 3px var(--text-color);
+}
+
+main .course .tabs .tab:hover {
+  text-decoration: unset;
+  border-bottom: solid 3px var(--text-color);
+}
+
+main .course a {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 999px) {
+  main .course .video-player-wrapper {
+    flex-direction: column;
+  }
+
+  main .course .video-player,
+  main .course .video-player-menu,
+  main .course .tabbed-area {
+    width: 100%;
+  }
+
+  main .course .tabs {
+    padding: 0;
+  }
+
+  main .course .tabs .tab {
+    font-size: 16px;
+  }
+}
 /* load cards style inside course block */
 
 main .course .cards {
@@ -314,6 +400,7 @@ main .course .cards.horizontal .card-container-link {
 }
 
 main .course .cards.horizontal {
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 
