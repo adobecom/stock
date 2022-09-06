@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+import { fetchPlaceholders } from '../../scripts/scripts.js';
+
 function createTag(name, attrs) {
   const el = document.createElement(name);
   if (typeof attrs === 'object') {
@@ -229,7 +231,7 @@ function decorateVideoList($block, payload) {
   const $list = createTag('ol', { class: 'video-player-list' });
   const $videoMenuHeading = createTag('div', { class: 'video-player-menu-heading' });
 
-  $videoMenuHeading.textContent = 'Lessons';
+  $videoMenuHeading.textContent = payload.placeholders['course-menu-heading'];
   $list.append($videoMenuHeading);
 
   payload.videos.forEach((video, index) => {
@@ -282,41 +284,34 @@ function decorateVideoPlayer($block, payload) {
 }
 
 async function buildPayload($block, payload) {
+  const placeholderKeys = ['course-tab-description', 'course-tab-takeaways', 'course-tab-transcript'];
   const rows = Array.from($block.children);
   const videoSpreadSheetUrl = rows[0].querySelector('a').href;
   payload.videos = await fetchVideos(videoSpreadSheetUrl);
   rows.shift();
 
   rows.forEach(($row, index, array) => {
-    const firstCol = $row.querySelector('div');
-    const heading = firstCol.textContent;
-    firstCol.remove();
+    const heading = payload.placeholders[placeholderKeys[index]];
     const content = $row.querySelector('div').innerHTML;
     if (index < array.length - 2) {
       payload.tabs.push({
         heading,
         content,
       });
-    } else if (heading !== '') {
-      const $firstInnerCol = $row.querySelector('div');
-      const subHeading = $firstInnerCol.textContent;
-      $firstInnerCol.remove();
-      const innerContent = $row.querySelector('div').innerHTML;
+    } else if (index === 2) {
+      const $innerRows = $row.querySelectorAll('div');
       payload.tabs.push({
-        heading,
+        heading: payload.placeholders['course-tab-resources'],
         content: [{
-          subHeading,
-          innerContent,
+          subHeading: $innerRows[0].textContent,
+          innerContent: $innerRows[1].innerHTML,
         }],
       });
     } else {
-      const $firstInnerCol = $row.querySelector('div');
-      const subHeading = $firstInnerCol.textContent;
-      $firstInnerCol.remove();
-      const innerContent = $row.querySelector('div').innerHTML;
+      const $innerRows = $row.querySelectorAll('div');
       payload.tabs[payload.tabs.length - 1].content.push({
-        subHeading,
-        innerContent,
+        subHeading: $innerRows[0].textContent,
+        innerContent: $innerRows[1].innerHTML,
       });
     }
   });
@@ -327,6 +322,7 @@ export default async function decorate($block) {
     videoIndex: 0,
     tabs: [],
     videos: [],
+    placeholders: await fetchPlaceholders((placeholders) => { return placeholders }),
   };
 
   await buildPayload($block, payload);

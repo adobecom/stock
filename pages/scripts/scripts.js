@@ -101,7 +101,7 @@ export async function fetchPlaceholders() {
         window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
       });
     } catch {
-      const resp = await fetch('/express/placeholders.json');
+      const resp = await fetch('/pages/artisthub/placeholders.json');
       const json = await resp.json();
       window.placeholders = {};
       json.data.forEach((placeholder) => {
