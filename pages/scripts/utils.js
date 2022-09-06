@@ -200,6 +200,48 @@ export function externalLinks() {
   });
 }
 
+export async function getArtistHubPages() {
+  const pageSize = 500;
+  window.blogIndex = window.blogIndex || {
+    data: [],
+    byPath: {},
+    offset: 0,
+    complete: false,
+  };
+  if (window.blogIndex.complete) return (window.blogIndex);
+  const index = window.blogIndex;
+  const resp = await fetch(`/pages/artisthub/query-index.json?limit=${pageSize}&offset=${index.offset}`);
+  const json = await resp.json();
+  const complete = (json.limit + json.offset) === json.total;
+  json.data.forEach((post) => {
+    index.data.push(post);
+    index.byPath[post.path.split('.')[0]] = post;
+  });
+  index.complete = complete;
+  index.offset = json.offset + pageSize;
+  return (index.data);
+}
+
+export async function getArtistHubPagesByCategory(category) {
+  const pages = await getArtistHubPages();
+  const pagesByCategory = pages.filter((page) => {
+    let hasCat = false;
+    page.categories.split(',').some((cat) => {
+      if (cat.trim().toLowerCase() === category.trim().toLowerCase()) hasCat = true;
+    })
+    return hasCat;
+  });
+  return pagesByCategory;
+}
+
+export async function autoPopulateCards(obj) {
+  const card = {
+    image: obj.image ?? '',
+    title: obj.title ?? '',
+    detail: obj.detail ?? '',
+  }
+}
+
 /*
  * ------------------------------------------------------------
  * Edit below at your own risk
