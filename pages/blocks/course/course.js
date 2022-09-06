@@ -120,7 +120,7 @@ function decorateSocialShareLinks() {
 
   // Twitter
   $socialButtons.append(makeTwitterButton());
-  
+
   // LinkedIn
   return $wrapper;
 }
@@ -227,6 +227,11 @@ function loadVideo($block, payload) {
 
 function decorateVideoList($block, payload) {
   const $list = createTag('ol', { class: 'video-player-list' });
+  const $videoMenuHeading = createTag('div', { class: 'video-player-menu-heading' });
+
+  $videoMenuHeading.textContent = 'Lessons';
+  $list.append($videoMenuHeading);
+
   payload.videos.forEach((video, index) => {
     const $listItem = createTag('li', { class: 'video-player-list-item' });
     const $clickable = createTag('a', { class: 'video-player-list-link' });
@@ -260,6 +265,7 @@ function decorateVideoList($block, payload) {
 function decorateVideoPlayer($block, payload) {
   const $videoPlayerWrapper = createTag('div', { class: 'video-player-wrapper' });
   const $videoMenu = createTag('div', { class: 'video-player-menu' });
+
   const $videoPlayer = createTag('video', {
     class: 'video-player',
     controls: true,
@@ -267,9 +273,9 @@ function decorateVideoPlayer($block, payload) {
     preload: 'metadata',
   });
   const $videoList = decorateVideoList($block, payload);
-  const $shareCourse = decorateSocialShareLinks($block);
+  // const $shareCourse = decorateSocialShareLinks($block);
 
-  $videoMenu.append($videoList, $shareCourse);
+  $videoMenu.append($videoList);
   $videoPlayerWrapper.append($videoPlayer, $videoMenu);
   $block.append($videoPlayerWrapper);
   loadVideo($block, payload);

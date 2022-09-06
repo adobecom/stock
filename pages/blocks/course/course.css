@@ -20,6 +20,13 @@ main .course .video-player-menu {
   justify-content: space-between;
 }
 
+main .course .video-player-menu-heading {
+  font-weight: 800;
+  margin-left: -20px;
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+
 main .course .video-player-list {
   padding: 24px;
   padding-left: 48px;

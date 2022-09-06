@@ -10,11 +10,11 @@
  * governing permissions and limitations under the License.
  */
 
-import { 
-  setLibs, 
-  unwrapSingularFragments, 
-  decorateButtons, 
-  turnH6intoDetailM, 
+import {
+  setLibs,
+  unwrapSingularFragments,
+  decorateButtons,
+  turnH6intoDetailM,
   customSpacings,
   externalLinks,
   gnavUnderline,
@@ -74,3 +74,40 @@ const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/u
   loadModals();
   loadDelayed();
 }());
+
+export function getLocale(url) {
+  const locale = url.pathname.split('/')[1];
+  if (/^[a-z]{2}$/.test(locale)) {
+    return locale;
+  }
+  return 'us';
+}
+
+export function toClassName(name) {
+  return name && typeof name === 'string'
+    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-')
+    : '';
+}
+
+export async function fetchPlaceholders() {
+  if (!window.placeholders) {
+    try {
+      const locale = getLocale(window.location);
+      const urlPrefix = locale === 'us' ? '' : `/${locale}`;
+      const resp = await fetch(`${urlPrefix}/express/placeholders.json`);
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    } catch {
+      const resp = await fetch('/express/placeholders.json');
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    }
+  }
+  return window.placeholders;
+}
