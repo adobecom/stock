@@ -49,6 +49,10 @@ main .cards .card {
     position: relative;
 }
 
+main .cards.transparent .card {
+  background: transparent;
+}
+
 main .cards.borderless .card {
   border: unset;
   border-radius: unset;
@@ -122,6 +126,17 @@ main .cards:not(.horizontal):not(.overlay) .card-text > .button-container:last-c
 
 main .cards:not(.horizontal):not(.overlay) .card-text > .button-container:last-child a:only-child {
     margin-left: auto;
+}
+
+main .cards.borderless:not(.horizontal):not(.overlay) .card-text > .button-container:last-child {
+  justify-self: flex-start;
+  align-self: flex-start;
+  border: unset;
+  padding-top: unset;
+}
+
+main .cards.borderless:not(.horizontal):not(.overlay) .card-text > .button-container:last-child a:only-child {
+  margin: unset;
 }
 
 main .cards .card-text span.detail + * {

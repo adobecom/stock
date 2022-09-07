@@ -188,13 +188,13 @@ main .cards + .featured-columns {
   margin-bottom: var(--section-spacing-large);
 }
 
-main .featured-columns.person .button-container {
+main .featured-columns.info .button-container {
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
 }
 
-main .featured-columns.person .button.transparent {
+main .featured-columns.info .button.transparent {
   all: revert;
   color: var(--color-info-accent);
   font-weight: 600;

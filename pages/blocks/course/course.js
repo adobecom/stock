@@ -275,7 +275,6 @@ function decorateVideoPlayer($block, payload) {
     preload: 'metadata',
   });
   const $videoList = decorateVideoList($block, payload);
-  // const $shareCourse = decorateSocialShareLinks($block);
 
   $videoMenu.append($videoList);
   $videoPlayerWrapper.append($videoPlayer, $videoMenu);

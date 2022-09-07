@@ -94,7 +94,7 @@ export async function fetchPlaceholders() {
     try {
       const locale = getLocale(window.location);
       const urlPrefix = locale === 'us' ? '' : `/${locale}`;
-      const resp = await fetch(`${urlPrefix}/express/placeholders.json`);
+      const resp = await fetch(`${urlPrefix}/pages/artisthub/placeholders.json`);
       const json = await resp.json();
       window.placeholders = {};
       json.data.forEach((placeholder) => {
