@@ -95,6 +95,13 @@ h1 {
   padding-top: var(--section-spacing-small);
 }
 
+p.detail-M + h1,
+p.detail-M + h2,
+p.detail-M + h3,
+p.detail-M + h4 {
+  padding-top: 8px;
+}
+
 p:not(.detail-M) + h1,
 p:not(.detail-M) + h2,
 p:not(.detail-M) + h3,
