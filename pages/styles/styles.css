@@ -277,3 +277,78 @@ picture img {
     padding-bottom: 18px;
   }
 }
+
+main > .section > .content:not(:first-child) {
+  margin-top: var(--section-spacing);
+}
+
+main > .section > .content + .cards {
+  margin-top: var(--section-spacing-x-small);
+}
+
+main > .section > .cards + .content > p.button-container:first-child {
+  justify-content: center;
+  text-align: center;
+  margin-top: 0;
+}
+
+main > .section:not(:empty):not(:first-child) {
+  padding-top: var(--section-spacing);
+}
+
+main > .section:not(:empty):not(:first-child).has-background + .section:not(.has-background) {
+  padding-top: 0;
+}
+
+main > .section:not(:empty):last-child {
+  padding-bottom: var(--section-spacing);
+}
+
+main > .section.has-background,
+.fragment > .section.has-background {
+  padding-bottom: var(--section-spacing);
+  padding-top: var(--section-spacing);
+}
+
+
+main > .section > .content:not(:first-child) {
+  margin-top: var(--section-spacing);
+}
+
+main > .section > .content + .cards {
+  margin-top: var(--section-spacing-x-small);
+}
+
+main > .section > .cards + .content > p.button-container:first-child {
+  justify-content: center;
+  text-align: center;
+  margin-top: 0;
+}
+
+main > .section:not(:empty):not(:first-child) {
+  padding-top: var(--section-spacing);
+}
+
+main > .section:not(:empty):last-child {
+  padding-bottom: var(--section-spacing);
+}
+
+main > .section.has-background,
+.fragment > .section.has-background {
+  padding-bottom: var(--section-spacing);
+  padding-top: var(--section-spacing);
+}
+
+main > .section.center > .content > p > picture > img,
+main > .section.center > .content > picture > img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main > .section:not(.has-background) > .content:last-child {
+  padding-bottom: var(--section-spacing);
+}
+
+main > .section > .content + .image-rows {
+  padding-top: var(--section-spacing);
+}
