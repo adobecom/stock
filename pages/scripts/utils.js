@@ -135,7 +135,8 @@ export function unwrapSingularFragments() {
   const $section = $fragment.closest('main > .section');
   const $div = $fragment.closest('main > .section > div');
     Array.from($fragment.childNodes).forEach(($node) => {
-      $section.parentNode.insertBefore($node, $section);
+      $section.insertBefore($node, $div);
+      $node.classList.add('.fragment');
       decorateButtons($node);
       turnH6intoDetailM($node);
     });
