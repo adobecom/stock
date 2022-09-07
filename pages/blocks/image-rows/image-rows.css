@@ -13,7 +13,7 @@ main .image-rows > div:not(.image-rows-caption) > div {
   margin: 0 auto;
 }
 
-main .image-rows > div > div > *:not(:last-child) {
+main .image-rows > div > div > *:not(:last-child):not(em):not(strong):not(p):not(a) {
   margin-right: 32px;
 }
 
@@ -65,7 +65,7 @@ main .image-rows p.icon-container a {
 }
 
 @media screen and (max-width: 900px) {
-  main .image-rows > div > div > *:not(:last-child) {
+  main .image-rows > div > div > *:not(:last-child):not(em):not(strong):not(p):not(a) {
     margin-right: 8px;
   }
 

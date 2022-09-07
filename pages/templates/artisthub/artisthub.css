@@ -20,6 +20,14 @@ body nav.gnav .gnav-brand {
   justify-content: flex-start
 }
 
+body nav.gnav .gnav-brand picture {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 body nav.gnav .gnav-brand picture img {
   width: auto;
   height: 100%;
@@ -48,16 +56,6 @@ body header.gnav + main {
   margin-top: 65px;
 }
 
-@media screen and (min-width: 600px) {
-  main .breadcrumbs {
-    padding-left: 18px;
-  }
-}
-@media screen and (min-width: 1440px) {
-  main .breadcrumbs {
-    padding-left: 20px;
-  }
-}
 
 /* cusomize typography for artisthub */
 
@@ -91,6 +89,10 @@ h1, h2, h3, h4 {
   margin: 0;
   padding-top: 8px;
   padding-bottom: 8px;
+}
+
+h1 {
+  padding-top: var(--section-spacing-small);
 }
 
 p:not(.detail-M) + h1,
@@ -136,35 +138,6 @@ ul, ol {
   padding: 15px 0;
   padding-inline-start: 60px;
 }
-
-main > .section > .content:not(:first-child) {
-  margin-top: var(--section-spacing);
-}
-
-main > .section > .content + .cards {
-  margin-top: var(--section-spacing-x-small);
-}
-
-main > .section > .cards + .content > p.button-container:first-child {
-  justify-content: center;
-  text-align: center;
-  margin-top: 0;
-}
-
-main > .section:not(:empty):not(:first-child) {
-  padding-top: var(--section-spacing);
-}
-
-main > .section:not(:empty):last-child {
-  padding-bottom: var(--section-spacing);
-}
-
-main > .section.has-background,
-.fragment > .section.has-background {
-  padding-bottom: var(--section-spacing);
-  padding-top: var(--section-spacing);
-}
-
 /* customize articles */
 
 ul, ol {
@@ -176,5 +149,3 @@ ul, ol {
     max-width: 700px;
   }
 }
-
-

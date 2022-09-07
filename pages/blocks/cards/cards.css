@@ -488,3 +488,7 @@ main .cards.horizontal .card-container-link:focus,
 main .cards.horizontal .card-container-link:hover {
     filter: brightness(0.9);
 }
+
+main .section .cards + .banner {
+  margin-top: var(--section-spacing);
+}

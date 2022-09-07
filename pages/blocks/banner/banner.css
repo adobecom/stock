@@ -299,7 +299,7 @@ main .banner.large h2 {
 }
 
 main .banner.large p {
-  font-size: var(--body-font-size-xl);
+  font-size: var(--body-font-size-l);
 }
 
 main .banner.large .banner-image p,
@@ -413,10 +413,17 @@ main .banner .banner-content p.button-container:last-child {
   margin-bottom: 0;
 }
 
+main .banner .banner-column.banner-image {
+  font-size: var(--body-font-size-xs);
+}
 
 /* laptop */
 
 @media screen and (min-width: 1000px) {
+  main .banner.right p.button-container {
+    justify-content: flex-end;
+  }
+
   main .banner,
   main .banner:not(.large):not(.small):not(.empty-content) {
     min-height: var(--banner-height-md);
