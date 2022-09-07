@@ -201,14 +201,6 @@ export function externalLinks() {
   });
 }
 
-export async function autoPopulateCards(obj) {
-  const card = {
-    image: obj.image ?? '',
-    title: obj.title ?? '',
-    detail: obj.detail ?? '',
-  }
-}
-
 /*
  * ------------------------------------------------------------
  * Edit below at your own risk
