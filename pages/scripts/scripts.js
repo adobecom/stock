@@ -57,7 +57,7 @@ const miloLibs = setLibs(LIBS);
   });
 }());
 
-const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/utils.js`);
+const { loadArea, loadDelayed, setConfig } = await import(`${miloLibs}/utils/utils.js`);
 
 (async function loadPage() {
   setConfig({ ...CONFIG, miloLibs });
@@ -69,7 +69,7 @@ const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/u
   externalLinks();
   customSpacings();
   gnavUnderline();
-  document.body.style.removeProperty("visibility");
+  document.body.style.removeProperty('visibility');
   const { default: loadModals } = await import(`${miloLibs}/blocks/modals/modals.js`);
   loadModals();
   loadDelayed();
@@ -87,6 +87,17 @@ export function toClassName(name) {
   return name && typeof name === 'string'
     ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-')
     : '';
+}
+
+/**
+ * Retrieves the content of a metadata tag.
+ * @param {string} name The metadata name (or property)
+ * @returns {string} The metadata value
+ */
+export function getMetadata(name) {
+  const attr = name && name.includes(':') ? 'property' : 'name';
+  const meta = [...document.head.querySelectorAll(`meta[${attr}="${name}"]`)].map((el) => el.content).join(', ');
+  return meta;
 }
 
 export async function fetchPlaceholders() {

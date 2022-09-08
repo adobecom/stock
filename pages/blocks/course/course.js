@@ -321,7 +321,7 @@ export default async function decorate($block) {
     videoIndex: 0,
     tabs: [],
     videos: [],
-    placeholders: await fetchPlaceholders((placeholders) => { return placeholders }),
+    placeholders: await fetchPlaceholders((placeholders) => placeholders),
   };
 
   await buildPayload($block, payload);
