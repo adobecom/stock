@@ -187,16 +187,3 @@ main .cards + .featured-columns {
   margin-top: var(--section-spacing-large);
   margin-bottom: var(--section-spacing-large);
 }
-
-main .featured-columns.info .button-container {
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-main .featured-columns.info .button.transparent {
-  all: revert;
-  color: var(--color-info-accent);
-  font-weight: 600;
-  text-decoration: none;
-}

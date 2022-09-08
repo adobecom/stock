@@ -1,12 +1,18 @@
-/*-- Cards Variants --*/
+/* -- Cards Variants -- */
+
 /* [default, overlay, horizontal, nocrop, borderless] */
+
 /* Default cards show an image at the top and text at the bottom */
+
 /* Overlay cards show an image in the background and a dark overlay with white text in front */
+
 /* Horizontal cards show an image on the left and text on the right */
+
 /* The 'nocrop' variant shows the entire width of the image, and adjusts the height accordingly, as compared to the
 default image option where the height is set and the width crops accordingly. Only works on default card.
 Please make sure to use the same height for each card in a card-set if you use 'nocrop' */
-/* The 'nocrop' variant shows the cards with out the border. It's also a variant that's best used for featured mentors section.*/
+
+/* The 'nocrop' variant shows the cards with out the border. It's also a variant that's best used for featured mentors section. */
 
 main .cards {
     display: flex;
@@ -191,7 +197,7 @@ main .cards .card-banner > div:not(:empty) {
     letter-spacing: 1px;
     background: #1473e6;
     padding: 8px 12px;
-    border-radius: 4px 0px 0px 4px;
+    border-radius: 4px 0 0 4px;
 }
 
 main .cards .card-banner .icon {
@@ -272,7 +278,7 @@ main .cards.overlay .card-overlay {
     width: 100%;
     pointer-events: none;
     z-index: 2;
-    background: transparent linear-gradient(180deg, #0000001A 0%, #000000CC 100%) 0% 0% no-repeat padding-box;
+    background: transparent linear-gradient(180deg, #0000001A 0%, #000C 100%) 0% 0% no-repeat padding-box;
 }
 
 main .cards.overlay .card-picture {
@@ -347,6 +353,7 @@ main .cards.col-3-cards.horizontal {
 main .cards.horizontal.col-4-cards {
     max-width: 900px;
 }
+
 main .cards.horizontal .card {
     flex-basis: 40%;
     max-width: 375px;
@@ -523,3 +530,10 @@ main .cards.horizontal .card-container-link:hover {
 main .section .cards + .banner {
   margin-top: var(--section-spacing);
 }
+
+@media screen and (min-width: 1200px) {
+  main .cards.borderless.col-2-cards > .card {
+    max-width: 520px;
+  }
+}
+
