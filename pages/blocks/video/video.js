@@ -48,7 +48,7 @@ function decorateVideoBlock(block) {
       type = 'youtube';
       embedHTML = /* html */`
         <div class="vid-wrapper">
-          <iframe src="https://www.youtube.com/embed/{vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;rel=0&amp;controls={controls}{settings}" frameBorder="0" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
+          <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;rel=0&amp;controls=${controls}${settings}" frameBorder="0" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
         </div>
         `;
     } else if (a.href.endsWith('.mp4')) {
