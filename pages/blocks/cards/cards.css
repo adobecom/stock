@@ -492,3 +492,7 @@ main .cards.horizontal .card-container-link:hover {
 main .section .cards + .banner {
   margin-top: var(--section-spacing);
 }
+
+main .section.has-background .cards:first-child {
+  margin-top: 0;
+}
