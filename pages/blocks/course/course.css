@@ -60,7 +60,7 @@ main .course .video-player-list-link {
   font-family: var(--body-font-family);
   font-size: var(--type-body-m-size);
   line-height: var(--type-body-m-lh);
-  padding: 0;
+  padding: 6px 0;
   text-align: left;
   margin: 0;
 }
@@ -76,7 +76,7 @@ main .course .video-player-list-link.active {
 }
 
 main .course .tabbed-area .video-title {
-  padding-bottom: 50px;
+  padding-bottom: 40px;
 }
 
 main .course .tabbed-area .video-title {

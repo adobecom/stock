@@ -14,84 +14,84 @@ import {
   transformLinkToAnimation,
 } from '../../scripts/utils.js';
 
-export default function decorate($block) {
-  const $cards = Array.from($block.children);
+export default function decorate(block) {
+  const cards = Array.from(block.children);
   let numberOfCards = 0;
-  if ($cards[0]) {
-    numberOfCards = $cards.length;
+  if (cards[0]) {
+    numberOfCards = cards.length;
   }
   if (numberOfCards > 0) {
-    $block.classList.add(`col-${numberOfCards}-pf-cards`);
+    block.classList.add(`col-${numberOfCards}-pf-cards`);
   }
-  const $pics = $block.querySelectorAll('picture');
-  $block.querySelectorAll('p:empty').forEach(($p) => $p.remove());
-  if ($pics.length === 1 && $pics[0].parentElement.tagName === 'P') {
-    const $parentDiv = $pics[0].closest('div');
-    const $parentParagraph = $pics[0].parentNode;
-    $parentDiv.insertBefore($pics[0], $parentParagraph);
+  const pics = block.querySelectorAll('picture');
+  block.querySelectorAll('p:empty').forEach((p) => p.remove());
+  if (pics.length === 1 && pics[0].parentElement.tagName === 'P') {
+    const parentDiv = pics[0].closest('div');
+    const parentParagraph = pics[0].parentNode;
+    parentDiv.insertBefore(pics[0], parentParagraph);
   }
   let overlay = false;
-  if ($block.classList.contains('overlay')) {
+  if (block.classList.contains('overlay')) {
     overlay = true;
   }
-  $cards.forEach(($card) => {
-    $card.classList.add('pf-card');
-    const $cells = Array.from($card.children);
+  cards.forEach((card) => {
+    card.classList.add('pf-card');
+    const cells = Array.from(card.children);
     let hasLink = false;
-    $cells.forEach(($cell, index) => {
+    cells.forEach((cell, index) => {
       if (index === 0) {
-        const pic = $cell.querySelector('picture');
+        const pic = cell.querySelector('picture');
         if (pic) {
-          $cell.classList.add('pf-card-picture');
+          cell.classList.add('pf-card-picture');
         } else {
-          const $a = $cell.querySelector('a');
-          if ($a && $a.href.startsWith('https://') && $a.href.endsWith('.mp4')) {
+          const a = cell.querySelector('a');
+          if (a && a.href.startsWith('https://') && a.href.endsWith('.mp4')) {
             let video = null;
-            video = transformLinkToAnimation($a);
-            $cell.innerHTML = '';
+            video = transformLinkToAnimation(a);
+            cell.innerHTML = '';
             if (video) {
-              $cell.appendChild(video);
-              $cell.classList.add('pf-card-picture');
+              cell.appendChild(video);
+              cell.classList.add('pf-card-picture');
             }
           } else {
-            $cell.classList.add('pf-card-text');
+            cell.classList.add('pf-card-text');
           }
         }
       } else if (index === 1) {
-        $cell.classList.add('pf-card-text');
+        cell.classList.add('pf-card-text');
       } else if (index === 2) {
-        const $cardLink = $cell.querySelector('a');
-        if ($cardLink) {
-          $cell.classList.add('pf-card-link');
+        const cardLink = cell.querySelector('a');
+        if (cardLink) {
+          cell.classList.add('pf-card-link');
           hasLink = true;
         }
-      } else if (index === 3 && $block.querySelector('.pf-card-text')) {
-        $cell.classList.add('pf-card-banner');
-        const $cardTag = createTag('div');
-        $cardTag.innerHTML = $cell.innerHTML;
-        $cell.innerHTML = '';
-        $cell.appendChild($cardTag);
+      } else if (index === 3 && block.querySelector('.pf-card-text')) {
+        cell.classList.add('pf-card-banner');
+        const cardTag = createTag('div');
+        cardTag.innerHTML = cell.innerHTML;
+        cell.innerHTML = '';
+        cell.appendChild(cardTag);
       } else {
-        $cell.remove();
+        cell.remove();
       }
     });
     if (hasLink) {
-      const $cardLink = $card.querySelector('.pf-card-link a');
-      if ($cardLink) {
-        $cardLink.classList.remove('button');
-        $cardLink.classList.add('pf-card-container-link');
-        $cardLink.innerText = '';
-        $card.appendChild($cardLink);
-        $cells.forEach((div) => {
-          $cardLink.append(div);
+      const cardLink = card.querySelector('.pf-card-link a');
+      if (cardLink) {
+        cardLink.classList.remove('button');
+        cardLink.classList.add('pf-card-container-link');
+        cardLink.innerText = '';
+        card.appendChild(cardLink);
+        cells.forEach((div) => {
+          cardLink.append(div);
         });
-        $card.querySelector('.pf-card-link').remove();
+        card.querySelector('.pf-card-link').remove();
       }
     }
     if (overlay) {
       const div = document.createElement('div');
       div.classList.add('pf-card-overlay');
-      $card.appendChild(div);
+      card.appendChild(div);
     }
   });
 }

@@ -10,5 +10,5 @@
  * governing permissions and limitations under the License.
  */
 
-export default function decorate($block) {
+export default function decorate(block) {
 }

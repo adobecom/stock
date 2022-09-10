@@ -14,36 +14,34 @@ import {
   createTag,
 } from '../../scripts/utils.js';
 
-function lazyDecorateVideo($cell, $a) {
-  if (!$a || (!$a.href.endsWith('.mp4') && !$a.href.startsWith('https://www.youtube.com/watch') && !$a.href.startsWith('https://youtu.be/'))) return;
+function lazyDecorateVideo(cell, a) {
+  if (!a || (!a.href.endsWith('.mp4') && !a.href.startsWith('https://www.youtube.com/watch') && !a.href.startsWith('https://youtu.be/'))) return;
   const decorateVideo = () => {
-    if ($cell.classList.contains('picture-column')) return;
+    if (cell.classList.contains('picture-column')) return;
     let youtube = null;
     let mp4 = null;
-    if ($a.href.endsWith('.mp4')) {
-      mp4 = transformLinkToAnimation($a);
-    } else if ($a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/')) {
-      youtube = transformLinkToYoutubeEmbed($a);
+    if (a.href.endsWith('.mp4')) {
+      mp4 = transformLinkToAnimation(a);
+    } else if (a.href.startsWith('https://www.youtube.com/watch') || a.href.startsWith('https://youtu.be/')) {
+      youtube = transformLinkToYoutubeEmbed(a);
     }
-    $cell.innerHTML = '';
+    cell.innerHTML = '';
     if (youtube) {
-      $cell.classList.add('picture-column');
-      $cell.appendChild(youtube);
+      cell.appendChild(youtube);
+      cell.classList.add('picture-column');
     } else if (mp4) {
-      $cell.classList.add('picture-column');
-      const $row = $cell.closest('.featured-row');
-      const $cta = $row.querySelector('.button.accent') ?? $row.querySelector('.button');
-      if ($cta) {
+      const row = cell.closest('.featured-row');
+      const cta = row.querySelector('.button.accent') ?? row.querySelector('.button');
+      if (cta) {
         const a = createTag('a', {
-          href: $cta.href, title: $cta.title, target: $cta.target, rel: $cta.rel,
+          href: cta.href, title: cta.title, target: cta.target, rel: cta.rel,
         });
-        $cell.appendChild(a);
+        cell.appendChild(a);
         a.appendChild(mp4);
       } else {
-        $cell.appendChild(mp4);
+        cell.appendChild(mp4);
       }
-    } else if ($cell.querySelector('.milo-video')) {
-      $cell.classList.add('picture-column');
+      cell.classList.add('picture-column');
     }
   };
   const addIntersectionObserver = (block) => {
@@ -60,44 +58,46 @@ function lazyDecorateVideo($cell, $a) {
     intersectionObserver.observe(block);
   };
   if (document.readyState === 'complete') {
-    addIntersectionObserver($cell);
+    addIntersectionObserver(cell);
   } else {
     window.addEventListener('load', () => {
-      addIntersectionObserver($cell);
+      addIntersectionObserver(cell);
     });
   }
 }
 
-export default function decorate($block) {
-  const $rows = Array.from($block.children);
-  $rows.forEach(($row) => {
-    $row.classList.add('featured-row');
-    const $featured = Array.from($row.children);
-    $featured.forEach(($cell) => {
-      const $ps = $cell.querySelectorAll('p');
-      [...$ps].forEach(($p) => { if ($p.childNodes.length === 0) $p.remove() })
-      $cell.classList.add('featured-column');
-      const $a = $cell.querySelector('a');
-      if ($a && $cell.childNodes.length === 1 && ($a.href.endsWith('.mp4') || $a.href.startsWith('https://www.youtube.com/watch') || $a.href.startsWith('https://youtu.be/'))) {
-        lazyDecorateVideo($cell, $a);
+export default function decorate(block) {
+  const rows = Array.from(block.children);
+  rows.forEach((row) => {
+    row.classList.add('featured-row');
+    const featured = Array.from(row.children);
+    featured.forEach((cell) => {
+      const ps = cell.querySelectorAll('p');
+      [...ps].forEach((p) => { if (p.childNodes.length === 0) p.remove() })
+      cell.classList.add('featured-column');
+      const a = cell.querySelector('a');
+      if (a && cell.childNodes.length === 1 && (a.href.endsWith('.mp4'))) {
+        lazyDecorateVideo(cell, a);
+      } else if (cell.querySelector(':scope > .milo-video:first-child:last-child') || (a && (a.href.startsWith('https://www.youtube.com/watch') || a.href.startsWith('https://youtu.be/')))) {
+        cell.classList.add('picture-column');
       } else {
-        const $pic = $cell.querySelector('picture:first-child:last-child');
-        if ($pic) {
-          $cell.classList.add('picture-column');
-          const $cta = $row.querySelector('a.button.accent') ?? $row.querySelector('a.button');
-          const $picParent = $pic.parentElement;
-          $cell.innerHTML = '';
-          if ($picParent.tagName.toLowerCase() === 'a') {
-            $cell.appendChild($picParent);
-            $picParent.appendChild($pic);
-          } else if ($cta) {
+        const pic = cell.querySelector('picture:first-child:last-child');
+        if (pic) {
+          cell.classList.add('picture-column');
+          const cta = row.querySelector('a.button.accent') ?? row.querySelector('a.button');
+          const picParent = pic.parentElement;
+          cell.innerHTML = '';
+          if (picParent.tagName.toLowerCase() === 'a') {
+            cell.appendChild(picParent);
+            picParent.appendChild(pic);
+          } else if (cta) {
             const a = createTag('a', {
-              href: $cta.href, title: $cta.title, target: $cta.target, rel: $cta.rel,
+              href: cta.href, title: cta.title, target: cta.target, rel: cta.rel,
             });
-            $cell.appendChild(a);
-            a.appendChild($pic);
+            cell.appendChild(a);
+            a.appendChild(pic);
           } else {
-            $cell.appendChild($pic);
+            cell.appendChild(pic);
           }
         }
       }

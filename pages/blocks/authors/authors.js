@@ -12,15 +12,15 @@
 import { getMetadata, fetchPlaceholders } from '../../scripts/scripts.js';
 import { createTag } from '../../scripts/utils.js';
 
-export default async function decorate($block) {
+export default async function decorate(block) {
   const metaAuthors = getMetadata('authors');
   const placeholders = await fetchPlaceholders((placeholders) => placeholders);
 
-  const $heading = createTag('h3');
-  const $authors = createTag('p');
+  const heading = createTag('h3');
+  const authors = createTag('p');
 
-  $heading.textContent = `${placeholders['authors-block-heading']}:`;
-  $authors.textContent = metaAuthors;
+  heading.textContent = `${placeholders['authors-block-heading']}:`;
+  authors.textContent = metaAuthors;
 
-  $block.append($heading, $authors);
+  block.append(heading, authors);
 }
