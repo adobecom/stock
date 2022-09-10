@@ -282,9 +282,12 @@ export async function loadBlockCSS(blockName) {
 }
 
 export function createSVG(path, name = undefined) {
+  let anchor = null
+  if (typeof(name) === String) anchor = name;
+
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(name !== undefined) ? '#' : ''}${name}`);
+  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(anchor) ? '#' : ''}${anchor}`);
   svg.appendChild(use);
   return svg;
 }
