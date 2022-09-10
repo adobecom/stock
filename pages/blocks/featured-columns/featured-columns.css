@@ -183,7 +183,7 @@ main .dark-theme .featured-columns p {
   }
 }
 
-main .cards + .featured-columns {
+main .page-feed + .featured-columns {
   margin-top: var(--section-spacing-large);
   margin-bottom: var(--section-spacing-large);
 }

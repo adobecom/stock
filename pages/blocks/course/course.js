@@ -205,20 +205,24 @@ function loadVideo($block, payload) {
   const $videoPlayer = $block.querySelector('.video-player');
   const $activeTab = $block.querySelector('.tab.active');
   const $allTabs = $block.querySelectorAll('.tab');
+  const $source = $videoPlayer.querySelector('source');
 
-  $videoPlayer.innerHTML = '';
-  if (payload.videos[payload.videoIndex]) {
-    const webmSrc = payload.videos[payload.videoIndex].WebM;
-    const mp4Src = payload.videos[payload.videoIndex].MP4;
-
-    if (webmSrc) {
-      $videoPlayer.append(createTag('source', { src: webmSrc, type: 'video/webm' }));
-    }
-
-    if (mp4Src) {
-      $videoPlayer.append(createTag('source', { src: mp4Src, type: 'video/mp4' }));
-    }
+  const replaceVideo = (type, src) => {
+    if (!$videoPlayer.paused) $videoPlayer.pause();
+    $source.src = src;
+    $source.type = type;
+    $videoPlayer.load();
+    $videoPlayer.play();
   }
+
+  if (payload.videos[payload.videoIndex]) {
+    const webmSrc = payload.videos[payload.videoIndex].webm;
+    const mp4Src = payload.videos[payload.videoIndex].mp4;
+
+    if (webmSrc && webmSrc !== '') replaceVideo('video/webm', webmSrc );
+    if (mp4Src && mp4Src !== '') replaceVideo('video/mp4', mp4Src );
+  }
+
   if ($activeTab === $allTabs[2]) {
     loadTranscript($block, payload);
   }
@@ -274,6 +278,7 @@ function decorateVideoPlayer($block, payload) {
     download: false,
     preload: 'metadata',
   });
+  $videoPlayer.append(createTag('source'));
   const $videoList = decorateVideoList($block, payload);
 
   $videoMenu.append($videoList);
