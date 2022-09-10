@@ -15,7 +15,7 @@ import {
 } from '../../scripts/scripts.js';
 
 import { 
-  loadCSS,
+  loadBlockCSS,
 } from '../../scripts/utils.js';
 
 function createTag(name, attrs) {
@@ -33,8 +33,10 @@ function handlize(string) {
   return string.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '');
 }
 
-function buildCards($block, payload) {
+async function buildCards($block, payload) {
   const $cardsTray = createTag('div', { class: 'page-feed horizontal' });
+  $cardsTray.style.opacity = '0';
+  $cardsTray.style.pointerEvents = 'none';
   const $contentArea = $block.querySelector('.content-area');
 
   let tabCounts = 0;
@@ -84,8 +86,11 @@ function buildCards($block, payload) {
   if (tabCounts <= 6) {
     $cardsTray.classList.add(`col-${tabCounts}-pf-cards`);
   }
+
   if (tabCounts > 0) {
-    loadCSS('/pages/blocks/page-feed/page-feed.css')
+    await loadBlockCSS('page-feed');
+    $cardsTray.style.removeProperty('opacity');
+    $cardsTray.style.removeProperty('pointer-events');
   }
 }
 

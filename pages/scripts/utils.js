@@ -188,12 +188,33 @@ export function toClassName(name) {
     : '';
 }
 
-export function loadCSS(href) {
-  if (document.head.querySelector(`link[href="${href}"`)) return
-  const link = document.createElement('link');
-  link.setAttribute('rel', 'stylesheet');
-  link.setAttribute('href', href);
-  document.head.appendChild(link);
+
+export function loadCSS(href, callback) {
+  if (!document.querySelector(`head > link[href="${href}"]`)) {
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('href', href);
+    if (typeof callback === 'function') {
+      link.onload = (e) => callback(e.type);
+      link.onerror = (e) => callback(e.type);
+    }
+    document.head.appendChild(link);
+  } else if (typeof callback === 'function') {
+    callback('noop');
+  }
+}
+
+/**
+ * Loads JS and CSS for a block.
+ * @param {Element} $block The block element
+ */
+ export async function loadBlockCSS(blockName) {
+  const href = `/pages/blocks/${blockName}/${blockName}.css`;
+  if (document.querySelector(`head > link[href="${href}"]`)) return;
+
+  return new Promise((resolve) => {
+    loadCSS(href, resolve);
+  });
 }
 
 export function createSVG(path, name = undefined) {
