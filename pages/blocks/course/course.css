@@ -4,18 +4,27 @@ main .course {
 }
 
 main .course .video-player-wrapper {
-  display: flex;
-  gap: 32px;
+  display: grid;
+  grid-gap: 32px;
   margin-bottom: 40px;
+  grid-template-columns: 70% 30%;
 }
 
-main .course .video-player {
-  width: 70%;
-  min-width: 70%;
+main .course .video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+}
+
+main .course .video-wrapper video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 main .course .video-player-menu {
-  width: 30%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -89,6 +98,10 @@ main .course a {
   main .course .video-player-menu,
   main .course .tabbed-area {
     width: 100%;
+  }
+
+  main .course .video-player-wrapper {
+    grid-template-columns: 1fr;
   }
 
   main .course .tabs {
@@ -220,27 +233,27 @@ main .course .page-feed .card-text span.detail + * {
   min-height: 54px;
 }
 
-main .page-card .card-text p,
-main .page-card .card-text h1,
-main .page-card .card-text h2,
-main .page-card .card-text h3,
-main .page-card .card-text h4,
-main .page-card .card-text h5,
-main .page-card .card-text span.detail {
+main .course .page-card .card-text p,
+main .course .page-card .card-text h1,
+main .course .page-card .card-text h2,
+main .course .page-card .card-text h3,
+main .course .page-card .card-text h4,
+main .course .page-card .card-text h5,
+main .course .page-card .card-text span.detail {
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-main .page-card .card-text h1,
-main .page-card .card-text h2,
-main .page-card .card-text h3,
-main .page-card .card-text h4,
-main .page-card .card-text h5 {
+main .course .page-card .card-text h1,
+main .course .page-card .card-text h2,
+main .course .page-card .card-text h3,
+main .course .page-card .card-text h4,
+main .course .page-card .card-text h5 {
   font-size: var(--heading-font-size-xs);
   min-height: 47px;
 }
 
-main .page-card .card-text p {
+main .course .page-card .card-text p {
   font-size: var(--body-font-size-xs);
   color: #747474;
 }
@@ -595,4 +608,24 @@ main .course .page-feed.horizontal .card-container-link {
 main .course .page-feed.horizontal .card-container-link:focus,
 main .course .page-feed.horizontal .card-container-link:hover {
   filter: brightness(0.9);
+}
+
+main .course .video-title-duration {
+  padding-left: 16px;
+}
+
+@media (max-width: 600px) {
+  main .course {
+    max-width: 100%;
+  }
+
+  main .course .video-player-wrapper {
+    gap: 0;
+  }
+
+  main .course .tabbed-area {
+    max-width: var(--grid-container-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

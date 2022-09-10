@@ -270,6 +270,7 @@ function decorateVideoList($block, payload) {
 
 function decorateVideoPlayer($block, payload) {
   const $videoPlayerWrapper = createTag('div', { class: 'video-player-wrapper' });
+  const $videoWrapper = createTag('div', { class: 'video-wrapper' });
   const $videoMenu = createTag('div', { class: 'video-player-menu' });
 
   const $videoPlayer = createTag('video', {
@@ -282,7 +283,8 @@ function decorateVideoPlayer($block, payload) {
   const $videoList = decorateVideoList($block, payload);
 
   $videoMenu.append($videoList);
-  $videoPlayerWrapper.append($videoPlayer, $videoMenu);
+  $videoWrapper.append($videoPlayer);
+  $videoPlayerWrapper.append($videoWrapper, $videoMenu);
   $block.append($videoPlayerWrapper);
   loadVideo($block, payload);
 }
