@@ -134,7 +134,7 @@ export function decorateButtons(scope = document) {
       const $p = $a.closest('p');
       if ($p) {
         const childNodes = Array.from($p.childNodes);
-        const whitespace = /^\s*$/;
+        const whitespace = new RegExp('^\\s*$');
         // Check that the 'button-container' contains buttons only
         const buttonsOnly = childNodes.every(($c) => {
           if (isNodeName($c, 'a') || (isNodeName($c, '#text') && whitespace.test($c.textContent))) {
