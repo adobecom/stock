@@ -92,7 +92,7 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  padding-top: var(--section-spacing-small);
+  padding-top: var(--section-spacing-s);
 }
 
 p.detail-M + h1,
@@ -107,7 +107,7 @@ p:not(.detail-M) + h2,
 p:not(.detail-M) + h3,
 p:not(.detail-M) + h4
 p:not(.detail-M) + p.detail-M {
-  padding-top: var(--section-spacing);
+  padding-top: var(--section-spacing-m);
 }
 
 h1 {

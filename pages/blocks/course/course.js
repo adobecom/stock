@@ -167,6 +167,8 @@ function loadTabContent($block, payload, index) {
 
 function decorateTabbedArea($block, payload) {
   const $tabbedArea = createTag('div', { class: 'tabbed-area' });
+  const $title = createTag('h3', { class: 'video-title' });
+  $title.textContent = payload.videos[payload.videoIndex]['Video Name'];
   const $tabs = createTag('div', { class: 'tabs' });
   const $contentArea = createTag('div', { class: 'content-area' });
 
@@ -204,7 +206,7 @@ function decorateTabbedArea($block, payload) {
     }
   });
 
-  $tabbedArea.append($tabs, $contentArea);
+  $tabbedArea.append($title, $tabs, $contentArea);
   $block.append($tabbedArea);
   loadTabContent($block, payload, 0);
 }
@@ -220,13 +222,13 @@ function loadVideo($block, payload) {
   const $activeTab = $block.querySelector('.tab.active');
   const $allTabs = $block.querySelectorAll('.tab');
   const $source = $videoPlayer.querySelector('source');
+  const $title = $block.querySelector('.video-title');
 
   const replaceVideo = (type, src) => {
     if (!$videoPlayer.paused) $videoPlayer.pause();
     $source.src = src;
     $source.type = type;
     $videoPlayer.load();
-    $videoPlayer.play();
   }
 
   if (payload.videos[payload.videoIndex]) {
@@ -235,6 +237,10 @@ function loadVideo($block, payload) {
 
     if (webmSrc && webmSrc !== '') replaceVideo('video/webm', webmSrc );
     if (mp4Src && mp4Src !== '') replaceVideo('video/mp4', mp4Src );
+    if ($title) { 
+      $title.innerHTML = '';
+      $title.textContent = payload.videos[payload.videoIndex]['Video Name'];
+    }
   }
 
   if ($activeTab === $allTabs[2]) {
