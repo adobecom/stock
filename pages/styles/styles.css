@@ -286,6 +286,10 @@ main > .section > .content + .cards {
   margin-top: var(--section-spacing-x-small);
 }
 
+main > .section > .content:first-child {
+  padding-top: var(--section-spacing);
+}
+
 main > .section > .cards + .content > p.button-container:first-child {
   justify-content: center;
   text-align: center;
