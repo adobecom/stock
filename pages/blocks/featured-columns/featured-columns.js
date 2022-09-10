@@ -11,7 +11,6 @@
  */
 import {
   transformLinkToAnimation,
-  transformLinkToYoutubeEmbed,
   createTag,
 } from '../../scripts/utils.js';
 
@@ -43,6 +42,8 @@ function lazyDecorateVideo($cell, $a) {
       } else {
         $cell.appendChild(mp4);
       }
+    } else if ($cell.querySelector('.milo-video')) {
+      $cell.classList.add('picture-column');
     }
   };
   const addIntersectionObserver = (block) => {
