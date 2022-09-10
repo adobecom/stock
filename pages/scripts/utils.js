@@ -181,6 +181,21 @@ export function gnavUnderline() {
   });
 }
 
+
+export function toClassName(name) {
+  return name && typeof name === 'string'
+    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-')
+    : '';
+}
+
+export function loadCSS(href) {
+  if (document.head.querySelector(`link[href="${href}"`)) return
+  const link = document.createElement('link');
+  link.setAttribute('rel', 'stylesheet');
+  link.setAttribute('href', href);
+  document.head.appendChild(link);
+}
+
 export function createSVG(path, name = undefined) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');

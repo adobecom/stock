@@ -18,6 +18,7 @@ import {
   customSpacings,
   externalLinks,
   gnavUnderline,
+  toClassName,
 } from './utils.js';
 
 const LIBS = 'https://milo.adobe.com/libs';
@@ -80,13 +81,7 @@ export function getLocale(url) {
   if (/^[a-z]{2}$/.test(locale)) {
     return locale;
   }
-  return 'us';
-}
-
-export function toClassName(name) {
-  return name && typeof name === 'string'
-    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-')
-    : '';
+  return 'pages';
 }
 
 /**

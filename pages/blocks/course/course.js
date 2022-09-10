@@ -10,7 +10,13 @@
  * governing permissions and limitations under the License.
  */
 
-import { fetchPlaceholders } from '../../scripts/scripts.js';
+import { 
+  fetchPlaceholders,
+} from '../../scripts/scripts.js';
+
+import { 
+  loadCSS,
+} from '../../scripts/utils.js';
 
 function createTag(name, attrs) {
   const el = document.createElement(name);
@@ -28,7 +34,7 @@ function handlize(string) {
 }
 
 function buildCards($block, payload) {
-  const $cardsTray = createTag('div', { class: 'cards horizontal' });
+  const $cardsTray = createTag('div', { class: 'page-feed horizontal' });
   const $contentArea = $block.querySelector('.content-area');
 
   let tabCounts = 0;
@@ -42,9 +48,9 @@ function buildCards($block, payload) {
       const $picture = $liWithLink[i].querySelector('picture');
       const $link = $liWithLink[i].querySelector('a');
 
-      const $card = createTag('div', { class: 'card' });
-      const $linkLayer = createTag('a', { class: 'card-container-link' });
-      const $cardText = createTag('div', { class: 'card-text' });
+      const $card = createTag('div', { class: 'pf-card' });
+      const $linkLayer = createTag('a', { class: 'pf-card-container-link' });
+      const $cardText = createTag('div', { class: 'pf-card-text' });
       const $grayText = createTag('p', { class: 'detail-M', id: handlize(category.subHeading) });
 
       const $h3 = createTag('div', { class: handlize($link.textContent) });
@@ -53,7 +59,7 @@ function buildCards($block, payload) {
       $grayText.textContent = category.subHeading;
 
       if ($picture) {
-        const $pictureWrapper = createTag('div', { class: 'card-picture' });
+        const $pictureWrapper = createTag('div', { class: 'pf-card-picture' });
         $pictureWrapper.append($picture);
         $linkLayer.append($pictureWrapper);
       }
@@ -76,7 +82,10 @@ function buildCards($block, payload) {
   });
 
   if (tabCounts <= 6) {
-    $cardsTray.classList.add(`col-${tabCounts}-cards`);
+    $cardsTray.classList.add(`col-${tabCounts}-pf-cards`);
+  }
+  if (tabCounts > 0) {
+    loadCSS('/pages/blocks/page-feed/page-feed.css')
   }
 }
 

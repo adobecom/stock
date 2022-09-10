@@ -21,7 +21,7 @@ export default function decorate($block) {
     numberOfCards = $cards.length;
   }
   if (numberOfCards > 0) {
-    $block.classList.add(`col-${numberOfCards}-cards`);
+    $block.classList.add(`col-${numberOfCards}-pf-cards`);
   }
   const $pics = $block.querySelectorAll('picture');
   $block.querySelectorAll('p:empty').forEach(($p) => $p.remove());
@@ -35,14 +35,14 @@ export default function decorate($block) {
     overlay = true;
   }
   $cards.forEach(($card) => {
-    $card.classList.add('card');
+    $card.classList.add('pf-card');
     const $cells = Array.from($card.children);
     let hasLink = false;
     $cells.forEach(($cell, index) => {
       if (index === 0) {
         const pic = $cell.querySelector('picture');
         if (pic) {
-          $cell.classList.add('card-picture');
+          $cell.classList.add('pf-card-picture');
         } else {
           const $a = $cell.querySelector('a');
           if ($a && $a.href.startsWith('https://') && $a.href.endsWith('.mp4')) {
@@ -51,22 +51,22 @@ export default function decorate($block) {
             $cell.innerHTML = '';
             if (video) {
               $cell.appendChild(video);
-              $cell.classList.add('card-picture');
+              $cell.classList.add('pf-card-picture');
             }
           } else {
-            $cell.classList.add('card-text');
+            $cell.classList.add('pf-card-text');
           }
         }
       } else if (index === 1) {
-        $cell.classList.add('card-text');
+        $cell.classList.add('pf-card-text');
       } else if (index === 2) {
         const $cardLink = $cell.querySelector('a');
         if ($cardLink) {
-          $cell.classList.add('card-link');
+          $cell.classList.add('pf-card-link');
           hasLink = true;
         }
-      } else if (index === 3 && $block.querySelector('.card-text')) {
-        $cell.classList.add('card-banner');
+      } else if (index === 3 && $block.querySelector('.pf-card-text')) {
+        $cell.classList.add('pf-card-banner');
         const $cardTag = createTag('div');
         $cardTag.innerHTML = $cell.innerHTML;
         $cell.innerHTML = '';
@@ -76,21 +76,21 @@ export default function decorate($block) {
       }
     });
     if (hasLink) {
-      const $cardLink = $card.querySelector('.card-link a');
+      const $cardLink = $card.querySelector('.pf-card-link a');
       if ($cardLink) {
         $cardLink.classList.remove('button');
-        $cardLink.classList.add('card-container-link');
+        $cardLink.classList.add('pf-card-container-link');
         $cardLink.innerText = '';
         $card.appendChild($cardLink);
         $cells.forEach((div) => {
           $cardLink.append(div);
         });
-        $card.querySelector('.card-link').remove();
+        $card.querySelector('.pf-card-link').remove();
       }
     }
     if (overlay) {
       const div = document.createElement('div');
-      div.classList.add('card-overlay');
+      div.classList.add('pf-card-overlay');
       $card.appendChild(div);
     }
   });
