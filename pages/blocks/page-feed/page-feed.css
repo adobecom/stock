@@ -45,7 +45,7 @@ main .page-feed .pf-card {
   position: relative;
 }
 
-main .page-feed.transparent .pf-card {
+main .page-feed.borderless .pf-card {
   background: transparent;
 }
 
