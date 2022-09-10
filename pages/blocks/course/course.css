@@ -50,9 +50,19 @@ main .course .video-player-list {
 }
 
 main .course .video-player-list-link {
+  cursor: pointer;
   display: flex;
+  width: 100%;
+  background-color: rgba(0,0,0,0);
+  border: none;
   color: var(--text-color);
   justify-content: space-between;
+  font-family: var(--body-font-family);
+  font-size: var(--type-body-m-size);
+  line-height: var(--type-body-m-lh);
+  padding: 0;
+  text-align: left;
+  margin: 0;
 }
 
 main .course .video-player-list-link.active {
@@ -77,10 +87,19 @@ main .course .tabs {
 }
 
 main .course .tabs .tab {
+  cursor: pointer;
   letter-spacing: .6px;
   padding: 2px;
   color:  var(--text-color);
   font-size: 20px;
+  background-color: rgba(0,0,0,0);
+  border: 3px solid rgba(0,0,0,0);
+  border-radius: 0px;
+  color: var(--text-color);
+  display: block;
+  font-family: var(--body-font-family);
+  margin: 0;
+  line-height: var(--type-body-m-lh);
 }
 
 main .course .tabs .tab.active {
@@ -93,10 +112,6 @@ main .course .tabs .tab.active {
 main .course .tabs .tab:hover {
   text-decoration: unset;
   border-bottom: solid 3px var(--text-color);
-}
-
-main .course a {
-  cursor: pointer;
 }
 
 @media screen and (max-width: 999px) {
