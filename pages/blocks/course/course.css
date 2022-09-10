@@ -40,7 +40,9 @@ main .course .video-player-list-link {
 }
 
 main .course .video-player-list-link.active {
-  font-weight: 600;
+  color: var(--text-color);
+  -webkit-text-stroke-width: .6px;
+  -webkit-text-stroke-color: var(--text-color);
 }
 
 main .course .tabbed-area {
@@ -55,13 +57,16 @@ main .course .tabs {
 }
 
 main .course .tabs .tab {
+  letter-spacing: .6px;
   padding: 2px;
   color:  var(--text-color);
   font-size: 20px;
 }
 
 main .course .tabs .tab.active {
-  font-weight: 600;
+  color: var(--text-color);
+  -webkit-text-stroke-width: .6px;
+  -webkit-text-stroke-color: var(--text-color);
   border-bottom: solid 3px var(--text-color);
 }
 
