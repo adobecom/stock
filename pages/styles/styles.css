@@ -286,7 +286,7 @@ main > .section > .content + .cards {
   margin-top: var(--section-spacing-x-small);
 }
 
-main > .section > .content:first-child {
+main > .section:not(.has-background) > .content:first-child {
   padding-top: var(--section-spacing);
 }
 
