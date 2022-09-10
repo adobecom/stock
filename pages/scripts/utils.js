@@ -57,7 +57,7 @@ export function decorateButtons(scope = document) {
   const isNodeName = (node, name) => {
     if (!node || typeof node !== 'object') return false;
     return node.nodeName.toLowerCase() === name.toLowerCase();
-  }
+  };
   scope.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent || $a.href;
     const $block = $a.closest('div.section > div');
@@ -72,21 +72,21 @@ export function decorateButtons(scope = document) {
       const $p = $a.closest('p');
       if ($p) {
         const childNodes = Array.from($p.childNodes);
-        const whitespace = new RegExp('^\\s*$');
+        const whitespace = /^\s*$/;
         // Check that the 'button-container' contains buttons only
         const buttonsOnly = childNodes.every(($c) => {
           if (isNodeName($c, 'a') || (isNodeName($c, '#text') && whitespace.test($c.textContent))) {
             return true;
-          } else if ($c.childNodes.length > 0) {
+          } if ($c.childNodes.length > 0) {
             return Array.from($c.childNodes).every(($cc) => {
               if (isNodeName($cc, 'a') || (isNodeName($cc, '#text') && whitespace.test($cc.textContent))) {
                 return true;
-              } else if ($cc.childNodes.length > 0) {
+              } if ($cc.childNodes.length > 0) {
                 // Could be nested twice for 'em' and 'strong' tags.
                 return Array.from($cc.childNodes).every(($ccc) => isNodeName($ccc, 'a') || (isNodeName($ccc, '#text') && whitespace.test($ccc.textContent)));
-              } else return false;
+              } return false;
             });
-          } else return false;
+          } return false;
         });
         if (buttonsOnly) {
           $p.classList.add('button-container');
@@ -132,8 +132,8 @@ export function transformLinkToYoutubeEmbed($a) {
 
 export function unwrapSingularFragments() {
   Array.from(document.querySelectorAll('main > .section > div > div > div > .fragment')).forEach(($fragment) => {
-  const $section = $fragment.closest('main > .section');
-  const $div = $fragment.closest('main > .section > div');
+    const $section = $fragment.closest('main > .section');
+    const $div = $fragment.closest('main > .section > div');
     Array.from($fragment.childNodes).forEach(($node) => {
       $section.insertBefore($node, $div);
       $node.classList.add('.fragment');
@@ -168,7 +168,7 @@ export function gnavUnderline() {
   const { href } = window.location;
   if (!href.includes('artisthub')) return;
 
-  let regex = /\/artisthub\/([^\/\\]+)/gi;
+  const regex = /\/artisthub\/([^/\\]+)/gi;
   const match = regex.exec(href);
   regex.lastIndex = 0;
   if (!(match && match.length > 1)) return;
@@ -184,7 +184,7 @@ export function gnavUnderline() {
 export function createSVG(path, name = undefined) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(name !== undefined) ? "#" : ""}${name}`);
+  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(name !== undefined) ? '#' : ''}${name}`);
   svg.appendChild(use);
   return svg;
 }
@@ -215,7 +215,7 @@ export const [setLibs, getLibs] = (() => {
       if (!hostname.includes('hlx.page')
         && !hostname.includes('hlx.live')
         && !hostname.includes('localhost')) {
-          libs = prodLibs;
+        libs = prodLibs;
       } else {
         const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
         switch (branch) {

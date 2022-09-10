@@ -10,11 +10,11 @@
  * governing permissions and limitations under the License.
  */
 
-import { 
-  setLibs, 
-  unwrapSingularFragments, 
-  decorateButtons, 
-  turnH6intoDetailM, 
+import {
+  setLibs,
+  unwrapSingularFragments,
+  decorateButtons,
+  turnH6intoDetailM,
   customSpacings,
   externalLinks,
   gnavUnderline,
@@ -57,7 +57,7 @@ const miloLibs = setLibs(LIBS);
   });
 }());
 
-const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/utils.js`);
+const { loadArea, loadDelayed, setConfig } = await import(`${miloLibs}/utils/utils.js`);
 
 (async function loadPage() {
   setConfig({ ...CONFIG, miloLibs });
@@ -69,8 +69,56 @@ const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/u
   externalLinks();
   customSpacings();
   gnavUnderline();
-  document.body.style.removeProperty("visibility");
+  document.body.style.removeProperty('visibility');
   const { default: loadModals } = await import(`${miloLibs}/blocks/modals/modals.js`);
   loadModals();
   loadDelayed();
 }());
+
+export function getLocale(url) {
+  const locale = url.pathname.split('/')[1];
+  if (/^[a-z]{2}$/.test(locale)) {
+    return locale;
+  }
+  return 'us';
+}
+
+export function toClassName(name) {
+  return name && typeof name === 'string'
+    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-')
+    : '';
+}
+
+/**
+ * Retrieves the content of a metadata tag.
+ * @param {string} name The metadata name (or property)
+ * @returns {string} The metadata value
+ */
+export function getMetadata(name) {
+  const attr = name && name.includes(':') ? 'property' : 'name';
+  const meta = [...document.head.querySelectorAll(`meta[${attr}="${name}"]`)].map((el) => el.content).join(', ');
+  return meta;
+}
+
+export async function fetchPlaceholders() {
+  if (!window.placeholders) {
+    try {
+      const locale = getLocale(window.location);
+      const urlPrefix = locale === 'us' ? '' : `/${locale}`;
+      const resp = await fetch(`${urlPrefix}/pages/artisthub/placeholders.json`);
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    } catch {
+      const resp = await fetch('/pages/artisthub/placeholders.json');
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    }
+  }
+  return window.placeholders;
+}

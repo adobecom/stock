@@ -106,11 +106,11 @@ main .featured-columns p {
   color: #4B4B4B;
 }
 
-main .featured-columns span.detail {    
+main .featured-columns span.detail {
   font-size: var(--detail-font-size-s);
 }
 
-main .featured-columns.small span.detail {    
+main .featured-columns.small span.detail {
   font-size: var(--detail-font-size-xs);
 }
 
