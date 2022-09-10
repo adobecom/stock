@@ -65,6 +65,10 @@ main .course .video-player-list-link {
   margin: 0;
 }
 
+main .course .video-player-list-link:hover .video-title-span {
+  text-decoration: underline;
+}
+
 main .course .video-player-list-link.active {
   color: var(--text-color);
   -webkit-text-stroke-width: .6px;
@@ -74,7 +78,6 @@ main .course .video-player-list-link.active {
 main .course .tabbed-area .video-title {
   padding-bottom: 50px;
 }
-
 
 main .course .tabbed-area .video-title {
   width: 100%;
@@ -111,6 +114,7 @@ main .course .tabs .tab {
   font-family: var(--body-font-family);
   margin: 0;
   line-height: var(--type-body-m-lh);
+  border-radius: 3px;
 }
 
 main .course .tabs .tab.active {
