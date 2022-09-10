@@ -12,12 +12,9 @@
 import { 
   createTag,
   createSVG,
+  getCurrentRoot
 } from '../../scripts/utils.js';
 
-/**
- * The carousel's navigation
- * @param {element} block The container of the carousel
- */
 function carouselAndLightbox(block) {
   const wrapper = block.querySelector('.image-carousel-wrapper');
   const lightbox = block.querySelector('.image-carousel-lightbox');
@@ -154,13 +151,8 @@ function carouselAndLightbox(block) {
   });
 }
 
-/**
- * Builds the carousel html
- * @param {array} imgSlides Array of objects, ex: [{img: imgElement, caption: pElement}, {...}]
- * @param {element} block The container of the carousel
- * @param {string} aspectRatio height ÷ width percentage of the carousel, ex: 50%;
- */
 function buildCarousel(imgSlides, block, aspectRatio = '50%') {
+  const root = getCurrentRoot();
   block.innerHTML = '';
   const wrapper = createTag('div', { class: 'image-carousel-wrapper' });
   const controls = createTag('div', { class: 'image-carousel-controls' });
@@ -174,8 +166,8 @@ function buildCarousel(imgSlides, block, aspectRatio = '50%') {
   block.appendChild(wrapper);
   const prev = createTag('button', { class: 'image-carousel-arrow image-carousel-previous', 'aria-label': 'Previous slide' });
   const next = createTag('button', { class: 'image-carousel-arrow image-carousel-next', 'aria-label': 'Next slide' });
-  prev.appendChild(createSVG('/pages/blocks/image-carousel/image-carousel.svg', 'chevron'));
-  next.appendChild(createSVG('/pages/blocks/image-carousel/image-carousel.svg', 'chevron'));
+  prev.appendChild(createSVG(`${root}/blocks/image-carousel/image-carousel.svg`, 'chevron'));
+  next.appendChild(createSVG(`${root}/blocks/image-carousel/image-carousel.svg`, 'chevron'));
   controls.appendChild(prev);
   controls.appendChild(next);
   imgSlides.forEach((imgSlide, index) => {
@@ -184,7 +176,7 @@ function buildCarousel(imgSlides, block, aspectRatio = '50%') {
     imgSlide.img.tabIndex = 0;
     imgSlide.ariaLabel = `Slide {index + 1}`;
     const expandButton = createTag('button', { class: 'image-carousel-expand', 'aria-label': 'Open in full screen' });
-    expandButton.appendChild(createSVG('/pages/blocks/image-carousel/image-carousel.svg', 'expand'));
+    expandButton.appendChild(createSVG(`${root}/blocks/image-carousel/image-carousel.svg`, 'expand'));
     slide.appendChild(expandButton);
     slideswrapper.appendChild(slide);
     const dot = createTag('button', { class: 'image-carousel-dot', 'aria-label': `Slide {index + 1}` });
@@ -194,7 +186,7 @@ function buildCarousel(imgSlides, block, aspectRatio = '50%') {
   const lightbox = wrapper.cloneNode(true);
   lightbox.classList.add('image-carousel-lightbox');
   const closeButton = createTag('button', { class: 'image-carousel-close-lightbox', 'aria-label': 'Close full screen' });
-  closeButton.appendChild(createSVG('/pages/blocks/image-carousel/image-carousel.svg', 'close'));
+  closeButton.appendChild(createSVG(`${root}/blocks/image-carousel/image-carousel.svg`, 'close'));
   lightbox.appendChild(closeButton);
   block.appendChild(lightbox);
   const lightboxThumbnails = lightbox.querySelectorAll('.image-carousel-dot');

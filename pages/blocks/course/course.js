@@ -12,16 +12,12 @@
 
 import { 
   fetchPlaceholders,
-} from '../../scripts/scripts.js';
-
-import { 
   loadBlockCSS,
 } from '../../scripts/utils.js';
 
 function createTag(name, attrs) {
   const el = document.createElement(name);
   if (typeof attrs === 'object') {
-    // eslint-disable-next-line no-restricted-syntax
     for (const [key, value] of Object.entries(attrs)) {
       el.setAttribute(key, value);
     }
@@ -92,53 +88,6 @@ async function buildCards(block, payload) {
     cardsTray.style.removeProperty('opacity');
     cardsTray.style.removeProperty('pointer-events');
   }
-}
-
-function injectFBSDK() {
-  const holder = createTag('div', { id: 'fb-root' });
-  const sdkScript = createTag('script');
-  sdkScript.innerHTML = '(function(d, s, id) {\n    var js, fjs = d.getElementsByTagName(s)[0];\n    if (d.getElementById(id)) return;\n    js = d.createElement(s); js.id = id;\n    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";\n    fjs.parentNode.insertBefore(js, fjs);\n    }(document, \'script\', \'facebook-jssdk\'));'
-  const body = document.querySelector('body');
-  body.prepend(holder, sdkScript);
-}
-
-function makeTwitterButton() {
-  const twitter = createTag('span');
-  const button = createTag('a', {
-    href: 'https://twitter.com/share?ref_src=twsrc%5Etfw',
-    className: 'twitter-share-button',
-    'data-show-count': false,
-  });
-  const script = createTag('script', {
-    async: true,
-    src: 'https://platform.twitter.com/widgets.js',
-    charSet: 'utf-8',
-  });
-  button.textContent = 'Tweet';
-  twitter.append(button, script);
-  return twitter;
-}
-
-function decorateSocialShareLinks() {
-  const wrapper = createTag('div', { class: 'social-wrapper' });
-  const heading = createTag('div', { class: 'social-heading' });
-  const socialButtons = createTag('div', { class: 'social-buttons' });
-
-  wrapper.append(heading, socialButtons);
-
-  // FB
-  injectFBSDK();
-  socialButtons.append(createTag('div', {
-    class: 'fb-share-button',
-    'data-href': window.location.href,
-    'data-layout': 'button',
-  }));
-
-  // Twitter
-  socialButtons.append(makeTwitterButton());
-
-  // LinkedIn
-  return wrapper;
 }
 
 function loadTranscript(block, payload) {

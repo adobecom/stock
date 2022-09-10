@@ -1,3 +1,65 @@
+export const [setLibs, getLibs] = (() => {
+  let libs;
+  return [
+    (prodLibs) => {
+      const { hostname } = window.location;
+      if (!hostname.includes('hlx.page')
+        && !hostname.includes('hlx.live')
+        && !hostname.includes('localhost')) {
+        libs = prodLibs;
+      } else {
+        const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
+        switch (branch) {
+          case branch === 'local':
+            libs = 'http://localhost:6456/libs';
+            break;
+          case branch.indexOf('--') > -1:
+            libs = `https://${branch}.hlx.page/libs`;
+            break;
+          default:
+            libs = `https://${branch}--milo--adobecom.hlx.page/libs`;
+        }
+      }
+      return libs;
+    }, () => libs,
+  ];
+})();
+const LIBS = 'https://milo.adobe.com/libs';
+const miloLibs = setLibs(LIBS);
+const { getConfig } = await import(`${miloLibs}/utils/utils.js`);
+/*
+ * ------------------------------------------------------------
+ * Edit above at your own risk
+ * ------------------------------------------------------------
+ */
+
+export function getCurrentRoot() {
+  const { locale } = getConfig();
+  return locale.contentRoot;
+}
+
+export async function fetchPlaceholders() {
+  const root = getCurrentRoot();
+  if (!window.placeholders) {
+    try {
+      const resp = await fetch(`${root}/artisthub/placeholders.json`);
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    } catch {
+      const resp = await fetch(`/pages/artisthub/placeholders.json`);
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    }
+  }
+  return window.placeholders;
+}
+
 export function createTag(name, attrs) {
   const el = document.createElement(name);
   if (typeof attrs === 'object') {
@@ -204,11 +266,13 @@ export function loadCSS(href, callback) {
   }
 }
 
-/**
- * Loads JS and CSS for a block.
- * @param {Element} $block The block element
- */
- export async function loadBlockCSS(blockName) {
+export function getMetadata(name) {
+  const attr = name && name.includes(':') ? 'property' : 'name';
+  const meta = [...document.head.querySelectorAll(`meta[${attr}="${name}"]`)].map((el) => el.content).join(', ');
+  return meta;
+}
+
+export async function loadBlockCSS(blockName) {
   const href = `/pages/blocks/${blockName}/${blockName}.css`;
   if (document.querySelector(`head > link[href="${href}"]`)) return;
 
@@ -236,36 +300,3 @@ export function externalLinks() {
     }
   });
 }
-
-/*
- * ------------------------------------------------------------
- * Edit below at your own risk
- * ------------------------------------------------------------
- */
-
-export const [setLibs, getLibs] = (() => {
-  let libs;
-  return [
-    (prodLibs) => {
-      const { hostname } = window.location;
-      if (!hostname.includes('hlx.page')
-        && !hostname.includes('hlx.live')
-        && !hostname.includes('localhost')) {
-        libs = prodLibs;
-      } else {
-        const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
-        switch (branch) {
-          case branch === 'local':
-            libs = 'http://localhost:6456/libs';
-            break;
-          case branch.indexOf('--') > -1:
-            libs = `https://${branch}.hlx.page/libs`;
-            break;
-          default:
-            libs = `https://${branch}--milo--adobecom.hlx.page/libs`;
-        }
-      }
-      return libs;
-    }, () => libs,
-  ];
-})();
