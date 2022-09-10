@@ -72,11 +72,16 @@ main .course .video-player-list-link.active {
 }
 
 main .course .tabbed-area .video-title {
-  padding-bottom: 32px;
+  padding-bottom: 50px;
 }
 
-main .course .tabbed-area .tabs,
+
 main .course .tabbed-area .video-title {
+  width: 100%;
+  max-width: var(--grid-container-width);
+}
+
+main .course .tabbed-area .tabs {
   width: 70%
 }
 
@@ -125,8 +130,12 @@ main .course .tabs .tab:hover {
     flex-direction: column;
   }
 
-  main .course .tabbed-area .tabs,
   main .course .tabbed-area .video-title {
+    width: 100%;
+    max-width: unset;
+  }
+
+  main .course .tabbed-area .tabs {
     width: 100%;
     max-width: 500px;
   }
@@ -216,13 +225,17 @@ main .course .page-feed.horizontal.col-6-pf-cards {
   }
 }
 
-@media (max-width: 374px) {
+@media (max-width: 500px) {
   main .course .tabbed-area .tabs,
   main .course .tabbed-area .video-title {
     max-width: 100%;
     padding-left: 16px;
     padding-right: 16px;
     box-sizing: border-box;
+  }
+
+  main .course .tabbed-area .video-title {
+    padding-bottom: 16px;
   }
 
   main .course .tabbed-area .tabs .tab {
