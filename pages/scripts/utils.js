@@ -283,10 +283,10 @@ export async function loadBlockCSS(blockName) {
 
 export function createSVG(path, name = undefined) {
   let anchor = null
-  if (typeof(name) === String) anchor = name;
+  if (typeof(name) === 'string') anchor = name;
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use'); // use the fetch instead
   use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(anchor) ? '#' : ''}${anchor}`);
   svg.appendChild(use);
   return svg;
