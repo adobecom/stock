@@ -9,6 +9,17 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import { getMetadata, createTag, fetchPlaceholders } from '../../scripts/utils.js';
 
-export default function decorate(block) {
+export default async function decorate(block) {
+  const metaAuthors = getMetadata('authors');
+  const placeholders = await fetchPlaceholders((placeholders) => placeholders);
+
+  const heading = createTag('h3');
+  const authors = createTag('p');
+
+  heading.textContent = `${placeholders['authors-block-heading']}:`;
+  authors.textContent = metaAuthors;
+
+  block.append(heading, authors);
 }

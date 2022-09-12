@@ -10,11 +10,11 @@
  * governing permissions and limitations under the License.
  */
 
-import { 
-  setLibs, 
-  unwrapSingularFragments, 
-  decorateButtons, 
-  turnH6intoDetailM, 
+import {
+  setLibs,
+  unwrapSingularFragments,
+  decorateButtons,
+  turnH6intoDetailM,
   customSpacings,
   externalLinks,
   gnavUnderline,
@@ -57,7 +57,7 @@ const miloLibs = setLibs(LIBS);
   });
 }());
 
-const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/utils.js`);
+const { loadArea, loadDelayed, setConfig } = await import(`${miloLibs}/utils/utils.js`);
 
 (async function loadPage() {
   setConfig({ ...CONFIG, miloLibs });
@@ -69,8 +69,9 @@ const { loadArea,  loadDelayed,  setConfig } = await import(`${miloLibs}/utils/u
   externalLinks();
   customSpacings();
   gnavUnderline();
-  document.body.style.removeProperty("visibility");
+  document.body.style.removeProperty('visibility');
   const { default: loadModals } = await import(`${miloLibs}/blocks/modals/modals.js`);
   loadModals();
   loadDelayed();
 }());
+

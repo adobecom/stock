@@ -1,3 +1,57 @@
+export const [setLibs, getLibs] = (() => {
+  let libs;
+  return [
+    (prodLibs) => {
+      const { hostname } = window.location;
+      if (!hostname.includes('hlx.page')
+        && !hostname.includes('hlx.live')
+        && !hostname.includes('localhost')) {
+        libs = prodLibs;
+        return libs;
+      }
+      const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
+      if (branch === 'local') return 'http://localhost:6456/libs';
+      if (branch.indexOf('--') > -1) return `https://${branch}.hlx.page/libs`;
+      return `https://${branch}--milo--adobecom.hlx.page/libs`;
+    }, () => libs,
+  ];
+})();
+const LIBS = 'https://milo.adobe.com/libs';
+const miloLibs = setLibs(LIBS);
+const { getConfig } = await import(`${miloLibs}/utils/utils.js`);
+/*
+ * ------------------------------------------------------------
+ * Edit above at your own risk
+ * ------------------------------------------------------------
+ */
+
+export function getCurrentRoot() {
+  const { locale } = getConfig();
+  return locale.contentRoot;
+}
+
+export async function fetchPlaceholders() {
+  const root = getCurrentRoot();
+  if (!window.placeholders) {
+    try {
+      const resp = await fetch(`${root}/artisthub/placeholders.json`);
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    } catch {
+      const resp = await fetch(`/pages/artisthub/placeholders.json`);
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    }
+  }
+  return window.placeholders;
+}
+
 export function createTag(name, attrs) {
   const el = document.createElement(name);
   if (typeof attrs === 'object') {
@@ -57,7 +111,7 @@ export function decorateButtons(scope = document) {
   const isNodeName = (node, name) => {
     if (!node || typeof node !== 'object') return false;
     return node.nodeName.toLowerCase() === name.toLowerCase();
-  }
+  };
   scope.querySelectorAll(':scope a').forEach(($a) => {
     $a.title = $a.title || $a.textContent || $a.href;
     const $block = $a.closest('div.section > div');
@@ -77,16 +131,16 @@ export function decorateButtons(scope = document) {
         const buttonsOnly = childNodes.every(($c) => {
           if (isNodeName($c, 'a') || (isNodeName($c, '#text') && whitespace.test($c.textContent))) {
             return true;
-          } else if ($c.childNodes.length > 0) {
+          } if ($c.childNodes.length > 0) {
             return Array.from($c.childNodes).every(($cc) => {
               if (isNodeName($cc, 'a') || (isNodeName($cc, '#text') && whitespace.test($cc.textContent))) {
                 return true;
-              } else if ($cc.childNodes.length > 0) {
+              } if ($cc.childNodes.length > 0) {
                 // Could be nested twice for 'em' and 'strong' tags.
                 return Array.from($cc.childNodes).every(($ccc) => isNodeName($ccc, 'a') || (isNodeName($ccc, '#text') && whitespace.test($ccc.textContent)));
-              } else return false;
+              } return false;
             });
-          } else return false;
+          } return false;
         });
         if (buttonsOnly) {
           $p.classList.add('button-container');
@@ -132,8 +186,8 @@ export function transformLinkToYoutubeEmbed($a) {
 
 export function unwrapSingularFragments() {
   Array.from(document.querySelectorAll('main > .section > div > div > div > .fragment')).forEach(($fragment) => {
-  const $section = $fragment.closest('main > .section');
-  const $div = $fragment.closest('main > .section > div');
+    const $section = $fragment.closest('main > .section');
+    const $div = $fragment.closest('main > .section > div');
     Array.from($fragment.childNodes).forEach(($node) => {
       $section.insertBefore($node, $div);
       $node.classList.add('.fragment');
@@ -168,7 +222,7 @@ export function gnavUnderline() {
   const { href } = window.location;
   if (!href.includes('artisthub')) return;
 
-  let regex = /\/artisthub\/([^\/\\]+)/gi;
+  const regex = /\/artisthub\/([^/\\]+)/gi;
   const match = regex.exec(href);
   regex.lastIndex = 0;
   if (!(match && match.length > 1)) return;
@@ -181,10 +235,51 @@ export function gnavUnderline() {
   });
 }
 
+
+export function toClassName(name) {
+  return name && typeof name === 'string'
+    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-')
+    : '';
+}
+
+
+export function loadCSS(href, callback) {
+  if (!document.querySelector(`head > link[href="${href}"]`)) {
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('href', href);
+    if (typeof callback === 'function') {
+      link.onload = (e) => callback(e.type);
+      link.onerror = (e) => callback(e.type);
+    }
+    document.head.appendChild(link);
+  } else if (typeof callback === 'function') {
+    callback('noop');
+  }
+}
+
+export function getMetadata(name) {
+  const attr = name && name.includes(':') ? 'property' : 'name';
+  const meta = [...document.head.querySelectorAll(`meta[${attr}="${name}"]`)].map((el) => el.content).join(', ');
+  return meta;
+}
+
+export async function loadBlockCSS(blockName) {
+  const href = `/pages/blocks/${blockName}/${blockName}.css`;
+  if (document.querySelector(`head > link[href="${href}"]`)) return;
+
+  return new Promise((resolve) => {
+    loadCSS(href, resolve);
+  });
+}
+
 export function createSVG(path, name = undefined) {
+  let anchor = null
+  if (typeof(name) === 'string') anchor = name;
+
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(name !== undefined) ? "#" : ""}${name}`);
+  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use'); // use the fetch instead
+  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(anchor) ? '#' : ''}${anchor}`);
   svg.appendChild(use);
   return svg;
 }
@@ -200,28 +295,3 @@ export function externalLinks() {
     }
   });
 }
-
-/*
- * ------------------------------------------------------------
- * Edit below at your own risk
- * ------------------------------------------------------------
- */
-
-export const [setLibs, getLibs] = (() => {
-  let libs;
-  return [
-    (prodLibs) => {
-      const { hostname } = window.location;
-      if (!hostname.includes('hlx.page')
-        && !hostname.includes('hlx.live')
-        && !hostname.includes('localhost')) {
-        libs = prodLibs;
-        return libs;
-      }
-      const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
-      if (branch === 'local') return 'http://localhost:6456/libs';
-      if (branch.indexOf('--') > -1) return `https://${branch}.hlx.page/libs`;
-      return `https://${branch}--milo--adobecom.hlx.page/libs`;
-    }, () => libs,
-  ];
-})();

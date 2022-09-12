@@ -14,62 +14,19 @@
   @media screen and (min-width: 1120px)
 */
 
-/* customize gnav for artisthub */
-
-body nav.gnav .gnav-brand {
-  justify-content: flex-start
-}
-
-body nav.gnav .gnav-brand picture {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-body nav.gnav .gnav-brand picture img {
-  width: auto;
-  height: 100%;
-}
-
-@media (min-width: 1200px) {
-  .gnav-navitem.has-Menu.is-Open .gnav-navitem-menu li,
-  .gnav-navitem.has-Menu.is-Open .gnav-navitem-menu ul {
-    padding: 0;
-  }
-  .gnav-navitem.has-Menu.is-Open .gnav-navitem-menu ul li a {
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-}
-
-body header.gnav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-body header.gnav + main {
-  margin-top: 65px;
-}
-
-
 /* cusomize typography for artisthub */
 
-p {
+main p {
   margin: 0;
   padding-top: 8px;
   padding-bottom: 12px;
 }
 
-p:empty {
+main p:empty {
   padding: 0;
 }
 
-p.detail-M {
+main p.detail-M {
   padding-top: 8px;
   padding-bottom: 8px;
   font-size: 12px;
@@ -80,76 +37,73 @@ p.detail-M {
   font-weight: bold;
 }
 
-h1, h2, h3, h4 {
+main h1, main h2, main h3, main h4 {
   font-weight: var(--heading-font-weight);
   line-height: var(--heading-line-height);
 }
 
-h1, h2, h3, h4 {
+main h1, main h2, main h3, main h4 {
   margin: 0;
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
-h1 {
-  padding-top: var(--section-spacing-small);
+main h1 {
+  padding-top: var(--section-spacing-s);
 }
 
-p.detail-M + h1,
-p.detail-M + h2,
-p.detail-M + h3,
-p.detail-M + h4 {
+main p.detail-M + h1,
+main p.detail-M + h2,
+main p.detail-M + h3,
+main p.detail-M + h4 {
   padding-top: 8px;
 }
 
-p:not(.detail-M) + h1,
-p:not(.detail-M) + h2,
-p:not(.detail-M) + h3,
-p:not(.detail-M) + h4
-p:not(.detail-M) + p.detail-M {
-  padding-top: var(--section-spacing);
+main p:not(.detail-M) + h1,
+main p:not(.detail-M) + h2,
+main p:not(.detail-M) + h3,
+main p:not(.detail-M) + h4
+main p:not(.detail-M) + p.detail-M {
+  padding-top: var(--section-spacing-m);
 }
 
-h1 {
+main h1 {
   font-size: var(--heading-font-size-xxl);
 }
 
-h2 {
+main h2 {
   font-size: var(--heading-font-size-xl);
 }
 
-h3 {
+main h3 {
   font-size: var(--heading-font-size-m);
 }
 
-h4 {
+main h4 {
   font-size: var(--heading-font-size-s);
 }
 
-h5 {
+main h5 {
   font-size: var(--heading-font-size-xs);
 }
 
-li {
+main li {
   margin: 0;
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
-ul, ol {
+main ul, main ol {
   margin: 0;
   margin-block-start: 0;
   margin-block-end: 0;
   margin-inline-start: 0;
   margin-inline-end: 0;
   padding: 15px 0;
-  padding-inline-start: 60px;
-}
-/* customize articles */
-
-ul, ol {
   padding-inline-start: 2rem;
 }
+
+/* customize articles */
 
 @media (min-width: 900px) {
   main > .section > .content {
