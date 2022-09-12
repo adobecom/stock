@@ -215,21 +215,13 @@ export const [setLibs, getLibs] = (() => {
       if (!hostname.includes('hlx.page')
         && !hostname.includes('hlx.live')
         && !hostname.includes('localhost')) {
-          libs = prodLibs;
-      } else {
-        const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
-        switch (branch) {
-          case branch === 'local':
-            libs = 'http://localhost:6456/libs';
-            break;
-          case branch.indexOf('--') > -1:
-            libs = `https://${branch}.hlx.page/libs`;
-            break;
-          default:
-            libs = `https://${branch}--milo--adobecom.hlx.page/libs`;
-        }
+        libs = prodLibs;
+        return libs;
       }
-      return libs;
+      const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
+      if (branch === 'local') return 'http://localhost:6456/libs';
+      if (branch.indexOf('--') > -1) return `https://${branch}.hlx.page/libs`;
+      return `https://${branch}--milo--adobecom.hlx.page/libs`;
     }, () => libs,
   ];
 })();
