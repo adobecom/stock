@@ -55,7 +55,7 @@ function lazyDecorateVideo(cell, a) {
   }
 }
 
-export default function decorate(block) {
+export default function featuredColumns(block) {
   const rows = Array.from(block.children);
   rows.forEach((row) => {
     row.classList.add('featured-row');

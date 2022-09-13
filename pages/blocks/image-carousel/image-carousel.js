@@ -187,7 +187,7 @@ function buildCarousel(imgSlides, block, aspectRatio = '50%') {
   carouselAndLightbox(block);
 }
 
-export default function decorate(block) {
+export default function imageCarousel(block) {
   const imgs = block.querySelectorAll('picture');
   const imgSlides = [];
   let aspectRatio;

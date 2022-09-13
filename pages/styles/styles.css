@@ -400,3 +400,12 @@ main > .section:not(.has-background) > .content:last-child {
 main > .section > .content + .image-rows {
   padding-top: var(--section-spacing-m);
 }
+
+main .section:first-child > .content h1:first-child {
+  padding-top: 8px;
+}
+
+main .section:first-child > .breadcrumbs + .content + .share {
+  padding-top: 16px;
+  padding-bottom: 32px;
+}

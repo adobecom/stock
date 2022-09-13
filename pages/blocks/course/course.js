@@ -13,17 +13,8 @@
 import { 
   fetchPlaceholders,
   loadBlockCSS,
+  createTag
 } from '../../scripts/utils.js';
-
-function createTag(name, attrs) {
-  const el = document.createElement(name);
-  if (typeof attrs === 'object') {
-    for (const [key, value] of Object.entries(attrs)) {
-      el.setAttribute(key, value);
-    }
-  }
-  return el;
-}
 
 function handlize(string) {
   return string.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '');
