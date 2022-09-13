@@ -131,6 +131,9 @@ main .featured-columns .picture-column img {
   width: 100%;
   height: auto;
   transition: filter 0.3s, transform 0.3s;
+  max-height: 600px;
+  object-fit: cover;
+  object-position: center top;
 }
 
 main .featured-columns .picture-column a {
