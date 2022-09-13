@@ -401,7 +401,7 @@ main > .section > .content + .image-rows {
   padding-top: var(--section-spacing-m);
 }
 
-main .section:first-child > .content h1:first-child {
+main .section:first-child > .breadcrumbs + .content h1:first-child {
   padding-top: 8px;
 }
 
