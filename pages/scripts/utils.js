@@ -235,10 +235,8 @@ export function gnavUnderline() {
   for (let i = 0; i < links.length; i += 1) {
     const linkRelHref = makeRelative(links[i].href);
     currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
-    if ((!(currentActivePage) && relHref.startsWith(linkRelHref)) || linkRelHref === relHref) {
-      for (let n = 0; n < links.length; n += 1) {
-        links[n].classList.remove('active-page');
-      }
+    if (relHref.startsWith(linkRelHref) || linkRelHref === relHref) {
+      if (currentActivePage) currentActivePage.classList.remove('active-page');
       links[i].classList.add('active-page');
     }
   };
