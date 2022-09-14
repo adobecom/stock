@@ -123,12 +123,17 @@ export async function loadPageFeedCard(a) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
     const pfCard = doc.querySelector('.page-feed-card > div');
-    turnH6intoDetailM(pfCard);
-    pfCard.append(createTag('div', {}, a));
-    return pfCard;
+    if (pfCard) {
+      turnH6intoDetailM(pfCard);
+      pfCard.append(createTag('div', {}, a));
+      return pfCard;
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('Could not get page feed card for', `${relHref}`);
+    }
   } else {
     // eslint-disable-next-line no-console
-    console.log('Could not get page feed card for' `${relHref}`);
+    console.log('Could not get page feed card for', `${relHref}`);
   }
 }
 
