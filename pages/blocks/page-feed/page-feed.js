@@ -66,8 +66,6 @@ function buildCard(card, overlay = false) {
   return card
 }
 
-function loadPageFeedCard()
-
 export default async function pageFeed(block) {
   const rows = Array.from(block.children);
   block.innerHTML = '';
