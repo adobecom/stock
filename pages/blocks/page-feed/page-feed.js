@@ -83,24 +83,24 @@ export default async function pageFeed(block) {
     if (children.length > 0 && children[0].querySelector('ul')) {
       const pageLinks = children[0].querySelector('ul').querySelectorAll('a');
       for (let i = 0; i < pageLinks.length; i += 1) {
-        const resp = await fetch(`${pageLinks[i].href}.plain.html`);
-        if (resp.ok) {
-          const html = await resp.text();
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const pfCard = doc.querySelector('.page-feed-card > div');
-          const div = createTag(div);
-          div.append(pfCard);
-          cards.push(div);
-        }
+        // const resp = await fetch(`${pageLinks[i].href}.plain.html`);
+        // if (resp.ok) {
+        //   const html = await resp.text();
+        //   const parser = new DOMParser();
+        //   const doc = parser.parseFromString(html, 'text/html');
+        //   const pfCard = doc.querySelector('.page-feed-card > div');
+        //   const div = createTag(div);
+        //   div.append(pfCard);
+        //   cards.push(div);
+        // }
       }
     } else {
-      cards.push(rows[n]);
+      cards.push(buildCard(rows[n]));
     }
   };
   block.innerHTML = '';
   block.classList.add(`col-${cards.length}-pf-cards`);
   cards.forEach((card) => {
-    block.append(buildCard(card, overlay));
+    block.append(card);
   });
 }
