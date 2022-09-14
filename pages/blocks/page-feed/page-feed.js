@@ -2,6 +2,7 @@
 import {
   createTag,
   transformLinkToAnimation,
+  loadPageFeedCard,
 } from '../../scripts/utils.js';
 
 function buildCard(card, overlay = false) {
@@ -84,7 +85,9 @@ export default async function pageFeed(block) {
       const pageLinks = children[0].querySelector('ul').querySelectorAll('a');
       for (let i = 0; i < pageLinks.length; i += 1) {
         const card = await loadPageFeedCard(pageLinks[i]);
-        cards.push(buildCard(card, overlay));
+        if (card) {
+          cards.push(buildCard(card, overlay));
+        }
       }
     } else {
       cards.push(buildCard(rows[n], overlay));
