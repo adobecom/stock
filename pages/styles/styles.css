@@ -30,11 +30,6 @@
   --color-info-transparent-bg-down: rgba(0,0,0,0.2);
   --color-premium: #EBCF2D;
 
-  --gradient-highlight-vertical: linear-gradient(15deg, #7c84fc, #ff4dd2);
-  --gradient-highlight-horizontal: linear-gradient(90deg, #ff4dd2, #7c84fc);
-
-  --heading-color: var(--color-gray-800);
-
   /* font-sizes */
 
   --body-font-size-xxl: 28px;
@@ -90,13 +85,17 @@
   }
 }
 
+main img,
+main video {
+  max-width: 100%;
+}
+
 /* buttons */
 
 main a.button:any-link {
   text-decoration: none;
   border-radius: 40px;
   padding: 4px 1.2em 5px 1.2em;
-  /*outline: none; (keep outline for a11n) */
   text-align: center;
   font-size: var(--body-font-size-xs);
   font-style: normal; 
@@ -237,13 +236,6 @@ main .section .center p.button-container {
   justify-content: center;
 }
 
-/* other small adjustments */
-
-main img,
-main video {
-  max-width: 100%;
-}
-
 /* customize gnav for stock */
 
 body nav.gnav .gnav-brand {
@@ -306,6 +298,8 @@ main picture img {
   }
 }
 
+/* customize section spacings for stock */
+
 main > .section > .content:not(:first-child) {
   margin-top: var(--section-spacing-m);
 }
@@ -341,7 +335,6 @@ main > .section.has-background,
   padding-bottom: var(--section-spacing-m);
   padding-top: var(--section-spacing-m);
 }
-
 
 main > .section > .content:not(:first-child) {
   margin-top: var(--section-spacing-m);
