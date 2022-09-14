@@ -529,3 +529,7 @@ main .section.has-background .page-feed:first-child {
     max-width: 520px;
   }
 }
+
+main > div.section:first-of-type > .page-feed:first-child {
+  padding-top: var(--section-spacing-m);
+}
