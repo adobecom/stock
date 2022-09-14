@@ -71,6 +71,10 @@ export default async function pageFeed(block) {
   block.innerHTML = ''
   const cards = [];
   const overlay = (block.classList.contains('overlay'));
+  if (block.classList.contains('fit')) {
+    block.classList.add('pf-fit');
+    block.classList.remove('fit');
+  }
   for (let n = 0; n < rows.length; n += 1) {
     const children = rows[n].children;
     if (children.length > 0 && children[0].querySelector('ul')) {
@@ -93,6 +97,6 @@ export default async function pageFeed(block) {
   block.innerHTML = ''
   block.classList.add(`col-${cards.length}-pf-cards`)
   cards.forEach((card) => {
-    block.append(buildCard(card));
+    block.append(buildCard(card, overlay));
   });
 }

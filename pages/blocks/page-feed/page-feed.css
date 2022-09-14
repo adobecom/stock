@@ -1,7 +1,7 @@
 /* (Default) shows an image at the top and text at the bottom */
 /* (Overlay) shows an image in the background and a dark overlay with white text in front */
 /* (Horizontal) shows an image on the left and text on the right */
-/* (noCrop) shows the full image without cropping, please make sure to use the same height for each card in a card-set if you use 'nocrop' */
+/* (Fit) shows the full image without cropping, please make sure to use the same height for each card in a card-set */
 /* (Borderless) shows the cards with out the border. It's also a variant that's best used for featured mentors section. */
 
 main .page-feed {
@@ -482,8 +482,8 @@ main .page-feed + a {
   padding-top: 0;
 }
 
-main .page-feed.nocrop:not(.horizontal):not(.overlay) .pf-card-picture img,
-main .page-feed.nocrop:not(.horizontal):not(.overlay) .pf-card-picture video {
+main .page-feed.pf-fit:not(.horizontal):not(.overlay) .pf-card-picture img,
+main .page-feed.pf-fit:not(.horizontal):not(.overlay) .pf-card-picture video {
   height: auto;
   object-fit: contain;
 }
