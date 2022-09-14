@@ -193,7 +193,7 @@ export function unwrapSingularFragments() {
     const div = fragment.closest('main > .section > div');
     Array.from(fragment.childNodes).forEach((node) => {
       section.insertBefore(node, div);
-      node.classList.add('.fragment');
+      node.classList.add('fragment');
       decorateButtons(node);
       turnH6intoDetailM(node);
     });
