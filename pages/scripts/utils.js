@@ -226,10 +226,12 @@ export function customSpacings() {
   });
 }
 
-export function gnavUnderline() {
+export async function gnavUnderline() {
   const { href } = window.location;
   const relHref = makeRelative(href);
   if (!relHref.includes('artisthub')) return;
+
+  await delay(50);
   const links = document.querySelectorAll('.gnav-navitem > a');
   let currentActivePage;
   for (let i = 0; i < links.length; i += 1) {
