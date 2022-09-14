@@ -140,27 +140,44 @@ main .page-feed .pf-card-text span.detail + * {
   min-height: 54px;
 }
 
-main .pf-card .pf-card-text p,
-main .pf-card .pf-card-text h1,
-main .pf-card .pf-card-text h2,
-main .pf-card .pf-card-text h3,
-main .pf-card .pf-card-text h4,
-main .pf-card .pf-card-text h5,
-main .pf-card .pf-card-text span.detail {
+main .page-feed .pf-card .pf-card-text p,
+main .page-feed .pf-card .pf-card-text h1,
+main .page-feed .pf-card .pf-card-text h2,
+main .page-feed .pf-card .pf-card-text h3,
+main .page-feed .pf-card .pf-card-text h4,
+main .page-feed .pf-card .pf-card-text h5,
+main .page-feed .pf-card .pf-card-text span.detail {
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-main .pf-card .pf-card-text h1,
-main .pf-card .pf-card-text h2,
-main .pf-card .pf-card-text h3,
-main .pf-card .pf-card-text h4,
-main .pf-card .pf-card-text h5 {
+main .page-feed .pf-card .pf-card-text h1,
+main .page-feed .pf-card .pf-card-text h2,
+main .page-feed .pf-card .pf-card-text h3,
+main .page-feed .pf-card .pf-card-text h4,
+main .page-feed .pf-card .pf-card-text h5 {
   font-size: var(--heading-font-size-xs);
   min-height: 47px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-main .pf-card .pf-card-text p {
+main .page-feed.horizontal .pf-card .pf-card-text h1,
+main .page-feed.horizontal .pf-card .pf-card-text h2,
+main .page-feed.horizontal .pf-card .pf-card-text h3,
+main .page-feed.horizontal .pf-card .pf-card-text h4,
+main .page-feed.horizontal .pf-card .pf-card-text h5 {
+  font-size: var(--heading-font-size-xs);
+  margin-bottom: 0;
+  margin-top: 4px;
+}
+
+main .page-feed .pf-card .pf-card-text p {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+main .page-feed .pf-card .pf-card-text p {
   font-size: var(--body-font-size-xs);
   color: #747474;
 }
