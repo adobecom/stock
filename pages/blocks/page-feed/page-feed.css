@@ -356,6 +356,7 @@ main .page-feed.horizontal.col-4-pf-cards .pf-card {
 main .page-feed.horizontal .pf-card-picture {
   width: 110px;
   min-width: 110px;
+  position: relative;
 }
 
 main .page-feed.horizontal.col-1-pf-cards .pf-card-picture img,
