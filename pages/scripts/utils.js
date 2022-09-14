@@ -31,7 +31,7 @@ export async function loadPageFeedCard(a) {
     console.log(`ERROR: Fragment Circular Reference loading ${a.href}`);
     return;
   }
-  const resp = await fetch(`${a.href}.plain.html`);
+  const resp = await fetch(`${relHref}.plain.html`);
   if (resp.ok) {
     const html = await resp.text();
     const parser = new DOMParser();
@@ -42,7 +42,7 @@ export async function loadPageFeedCard(a) {
     return div;
   } else {
     // eslint-disable-next-line no-console
-    console.log('Could not get page feed card');
+    console.log('Could not get page feed card for' `${relHref}`);
   }
 }
 
