@@ -11,7 +11,7 @@ function buildCard(card, overlay = false) {
   let hasLink = false;
   cells.forEach((cell, index) => {
     if (index === 0) {
-      const pic = cell.querySelector('picture');
+      const pic = cell.querySelector('picture:first-child:last-child');
       if (pic) {
         cell.classList.add('pf-card-picture');
       } else {
