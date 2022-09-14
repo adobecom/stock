@@ -124,6 +124,7 @@ export async function loadPageFeedCard(a) {
     const doc = parser.parseFromString(html, 'text/html');
     const pfCard = doc.querySelector('.page-feed-card > div');
     turnH6intoDetailM(pfCard);
+    pfCard.append(createTag('div', {}, a));
     return pfCard;
   } else {
     // eslint-disable-next-line no-console
