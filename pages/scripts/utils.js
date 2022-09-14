@@ -69,21 +69,6 @@ export function createTag(tag, attributes, html) {
   return el;
 }
 
-export async function loadPageFeedCard(a) {
-  const relHref = makeRelative(a.href);
-  const resp = await fetch(`${relHref}.plain.html`);
-  if (resp.ok) {
-    const html = await resp.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const pfCard = doc.querySelector('.page-feed-card > div');
-    return pfCard;
-  } else {
-    // eslint-disable-next-line no-console
-    console.log('Could not get page feed card for' `${relHref}`);
-  }
-}
-
 export function transformLinkToAnimation(a) {
   if (!a || !a.href.includes('.mp4')) {
     return null;
@@ -128,6 +113,22 @@ export function turnH6intoDetailM(scope = document) {
     p.innerHTML = h6.innerHTML;
     h6.parentNode.replaceChild(p, h6);
   });
+}
+
+export async function loadPageFeedCard(a) {
+  const relHref = makeRelative(a.href);
+  const resp = await fetch(`${relHref}.plain.html`);
+  if (resp.ok) {
+    const html = await resp.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const pfCard = doc.querySelector('.page-feed-card > div');
+    turnH6intoDetailM(pfCard);
+    return pfCard;
+  } else {
+    // eslint-disable-next-line no-console
+    console.log('Could not get page feed card for' `${relHref}`);
+  }
 }
 
 export function decorateButtons(scope = document) {
