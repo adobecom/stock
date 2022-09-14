@@ -226,6 +226,12 @@ export function customSpacings() {
   });
 }
 
+export const delay = (timeOut, cb) => new Promise((resolve) => {
+  setTimeout(() => {
+    resolve((cb && cb()) || null);
+  }, timeOut);
+});
+
 export async function gnavUnderline() {
   const { href } = window.location;
   const relHref = makeRelative(href);
