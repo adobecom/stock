@@ -77,8 +77,7 @@ export async function loadPageFeedCard(a) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
     const pfCard = doc.querySelector('.page-feed-card > div');
-    if (pfCard) return createTag('div', {}, pfCard);
-    
+    return pfCard;
   } else {
     // eslint-disable-next-line no-console
     console.log('Could not get page feed card for' `${relHref}`);
