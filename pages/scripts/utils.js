@@ -233,9 +233,15 @@ export function gnavUnderline() {
   const links = document.querySelectorAll('.gnav-navitem > a');
   let currentActivePage;
   for (let i = 0; i < links.length; i += 1) {
-    const linkRelHref = makeRelative(links[i].href);
-    currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
-    if (relHref.startsWith(linkRelHref) || linkRelHref === relHref) {
+    if (relHref.startsWith(makeRelative(links[i].href))) {
+      currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
+      if (currentActivePage) currentActivePage.classList.remove('active-page');
+      links[i].classList.add('active-page');
+    }
+  };
+  for (i = 0; i < links.length; i += 1) {
+    if (makeRelative(links[i].href) === relHref) {
+      currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
       if (currentActivePage) currentActivePage.classList.remove('active-page');
       links[i].classList.add('active-page');
     }
