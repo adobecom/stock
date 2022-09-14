@@ -4,84 +4,95 @@ import {
   transformLinkToAnimation,
 } from '../../scripts/utils.js';
 
-export default function decorate(block) {
-  const cards = Array.from(block.children);
-  let numberOfCards = 0;
-  if (cards[0]) {
-    numberOfCards = cards.length;
-  }
-  if (numberOfCards > 0) {
-    block.classList.add(`col-${numberOfCards}-pf-cards`);
-  }
-  const pics = block.querySelectorAll('picture');
-  block.querySelectorAll('p:empty').forEach((p) => p.remove());
-  if (pics.length === 1 && pics[0].parentElement.tagName === 'P') {
-    const parentDiv = pics[0].closest('div');
-    const parentParagraph = pics[0].parentNode;
-    parentDiv.insertBefore(pics[0], parentParagraph);
-  }
-  let overlay = false;
-  if (block.classList.contains('overlay')) {
-    overlay = true;
-  }
-  cards.forEach((card) => {
-    card.classList.add('pf-card');
-    const cells = Array.from(card.children);
-    let hasLink = false;
-    cells.forEach((cell, index) => {
-      if (index === 0) {
-        const pic = cell.querySelector('picture');
-        if (pic) {
-          cell.classList.add('pf-card-picture');
-        } else {
-          const a = cell.querySelector('a');
-          if (a && a.href.startsWith('https://') && a.href.endsWith('.mp4')) {
-            let video = null;
-            video = transformLinkToAnimation(a);
-            cell.innerHTML = '';
-            if (video) {
-              cell.appendChild(video);
-              cell.classList.add('pf-card-picture');
-            }
-          } else {
-            cell.classList.add('pf-card-text');
-          }
-        }
-      } else if (index === 1) {
-        cell.classList.add('pf-card-text');
-      } else if (index === 2) {
-        const cardLink = cell.querySelector('a');
-        if (cardLink) {
-          cell.classList.add('pf-card-link');
-          hasLink = true;
-        }
-      } else if (index === 3 && block.querySelector('.pf-card-text')) {
-        cell.classList.add('pf-card-banner');
-        const cardTag = createTag('div');
-        cardTag.innerHTML = cell.innerHTML;
-        cell.innerHTML = '';
-        cell.appendChild(cardTag);
+function buildCard(card, overlay = false) {
+  card.classList.add('pf-card');
+  const cells = Array.from(card.children);
+  let hasLink = false;
+  cells.forEach((cell, index) => {
+    if (index === 0) {
+      const pic = cell.querySelector('picture');
+      if (pic) {
+        cell.classList.add('pf-card-picture');
       } else {
-        cell.remove();
+        const a = cell.querySelector('a');
+        if (a && a.href.startsWith('https://') && a.href.endsWith('.mp4')) {
+          let video = null;
+          video = transformLinkToAnimation(a);
+          cell.innerHTML = '';
+          if (video) {
+            cell.appendChild(video);
+            cell.classList.add('pf-card-picture');
+          }
+        } else {
+          cell.classList.add('pf-card-text');
+        }
       }
-    });
-    if (hasLink) {
-      const cardLink = card.querySelector('.pf-card-link a');
+    } else if (index === 1) {
+      cell.classList.add('pf-card-text');
+    } else if (index === 2) {
+      const cardLink = cell.querySelector('a');
       if (cardLink) {
-        cardLink.classList.remove('button');
-        cardLink.classList.add('pf-card-container-link');
-        cardLink.innerText = '';
-        card.appendChild(cardLink);
-        cells.forEach((div) => {
-          cardLink.append(div);
-        });
-        card.querySelector('.pf-card-link').remove();
+        cell.classList.add('pf-card-link');
+        hasLink = true;
       }
+    } else if (index === 3 && card.querySelector('.pf-card-text')) {
+      cell.classList.add('pf-card-banner');
+      const cardTag = createTag('div');
+      cardTag.innerHTML = cell.innerHTML;
+      cell.innerHTML = '';
+      cell.appendChild(cardTag);
+    } else {
+      cell.remove();
     }
-    if (overlay) {
-      const div = document.createElement('div');
-      div.classList.add('pf-card-overlay');
-      card.appendChild(div);
+  });
+  if (hasLink) {
+    const cardLink = card.querySelector('.pf-card-link a');
+    if (cardLink) {
+      cardLink.classList.remove('button');
+      cardLink.classList.add('pf-card-container-link');
+      cardLink.innerText = '';
+      card.appendChild(cardLink);
+      cells.forEach((div) => {
+        cardLink.append(div);
+      });
+      card.querySelector('.pf-card-link').remove();
     }
+  }
+  if (overlay) {
+    const div = document.createElement('div');
+    div.classList.add('pf-card-overlay');
+    card.appendChild(div);
+  }
+  return card
+}
+
+export default async function pageFeed(block) {
+  const rows = Array.from(block.children);
+  block.innerHTML = ''
+  const cards = [];
+  const overlay = (block.classList.contains('overlay'));
+  for (let n = 0; n < rows.length; n += 1) {
+    const children = rows[n].children;
+    if (children.length > 0 && children[0].querySelector('ul')) {
+      const pageLinks = children[0].querySelector('ul').querySelectorAll('a');
+      for (let i = 0; i < pageLinks.length; i += 1) {
+        const resp = await fetch(`${pageLinks[i].href}.plain.html`);
+        if (resp.ok) {
+          const html = await resp.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const pfCard = doc.querySelector('.page-feed-card > div');
+          pfCard.append(createTag(div))
+          cards.push(pfCard);
+        }
+      }
+    } else {
+      cards.push(rows[n]);
+    }
+  };
+  block.innerHTML = ''
+  block.classList.add(`col-${cards.length}-pf-cards`)
+  cards.forEach((card) => {
+    block.append(buildCard(card));
   });
 }
