@@ -239,18 +239,18 @@ export function customSpacings() {
 
 export function gnavUnderline() {
   const { href } = window.location;
-  if (!href.includes('artisthub')) return;
+  const relHref = makeRelative(href);
+  if (!relHref.includes('artisthub')) return;
 
   const regex = /\/artisthub\/([^/\\]+)/gi;
-  const match = regex.exec(href);
+  const match = regex.exec(relHref);
   regex.lastIndex = 0;
   if (!(match && match.length > 1)) return;
 
   const links = Array.from(document.querySelectorAll('.gnav-navitem > a'));
   links.forEach((a) => {
-    const linkMatch = regex.exec(a.href);
-    if (linkMatch && linkMatch.length > 1 && linkMatch[1] === match[1]) a.classList.add('active-page');
-    regex.lastIndex = 0;
+    const linkRelHref = makeRelative(a.href);
+    if (linkRelHref.startsWith(relHref)) a.classList.add('active-page');
   });
 }
 
