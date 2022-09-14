@@ -241,19 +241,19 @@ export function gnavUnderline() {
   const { href } = window.location;
   const relHref = makeRelative(href);
   if (!relHref.includes('artisthub')) return;
-
-  const regex = /\/artisthub\/([^/\\]+)/gi;
-  const match = regex.exec(relHref);
-  regex.lastIndex = 0;
-  if (!(match && match.length > 1)) return;
-
-  const links = Array.from(document.querySelectorAll('.gnav-navitem > a'));
-  links.forEach((a) => {
-    const linkRelHref = makeRelative(a.href);
-    if (linkRelHref.startsWith(relHref)) a.classList.add('active-page');
-  });
+  const links = document.querySelectorAll('.gnav-navitem > a');
+  let currentActivePage;
+  for (let i = 0; i < links.length; i += 1) {
+    const linkRelHref = makeRelative(links[i].href);
+    currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
+    if ((!(currentActivePage) && relHref.startsWith(linkRelHref)) || linkRelHref === relHref) {
+      for (let n = 0; n < links.length; n += 1) {
+        links[n].classList.remove('active-page');
+      }
+      links[i].classList.add('active-page');
+    }
+  };
 }
-
 
 export function toClassName(name) {
   return name && typeof name === 'string'
