@@ -15,7 +15,7 @@ function buildCard(card, overlay = false) {
         cell.classList.add('pf-card-picture');
       } else {
         const a = cell.querySelector('a');
-        if (a && a.href.startsWith('https://') && a.href.endsWith('.mp4')) {
+        if (a && a.href.endsWith('.mp4')) {
           let video = null;
           video = transformLinkToAnimation(a);
           cell.innerHTML = '';
