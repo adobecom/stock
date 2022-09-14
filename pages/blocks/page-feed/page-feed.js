@@ -74,6 +74,9 @@ export default async function pageFeed(block) {
   if (block.classList.contains('fit')) {
     block.classList.add('pf-fit');
     block.classList.remove('fit');
+  } else if (overlay) {
+    block.classList.add('pf-overlay');
+    block.classList.remove('overlay');
   }
   for (let n = 0; n < rows.length; n += 1) {
     const children = rows[n].children;
