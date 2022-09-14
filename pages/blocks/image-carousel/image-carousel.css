@@ -278,7 +278,7 @@ main .image-carousel-lightbox .image-carousel-slide.slide-active .image-carousel
 }
 
 main .image-carousel.lightbox {
-  z-index: 400;
+  z-index: 1001;
 }
 
 main .image-carousel.lightbox .image-carousel-lightbox {
