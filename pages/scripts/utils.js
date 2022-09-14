@@ -18,12 +18,33 @@ export const [setLibs, getLibs] = (() => {
 })();
 const LIBS = 'https://milo.adobe.com/libs';
 const miloLibs = setLibs(LIBS);
-const { getConfig } = await import(`${miloLibs}/utils/utils.js`);
+const { getConfig, makeRelative } = await import(`${miloLibs}/utils/utils.js`);
 /*
  * ------------------------------------------------------------
  * Edit above at your own risk
  * ------------------------------------------------------------
  */
+
+export async function loadPageFeedCard(a) {
+  const relHref = makeRelative(a.href);
+  if (isCircularRef(relHref)) {
+    console.log(`ERROR: Fragment Circular Reference loading ${a.href}`);
+    return;
+  }
+  const resp = await fetch(`${a.href}.plain.html`);
+  if (resp.ok) {
+    const html = await resp.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const pfCard = doc.querySelector('.page-feed-card > div');
+    const div = createTag(div);
+    div.append(pfCard);
+    return div;
+  } else {
+    // eslint-disable-next-line no-console
+    console.log('Could not get page feed card');
+  }
+}
 
 export function getCurrentRoot() {
   const { locale } = getConfig();

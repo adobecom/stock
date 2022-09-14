@@ -66,6 +66,8 @@ function buildCard(card, overlay = false) {
   return card
 }
 
+function loadPageFeedCard()
+
 export default async function pageFeed(block) {
   const rows = Array.from(block.children);
   block.innerHTML = '';
@@ -83,16 +85,8 @@ export default async function pageFeed(block) {
     if (children.length > 0 && children[0].querySelector('ul')) {
       const pageLinks = children[0].querySelector('ul').querySelectorAll('a');
       for (let i = 0; i < pageLinks.length; i += 1) {
-        // const resp = await fetch(`${pageLinks[i].href}.plain.html`);
-        // if (resp.ok) {
-        //   const html = await resp.text();
-        //   const parser = new DOMParser();
-        //   const doc = parser.parseFromString(html, 'text/html');
-        //   const pfCard = doc.querySelector('.page-feed-card > div');
-        //   const div = createTag(div);
-        //   div.append(pfCard);
-        //   cards.push(div);
-        // }
+        const card = await loadPageFeedCard(pageLinks[i]);
+        cards.push(buildCard(card));
       }
     } else {
       cards.push(buildCard(rows[n]));
