@@ -192,23 +192,6 @@ export function decorateButtons(scope = document) {
   });
 }
 
-export function transformLinkToYoutubeEmbed(a) {
-  if (!a || !(a.href.startsWith('https://www.youtube.com/watch') || a.href.startsWith('https://youtu.be/'))) {
-    return null;
-  }
-  const video = createTag('div', { class: 'embed embed-youtube' });
-  const url = new URL(a.href);
-  const usp = new URLSearchParams(url.search);
-  let vid = usp.get('v');
-  if (url.host === 'youtu.be') vid = url.pathname.substr(1);
-  video.innerHTML = /* html */`
-  <div class="youtube-container">
-    <iframe src="https://www.youtube.com/embed/${vid}?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;autohide=1&amp;showinfo=0&amp;rel=0&amp;controls=1&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=${vid}" frameBorder="0" allowfullscreen="" scrolling="no" allow="encrypted-media; accelerometer; gyroscope; picture-in-picture; autoplay" title="content from youtube" loading="lazy"></iframe>
-  </div>
-  `;
-  return video;
-}
-
 export function unwrapSingularFragments() {
   Array.from(document.querySelectorAll('main > .section > div > div > div > .fragment')).forEach((fragment) => {
     const section = fragment.closest('main > .section');

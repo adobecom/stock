@@ -4,21 +4,15 @@ import {
 } from '../../scripts/utils.js';
 
 function lazyDecorateVideo(cell, a) {
-  if (!a || (!a.href.endsWith('.mp4') && !a.href.startsWith('https://www.youtube.com/watch') && !a.href.startsWith('https://youtu.be/'))) return;
+  if (!a || (!a.href.endsWith('.mp4'))) return;
   const decorateVideo = () => {
     if (cell.classList.contains('picture-column')) return;
-    let youtube = null;
     let mp4 = null;
     if (a.href.endsWith('.mp4')) {
       mp4 = transformLinkToAnimation(a);
-    } else if (a.href.startsWith('https://www.youtube.com/watch') || a.href.startsWith('https://youtu.be/')) {
-      youtube = transformLinkToYoutubeEmbed(a);
     }
     cell.innerHTML = '';
-    if (youtube) {
-      cell.appendChild(youtube);
-      cell.classList.add('picture-column');
-    } else if (mp4) {
+    if (mp4) {
       const row = cell.closest('.featured-row');
       const cta = row.querySelector('.button.accent') ?? row.querySelector('.button');
       if (cta) {
@@ -67,7 +61,7 @@ export default function featuredColumns(block) {
       const a = cell.querySelector('a');
       if (a && cell.childNodes.length === 1 && (a.href.endsWith('.mp4'))) {
         lazyDecorateVideo(cell, a);
-      } else if (cell.querySelector(':scope > .milo-video:first-child:last-child') || (a && (a.href.startsWith('https://www.youtube.com/watch') || a.href.startsWith('https://youtu.be/')))) {
+      } else if (cell.querySelector(':scope > .milo-video:first-child:last-child')) {
         cell.classList.add('picture-column');
       } else {
         const pic = cell.querySelector('picture:first-child:last-child');
