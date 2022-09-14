@@ -113,7 +113,7 @@ function decorateTabbedArea(block, payload) {
   const contentArea = createTag('div', { class: 'content-area' });
 
   payload.tabs.forEach((tab, index) => {
-    const tabButton = createTag('button', { class: 'tab' });
+    const tabButton = createTag('button', { class: 'tab', type: 'button' });
     if (index === 0) {
       tabButton.classList.add('active');
     }
@@ -130,7 +130,7 @@ function decorateTabbedArea(block, payload) {
     });
 
     if (index === 1) {
-      const trascriptTab = createTag('button', { class: 'tab' });
+      const trascriptTab = createTag('button', { class: 'tab', type: 'button' });
       const indexOfLastColumn = [payload.videos.length - 1];
       trascriptTab.textContent = Object.keys(payload.videos[indexOfLastColumn])[indexOfLastColumn];
       tabs.append(trascriptTab);
@@ -200,7 +200,7 @@ function decorateVideoList(block, payload) {
 
   payload.videos.forEach((video, index) => {
     const listItem = createTag('li', { class: 'video-player-list-item' });
-    const clickable = createTag('button', { class: 'video-player-list-link' });
+    const clickable = createTag('button', { class: 'video-player-list-link', type: 'button' });
     const titleSpan = createTag('span', { class: 'video-title-span' });
     const durationSpan = createTag('span', { class: 'video-title-duration' });
 
