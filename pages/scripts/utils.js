@@ -25,27 +25,6 @@ const { getConfig, makeRelative } = await import(`${miloLibs}/utils/utils.js`);
  * ------------------------------------------------------------
  */
 
-export async function loadPageFeedCard(a) {
-  const relHref = makeRelative(a.href);
-  if (isCircularRef(relHref)) {
-    console.log(`ERROR: Fragment Circular Reference loading ${a.href}`);
-    return;
-  }
-  const resp = await fetch(`${relHref}.plain.html`);
-  if (resp.ok) {
-    const html = await resp.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const pfCard = doc.querySelector('.page-feed-card > div');
-    const div = createTag(div);
-    div.append(pfCard);
-    return div;
-  } else {
-    // eslint-disable-next-line no-console
-    console.log('Could not get page feed card for' `${relHref}`);
-  }
-}
-
 export function getCurrentRoot() {
   const { locale } = getConfig();
   return locale.contentRoot;
@@ -88,6 +67,22 @@ export function createTag(tag, attributes, html) {
     });
   }
   return el;
+}
+
+export async function loadPageFeedCard(a) {
+  const relHref = makeRelative(a.href);
+  const resp = await fetch(`${relHref}.plain.html`);
+  if (resp.ok) {
+    const html = await resp.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const pfCard = doc.querySelector('.page-feed-card > div');
+    if (pfCard) return createTag('div', {}, pfCard);
+    
+  } else {
+    // eslint-disable-next-line no-console
+    console.log('Could not get page feed card for' `${relHref}`);
+  }
 }
 
 export function transformLinkToAnimation(a) {
