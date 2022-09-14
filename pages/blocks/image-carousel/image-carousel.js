@@ -164,12 +164,12 @@ function buildCarousel(imgSlides, block, aspectRatio = '50%') {
     const slide = createTag('div', { class: 'image-carousel-slide' });
     slide.appendChild(imgSlide.img);
     imgSlide.img.tabIndex = 0;
-    imgSlide.ariaLabel = `Slide {index + 1}`;
+    imgSlide.ariaLabel = `Slide ${index + 1}`;
     const expandButton = createTag('button', { class: 'image-carousel-expand', 'aria-label': 'Open in full screen' });
     expandButton.appendChild(createSVG(`${root}/blocks/image-carousel/image-carousel.svg`, 'expand'));
     slide.appendChild(expandButton);
     slideswrapper.appendChild(slide);
-    const dot = createTag('button', { class: 'image-carousel-dot', 'aria-label': `Slide {index + 1}` });
+    const dot = createTag('button', { class: 'image-carousel-dot', 'aria-label': `Slide ${index + 1}` });
     dots.appendChild(dot);
     if (imgSlide.caption !== null) slide.appendChild(imgSlide.caption);
   });
