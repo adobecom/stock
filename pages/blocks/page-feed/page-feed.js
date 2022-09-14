@@ -68,7 +68,7 @@ function buildCard(card, overlay = false) {
 
 export default async function pageFeed(block) {
   const rows = Array.from(block.children);
-  block.innerHTML = ''
+  block.innerHTML = '';
   const cards = [];
   const overlay = (block.classList.contains('overlay'));
   if (block.classList.contains('fit')) {
@@ -86,16 +86,17 @@ export default async function pageFeed(block) {
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
           const pfCard = doc.querySelector('.page-feed-card > div');
-          pfCard.append(createTag(div))
-          cards.push(pfCard);
+          const div = createTag(div);
+          div.append(pfCard);
+          cards.push(div);
         }
       }
     } else {
       cards.push(rows[n]);
     }
   };
-  block.innerHTML = ''
-  block.classList.add(`col-${cards.length}-pf-cards`)
+  block.innerHTML = '';
+  block.classList.add(`col-${cards.length}-pf-cards`);
   cards.forEach((card) => {
     block.append(buildCard(card, overlay));
   });
