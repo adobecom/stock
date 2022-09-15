@@ -337,6 +337,10 @@ main .banner.small .banner-image {
   padding-top: 0;
 }
 
+main .banner.small h2 {
+  font-size: var(--type-heading-l-size);
+  line-height: var(--type-heading-l-lh);
+}
 
 /* center */
 
