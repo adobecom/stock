@@ -2,7 +2,7 @@
 import { 
   createTag,
   createSVG,
-  getCurrentRoot
+  getLocaleRoot
 } from '../../scripts/utils.js';
 
 function carouselAndLightbox(block) {
@@ -142,7 +142,7 @@ function carouselAndLightbox(block) {
 }
 
 function buildCarousel(imgSlides, block, aspectRatio = '50%') {
-  const root = getCurrentRoot();
+  const root = getLocaleRoot();
   block.innerHTML = '';
   const wrapper = createTag('div', { class: 'image-carousel-wrapper' });
   const controls = createTag('div', { class: 'image-carousel-controls' });

@@ -7,7 +7,7 @@ main .separator {
   align-items: center;
   justify-content: center;
   color: var(--color-white);
-  background-color: var(--color-info-accent-subtle);
+  background-color: var(--color-accent-faded);
   flex-wrap: wrap;
   text-align: center;
   font-weight: bold;

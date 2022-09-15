@@ -86,23 +86,24 @@ main .featured-columns.small .featured-column:last-child:not(.picture-column) {
 }
 
 main .featured-columns h2 {
-  font-size: var(--heading-font-size-m);
+  font-size: var(--type-heading-m-size);
 }
 
 main .featured-columns h3 {
-  font-size: var(--heading-font-size-s);
+  font-size: var(--type-heading-s-size);
 }
 
 main .featured-columns.small h2 {
-  font-size: var(--heading-font-size-s);
+  font-size: var(--type-heading-s-size);
 }
 
 main .featured-columns.small h3 {
-  font-size: var(--heading-font-size-xs);
+  font-size: var(--type-heading-xs-size);
 }
 
 main .featured-columns p {
-  font-size: var(--body-font-size-s);
+  font-size: var(--type-body-s-size);
+  line-height: var(--type-body-s-lh);
   color: #4B4B4B;
 }
 
@@ -178,11 +179,11 @@ main .dark-theme .featured-columns p {
   }
 
   main .featured-columns.small h2 {
-    font-size: var(--heading-font-size-m);
+    font-size: var(--type-heading-m-size);
   }
 
   main .featured-columns.small h3 {
-    font-size: var(--heading-font-size-s);
+    font-size: var(--type-heading-s-size);
   }
 }
 

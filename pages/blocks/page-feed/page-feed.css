@@ -156,7 +156,7 @@ main .page-feed .pf-card .pf-card-text h2,
 main .page-feed .pf-card .pf-card-text h3,
 main .page-feed .pf-card .pf-card-text h4,
 main .page-feed .pf-card .pf-card-text h5 {
-  font-size: var(--heading-font-size-xs);
+  font-size: var(--type-heading-xs-size);
   min-height: 47px;
   margin-top: 0;
   margin-bottom: 0;
@@ -167,7 +167,7 @@ main .page-feed.horizontal .pf-card .pf-card-text h2,
 main .page-feed.horizontal .pf-card .pf-card-text h3,
 main .page-feed.horizontal .pf-card .pf-card-text h4,
 main .page-feed.horizontal .pf-card .pf-card-text h5 {
-  font-size: var(--heading-font-size-xs);
+  font-size: var(--type-heading-xs-size);
   margin-bottom: 0;
   margin-top: 4px;
 }
@@ -178,7 +178,8 @@ main .page-feed .pf-card .pf-card-text p {
 }
 
 main .page-feed .pf-card .pf-card-text p {
-  font-size: var(--body-font-size-xs);
+  font-size: var(--type-body-xs-size);
+  line-height: var(--type-body-xs-lh);
   color: #747474;
 }
 

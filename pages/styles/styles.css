@@ -1,82 +1,42 @@
 :root {
-  /* colors */
-
-  --color-white: #FFF;
-  --color-gray-100: #F8F8F8;
-  --color-gray-200: #E8E8E8;
-  --color-gray-300: #D4D4D4;
-  --color-gray-400: #B6B6B6;
-  --color-gray-500: #909090;
-  --color-gray-600: #686868;
-  --color-gray-700: #444;
-  --color-gray-800: #242424;
-  --color-black: #000;
+  /* Colors */
+  --link-color: #035fe6;
+  --link-hover-color: #136ff6;
+  --link-color-dark: #5EAAF7;
+  --link-hover-color-dark: #5EAAF7;
+  --text-color: #2c2c2c;
   --color-brand-title: #000B1D;
-  --color-info-primary: #242424;
-  --color-info-primary-hover: #090909;
-  --color-info-primary-down: #000;
-  --color-info-secondary: #E8E8E8;
-  --color-info-secondary-hover: #d4d4d4;
-  --color-info-secondary-down: #cdcdcd;
-  --color-info-accent: #1473E6;
-  --color-info-accent-hover: #186dd4;
-  --color-info-accent-down: #1d62b6;
-  --color-info-accent-subtle: #486EC2;
-  --color-info-transparent: #4B4B4B;
-  --color-info-transparent-hover: #3d3d3d;
-  --color-info-transparent-down: #363636;
-  --color-info-transparent-bg: transparent;
-  --color-info-transparent-bg-hover: rgba(0,0,0,0.1);
-  --color-info-transparent-bg-down: rgba(0,0,0,0.2);
+  --color-primary: #242424;
+  --color-primary-hover: #090909;
+  --color-primary-down: #000;
+  --color-secondary: #E8E8E8;
+  --color-secondary-hover: #d4d4d4;
+  --color-secondary-down: #cdcdcd;
+  --color-accent: #1473E6;
+  --color-accent-hover: #186dd4;
+  --color-accent-down: #1d62b6;
+  --color-accent-faded: #486EC2;
+  --color-accent-light: #DEDEF9;
   --color-premium: #EBCF2D;
 
-  /* font-sizes */
+  /* transparent button */
+  --color-transparent-button-border: #4B4B4B;
+  --color-transparent-button-border-hover: #3d3d3d;
+  --color-transparent-button-border-down: #363636;
+  --color-transparent-button-bg: transparent;
+  --color-transparent-button-bg-hover: rgba(0,0,0,0.1);
+  --color-transparent-button-bg-down: rgba(0,0,0,0.2);
 
-  --body-font-size-xxl: 28px;
-  --body-font-size-xl: 22px;
-  --body-font-size-l: 20px;
-  --body-font-size-m: 18px;
-  --body-font-size-s: 16px;
-  --body-font-size-xs: 14px;
-  --body-font-size-xxs: 12px;
-
-  --heading-font-weight: 700;
-  --heading-line-height: 1.25;
-  --heading-font-size-xxxl: 45px;
-  --heading-font-size-xxl: 36px;
-  --heading-font-size-xl: 28px;
-  --heading-font-size-l: 24px;
-  --heading-font-size-m: 22px;
-  --heading-font-size-s: 18px;
-  --heading-font-size-xs: 14px;
-  --heading-font-size-xxs: 12px;
-
-  /* spacing between sections */
-
-  --section-spacing-m: 64px;
-  --section-spacing-xl: 90px;
-  --section-spacing-l: 90px;
-  --section-spacing-s: 50px;
+  /* Spacing between sections */
   --section-spacing-xs: 38px;
+  --section-spacing-s: 50px;
+  --section-spacing-m: 64px;
+  --section-spacing-l: 90px;
+  --section-spacing-xl: 100px;
 }
 
 @media screen and (min-width: 1000px) {
   :root {
-    --body-font-size-xxl: 28px;
-    --body-font-size-xl: 24px;
-    --body-font-size-l: 20px;
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
-    --body-font-size-xxs: 12px;
-    --heading-font-size-xxxl: 60px;
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 32px;
-    --heading-font-size-m: 28px;
-    --heading-font-size-s: 22px;
-    --heading-font-size-xs: 18px;
-    --heading-font-size-xxs: 14px;
     --section-spacing-xl: 128px;
     --section-spacing-l: 90px;
     --section-spacing-m: 64px;
@@ -97,7 +57,8 @@ main a.button:any-link {
   border-radius: 40px;
   padding: 4px 1.2em 5px 1.2em;
   text-align: center;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--type-body-xs-size);
+  line-height: var(--type-body-xs-lh);
   font-style: normal; 
   font-weight: 600;
   line-height: var(--body-line-height);
@@ -134,7 +95,8 @@ main p.button-container > em:not(:last-child) {
 
 main a.button.xlarge:any-link {
   padding: 13px 1.5em 13px 1.5em;
-  font-size: var(--body-font-size-m);
+  font-size: var(--type-body-m-size);
+  line-height: var(--type-body-m-lh);
 }
 
 main a.button.large:any-link {
@@ -144,76 +106,77 @@ main a.button.large:any-link {
 main a.button.small:any-link {
   padding: 4px 1em 4px 1em;
   border-radius: 15px;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--type-body-xs-size);
+  line-height: var(--type-body-xs-lh);
 }
 
 main a.button:any-link,
 main a.button.primary:any-link {
   color: var(--color-white);
-  background-color: var(--color-info-primary);
-  border-color: var(--color-info-primary);
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 main a.button:any-link:hover,
 main a.button.primary:any-link:hover {
-  background-color: var(--color-info-primary-hover);
-  border-color: var(--color-info-primary-hover);
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
 main a.button:any-link:active,
 main a.button.primary:any-link:active {
-  background-color: var(--color-info-primary-down);
-  border-color: var(--color-info-primary-down);
+  background-color: var(--color-primary-down);
+  border-color: var(--color-primary-down);
 }
 
 main a.button.secondary:any-link {
   color: var(--color-black);
-  background-color: var(--color-info-secondary);
-  border-color: var(--color-info-secondary);
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
 }
 
 main a.button.secondary:any-link:hover {
-  background-color: var(--color-info-secondary-hover);
-  border-color: var(--color-info-secondary-hover);
+  background-color: var(--color-secondary-hover);
+  border-color: var(--color-secondary-hover);
 }
 
 main a.button.secondary:any-link:active {
-  background-color: var(--color-info-secondary-down);
-  border-color: var(--color-info-secondary-down);
+  background-color: var(--color-secondary-down);
+  border-color: var(--color-secondary-down);
 }
 
 main a.button.accent:any-link {
   color: var(--color-white);
-  background-color: var(--color-info-accent);
-  border-color: var(--color-info-accent);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 main a.button.accent:any-link:hover {
-  background-color: var(--color-info-accent-hover);
-  border-color: var(--color-info-accent-hover);
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
 }
 
 main a.button.accent:any-link:active {
-  background-color: var(--color-info-accent-down);
-  border-color: var(--color-info-accent-down);
+  background-color: var(--color-accent-down);
+  border-color: var(--color-accent-down);
 }
 
 main a.button.transparent:any-link {
-  color: var(--color-info-transparent);
-  border-color: var(--color-info-transparent);
-  background-color: var(--color-info-transparent-bg);
+  color: var(--color-transparent-button-border);
+  border-color: var(--color-transparent-button-border);
+  background-color: var(--color-transparent-button-bg);
 }
 
 main a.button.transparent:any-link:hover {
-  color: var(--color-info-transparent-hover);
-  border-color: var(--color-info-transparent-hover);
-  background-color: var(--color-info-transparent-bg-hover);
+  color: var(--color-transparent-button-border-hover);
+  border-color: var(--color-transparent-button-border-hover);
+  background-color: var(--color-transparent-button-bg-hover);
 }
 
 main a.button.transparent:any-link:active {
-  color: var(--color-info-transparent-down);
-  border-color: var(--color-info-transparent-down);
-  background-color: var(--color-info-transparent-bg-down);
+  color: var(--color-transparent-button-border-down);
+  border-color: var(--color-transparent-button-border-down);
+  background-color: var(--color-transparent-button-bg-down);
 }
 
 main a.button > svg {

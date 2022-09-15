@@ -66,7 +66,8 @@ main .image-carousel-slide p {
   margin: 0;
   padding: 1rem;
   font-weight: 600;
-  font-size: var(--body-font-size-s);
+  font-size: var(--type-body-s-size);
+  line-height: var(--type-body-s-lh);
   box-sizing: border-box;
   background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
   color: var(--color-white);
@@ -264,7 +265,8 @@ main .image-carousel-lightbox .image-carousel-slide p {
   padding: 0.75rem 0 2.5rem;
   width: auto;
   background: none;
-  font-size: var(--body-font-size-m);
+  font-size: var(--type-body-m-size);
+  line-height: var(--type-body-m-lh);
 }
 
 main .image-carousel-lightbox .image-carousel-dots {

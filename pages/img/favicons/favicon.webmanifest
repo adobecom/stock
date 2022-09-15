@@ -3,17 +3,17 @@
   "short_name": "Stock",
   "icons": [
     {
-      "src": "https://main--stock--adobecom.hlx.page/pages/img/favicons/favicon-180.png",
+      "src": "https://main--stock--adobecom.hlx.live/pages/img/favicons/favicon-180.png",
       "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "https://main--stock--adobecom.hlx.page/pages/img/favicons/favicon-192.png",
+      "src": "https://main--stock--adobecom.hlx.live/pages/img/favicons/favicon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://main--stock--adobecom.hlx.page/pages/img/favicons/favicon-512.png",
+      "src": "https://main--stock--adobecom.hlx.live/pages/img/favicons/favicon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

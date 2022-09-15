@@ -25,16 +25,16 @@ const { getConfig, makeRelative } = await import(`${miloLibs}/utils/utils.js`);
  * ------------------------------------------------------------
  */
 
-export function getCurrentRoot() {
+export function getLocaleRoot() {
   const { locale } = getConfig();
   return locale.contentRoot;
 }
 
 export async function fetchPlaceholders() {
-  const root = getCurrentRoot();
+  const root = getLocaleRoot();
   if (!window.placeholders) {
     try {
-      const resp = await fetch(`${root}/artisthub/placeholders.json`);
+      const resp = await fetch(`${root}/pages/artisthub/placeholders.json`);
       const json = await resp.json();
       window.placeholders = {};
       json.data.forEach((placeholder) => {
@@ -53,6 +53,7 @@ export async function fetchPlaceholders() {
 }
 
 export function createTag(tag, attributes, html) {
+  // Copied over from milo to prevent having to await import this function each time
   const el = document.createElement(tag);
   if (html) {
     if (html instanceof HTMLElement || html instanceof SVGElement) {
@@ -70,9 +71,7 @@ export function createTag(tag, attributes, html) {
 }
 
 export function transformLinkToAnimation(a) {
-  if (!a || !a.href.includes('.mp4')) {
-    return null;
-  }
+  if (!a || !a.href.includes('.mp4')) return null;
   const params = new URL(a.href).searchParams;
   const attribs = {};
   ['playsinline', 'autoplay', 'loop', 'muted'].forEach((p) => {
@@ -104,13 +103,11 @@ export function transformLinkToAnimation(a) {
 
 export function turnH6intoDetailM(scope = document) {
   scope.querySelectorAll('h6').forEach((h6) => {
-    const p = document.createElement('p');
-    p.classList.add('detail-M');
+    const p = document.createElement('p', { class:'detail-M' }, h6.innerHTML);
     const attrs = h6.attributes;
     for (let i = 0, len = attrs.length; i < len; i += 1) {
       p.setAttribute(attrs[i].name, attrs[i].value);
     }
-    p.innerHTML = h6.innerHTML;
     h6.parentNode.replaceChild(p, h6);
   });
 }
@@ -118,27 +115,20 @@ export function turnH6intoDetailM(scope = document) {
 export async function loadPageFeedCard(a) {
   const relHref = makeRelative(a.href);
   const resp = await fetch(`${relHref}.plain.html`);
-  if (resp.ok) {
-    const html = await resp.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const pfCard = doc.querySelector('.page-feed-card > div');
-    if (pfCard) {
-      turnH6intoDetailM(pfCard);
-      pfCard.append(createTag('div', {}, a));
-      return pfCard;
-    } else {
-      // eslint-disable-next-line no-console
-      console.log('Could not get page feed card for', `${relHref}`);
-    }
-  } else {
-    // eslint-disable-next-line no-console
-    console.log('Could not get page feed card for', `${relHref}`);
+  if (!resp.ok) return;
+  const html = await resp.text();
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const pfCard = doc.querySelector('.page-feed-card > div');
+  if (pfCard) {
+    turnH6intoDetailM(pfCard);
+    pfCard.append(createTag('div', {}, a));
+    return pfCard;
   }
 }
 
 export function decorateButtons(scope = document) {
-  const blocksWithoutButton = ['sitemap', 'image-carousel', 'image-rows'];
+  const blocksWithoutButton = ['image-carousel', 'image-rows'];
   const isNodeName = (node, name) => {
     if (!node || typeof node !== 'object') return false;
     return node.nodeName.toLowerCase() === name.toLowerCase();
@@ -160,13 +150,11 @@ export function decorateButtons(scope = document) {
         const whitespace = new RegExp('^\\s*$');
         // Check that the 'button-container' contains buttons only
         const buttonsOnly = childNodes.every((c) => {
-          if (isNodeName(c, 'a') || (isNodeName(c, '#text') && whitespace.test(c.textContent))) {
-            return true;
-          } if (c.childNodes.length > 0) {
+          if (isNodeName(c, 'a') || (isNodeName(c, '#text') && whitespace.test(c.textContent))) return true;
+          if (c.childNodes.length > 0) {
             return Array.from(c.childNodes).every((cc) => {
-              if (isNodeName(cc, 'a') || (isNodeName(cc, '#text') && whitespace.test(cc.textContent))) {
-                return true;
-              } if (cc.childNodes.length > 0) {
+              if (isNodeName(cc, 'a') || (isNodeName(cc, '#text') && whitespace.test(cc.textContent))) return true;
+              if (cc.childNodes.length > 0) {
                 // Could be nested twice for 'em' and 'strong' tags.
                 return Array.from(cc.childNodes).every((ccc) => isNodeName(ccc, 'a') || (isNodeName(ccc, '#text') && whitespace.test(ccc.textContent)));
               } return false;
@@ -214,13 +202,9 @@ export function customSpacings() {
       const section = sm.closest('main > .section');
       section.classList.add('has-background');
       const next = section.nextElementSibling;
-      if (next && next.querySelector(':scope > .banner:first-child')) {
-        next.style.paddingTop = '0';
-      }
+      if (next && next.querySelector(':scope > .banner:first-child')) next.style.paddingTop = '0';
       const prev = section.previousElementSibling;
-      if (prev && prev.querySelector(':scope > .banner:last-child')) {
-        prev.style.paddingBottom = '0';
-      }
+      if (prev && prev.querySelector(':scope > .banner:last-child')) prev.style.paddingBottom = '0';
     }
     sm.remove();
   });
@@ -236,7 +220,6 @@ export async function gnavUnderline() {
   const { href } = window.location;
   const relHref = makeRelative(href);
   if (!relHref.includes('artisthub')) return;
-
   await delay(50);
   const links = document.querySelectorAll('.gnav-navitem > a');
   let currentActivePage;
@@ -257,11 +240,8 @@ export async function gnavUnderline() {
 }
 
 export function toClassName(name) {
-  return name && typeof name === 'string'
-    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-')
-    : '';
+  return (name && typeof name === 'string') ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-') : '';
 }
-
 
 export function loadCSS(href, callback) {
   if (!document.querySelector(`head > link[href="${href}"]`)) {
@@ -279,6 +259,7 @@ export function loadCSS(href, callback) {
 }
 
 export function getMetadata(name) {
+  // to-do make blocks use Milo's getMetadata() function instead, QA test to see if they still work
   const attr = name && name.includes(':') ? 'property' : 'name';
   const meta = [...document.head.querySelectorAll(`meta[${attr}="${name}"]`)].map((el) => el.content).join(', ');
   return meta;
@@ -287,18 +268,15 @@ export function getMetadata(name) {
 export async function loadBlockCSS(blockName) {
   const href = `/pages/blocks/${blockName}/${blockName}.css`;
   if (document.querySelector(`head > link[href="${href}"]`)) return;
-
   return new Promise((resolve) => {
     loadCSS(href, resolve);
   });
 }
 
 export function createSVG(path, name = undefined) {
-  let anchor = null
-  if (typeof(name) === 'string') anchor = name;
-
+  const anchor = (typeof(name) === 'string') ? name : null;
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use'); // use the fetch instead
+  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
   use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(anchor) ? '#' : ''}${anchor}`);
   svg.appendChild(use);
   return svg;
@@ -306,10 +284,8 @@ export function createSVG(path, name = undefined) {
 
 export function externalLinks() {
   const links = document.querySelectorAll('a[href]');
-
   links.forEach((linkItem) => {
     const linkValue = linkItem.getAttribute('href');
-
     if (linkValue.includes('//') && !(linkValue.includes('stock.adobe') && linkValue.includes('pages'))) {
       linkItem.setAttribute('target', '_blank');
     }

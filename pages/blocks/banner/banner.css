@@ -15,11 +15,12 @@ main .banner {
 
 main .banner h1,
 main .banner h2 {
-  font-size: var(--heading-font-size-xl);
+  font-size: var(--type-heading-xl-size);
 }
 
 main .banner p:not(.detail-M) {
-  font-size: var(--body-font-size-m);
+  font-size: var(--type-body-m-size);
+  line-height: var(--type-body-m-lh);
 }
 
 main .banner .background {
@@ -112,7 +113,8 @@ main .banner .background > div > p:not(:first-child):not(:empty) {
 
 main .banner .banner-image p,
 main .banner .background p {
-  font-size: var(--body-font-size-xs);
+  font-size: var(--type-body-xs-size);
+  line-height: var(--type-body-xs-lh);
 }
 
 main .banner.large .background img,
@@ -198,19 +200,19 @@ main .banner p.button-container a {
 main .banner a.button.transparent:any-link {
   color: var(--color-white);
   border-color: var(--color-white);
-  background-color: var(--color-info-transparent-bg);
+  background-color: var(--color-transparent-button-bg);
 }
 
 main .banner a.button.transparent:any-link:hover {
   color: var(--color-white);
   border-color: var(--color-white);
-  background-color: var(--color-info-transparent-bg-hover);
+  background-color: var(--color-transparent-button-bg-hover);
 }
 
 main .banner a.button.transparent:any-link:active {
   color: var(--color-white);
   border-color: var(--color-white);
-  background-color: var(--color-info-transparent-bg-down);
+  background-color: var(--color-transparent-button-bg-down);
 }
 
 
@@ -221,21 +223,21 @@ main .banner.light {
 }
 
 main .banner.light a.button.transparent:any-link {
-  color: var(--color-info-transparent);
-  border-color: var(--color-info-transparent);
-  background-color: var(--color-info-transparent-bg);
+  color: var(--color-transparent-button-border);
+  border-color: var(--color-transparent-button-border);
+  background-color: var(--color-transparent-button-bg);
 }
 
 main .banner.light a.button.transparent:any-link:hover {
-  color: var(--color-info-transparent-hover);
-  border-color: var(--color-info-transparent-hover);
-  background-color: var(--color-info-transparent-bg-hover);
+  color: var(--color-transparent-button-border-hover);
+  border-color: var(--color-transparent-button-border-hover);
+  background-color: var(--color-transparent-button-bg-hover);
 }
 
 main .banner.light a.button.transparent:any-link:active {
-  color: var(--color-info-transparent-down);
-  border-color: var(--color-info-transparent-down);
-  background-color: var(--color-info-transparent-bg-down);
+  color: var(--color-transparent-button-border-down);
+  border-color: var(--color-transparent-button-border-down);
+  background-color: var(--color-transparent-button-bg-down);
 }
 
 main .banner.light .background picture ~ p:not(:empty),
@@ -253,21 +255,21 @@ main .banner.large {
 }
 
 main .banner.large a.button.transparent:any-link {
-  color: var(--color-info-transparent);
-  border-color: var(--color-info-transparent);
-  background-color: var(--color-info-transparent-bg);
+  color: var(--color-transparent-button-border);
+  border-color: var(--color-transparent-button-border);
+  background-color: var(--color-transparent-button-bg);
 }
 
 main .banner.large a.button.transparent:any-link:hover {
-  color: var(--color-info-transparent-hover);
-  border-color: var(--color-info-transparent-hover);
-  background-color: var(--color-info-transparent-bg-hover);
+  color: var(--color-transparent-button-border-hover);
+  border-color: var(--color-transparent-button-border-hover);
+  background-color: var(--color-transparent-button-bg-hover);
 }
 
 main .banner.large a.button.transparent:any-link:active {
-  color: var(--color-info-transparent-down);
-  border-color: var(--color-info-transparent-down);
-  background-color: var(--color-info-transparent-bg-down);
+  color: var(--color-transparent-button-border-down);
+  border-color: var(--color-transparent-button-border-down);
+  background-color: var(--color-transparent-button-bg-down);
 }
 
 main .banner.large .banner-content {
@@ -293,17 +295,20 @@ main .banner.large .background video {
 
 main .banner.large h1,
 main .banner.large h2 {
-  font-size: var(--heading-font-size-xxl);
+  font-size: var(--type-heading-xxl-size);
+  line-height: var(--type-heading-xxl-lh);
   order: -3
 }
 
 main .banner.large p {
-  font-size: var(--body-font-size-l);
+  font-size: var(--type-body-l-size);
+  line-height: var(--type-body-l-lh);
 }
 
 main .banner.large .banner-image p,
 main .banner.large .background p {
-  font-size: var(--body-font-size-xs);
+  font-size: var(--type-body-xs-size);
+  line-height: var(--type-body-xs-lh);
 }
 
 main .banner.large .banner-column:last-child {
@@ -342,12 +347,14 @@ main .banner.center .banner-column:not(.banner-image) {
 @media screen and (min-width: 600px) {
   main .banner .banner-image p,
   main .banner .background p {
-    font-size: var(--body-font-size-s);
+    font-size: var(--type-body-s-size);
+    line-height: var(--type-body-s-lh);
   }
 
   main .banner.large .banner-image p,
   main .banner.large .background p {
-    font-size: var(--body-font-size-s);
+    font-size: var(--type-body-s-size);
+    line-height: var(--type-body-s-lh);
   }
 
   main .banner p.button-container {
@@ -418,7 +425,8 @@ main .banner .banner-content p.button-container:last-child {
 }
 
 main .banner .banner-column.banner-image {
-  font-size: var(--body-font-size-xs);
+  font-size: var(--type-body-xs-size);
+  line-height: var(--type-body-xs-lh);
 }
 
 /* laptop */
@@ -440,19 +448,19 @@ main .banner .banner-column.banner-image {
   main .banner.large:not(.light) a.button.transparent:any-link {
     color: var(--color-white);
     border-color: var(--color-white);
-    background-color: var(--color-info-transparent-bg);
+    background-color: var(--color-transparent-button-bg);
   }
 
   main .banner.large:not(.light) a.button.transparent:any-link:hover {
     color: var(--color-white);
     border-color: var(--color-white);
-    background-color: var(--color-info-transparent-bg-hover);
+    background-color: var(--color-transparent-button-bg-hover);
   }
 
   main .banner.large:not(.light) a.button.transparent:any-link:active {
     color: var(--color-white);
     border-color: var(--color-white);
-    background-color: var(--color-info-transparent-bg-down);
+    background-color: var(--color-transparent-button-bg-down);
   }
 
   main .banner .banner-content {
@@ -589,7 +597,7 @@ main .banner .banner-column.banner-image {
 
 /* desktop */
 
-@media screen and (min-width: 1120px) {
+@media screen and (min-width: 1200px) {
   main .banner .banner-column:not(.banner-image):not(:empty),
   main .banner .banner-column:not(.banner-image):not(:empty):first-child {
     width: 520px;
