@@ -224,7 +224,7 @@ export async function gnavUnderline() {
   const links = document.querySelectorAll('.gnav-navitem > a');
   let currentActivePage;
   for (let i = 0; i < links.length; i += 1) {
-    if (relHref.startsWith(makeRelative(links[i].href))) {
+    if (relHref.startsWith(makeRelative(links[i].href)) && links[i].textContent !== "Home") {
       currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
       if (currentActivePage) currentActivePage.classList.remove('active-page');
       links[i].classList.add('active-page');
