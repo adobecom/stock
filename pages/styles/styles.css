@@ -50,6 +50,10 @@ main video {
   max-width: 100%;
 }
 
+.milo-video {
+  margin: 0 0 12px 0;
+}
+
 /* buttons */
 
 main a.button:any-link {
@@ -238,20 +242,7 @@ body header.gnav {
 }
 
 body header.gnav + main {
-  margin-top: 65px;
-}
-
-footer .footer-social-icon {
-  margin-bottom: 0;
-}
-
-main picture {
-  vertical-align: bottom;
-  display: inline;
-}
-
-main picture img {
-  display: block;
+  margin-top: 65px; /* should be the same as gnav height */
 }
 
 @media (min-width: 1200px) {
@@ -259,6 +250,15 @@ main picture img {
     border-bottom: 2px solid #000;
     padding-bottom: 18px;
   }
+}
+
+/* prevent spacing from <picture> tag */
+main picture {
+  vertical-align: bottom;
+  display: inline;
+}
+main picture img {
+  display: block;
 }
 
 /* customize section spacings for stock */
@@ -301,6 +301,10 @@ main > .section.has-background,
 
 main > .section > .content:not(:first-child) {
   margin-top: var(--section-spacing-m);
+}
+
+main > .section:not(:empty):not(:first-child) > .content:first-child {
+  padding-top: 0;
 }
 
 main > .section > .content + .page-feed {
@@ -348,8 +352,4 @@ main .section:first-child > .breadcrumbs + .content h1:first-child {
 main .section:first-child > .breadcrumbs + .content + .share {
   padding-top: 16px;
   padding-bottom: 32px;
-}
-
-.milo-video {
-  margin: 0 0 12px 0;
 }

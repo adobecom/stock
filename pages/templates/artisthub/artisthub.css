@@ -12,10 +12,18 @@
 
   Desktop:
   @media screen and (min-width: 1200px)
-
 */
 
+/* customize articles for artisthub */
+
+@media (min-width: 1000px) {
+  main > .section > .content {
+    max-width: 700px;
+  }
+}
+
 /* cusomize typography for artisthub */
+
 main p {
   margin: 0;
   padding-top: 8px;
@@ -76,12 +84,4 @@ main ul, main ol {
   margin-inline-end: 0;
   padding: 15px 0;
   padding-inline-start: 2rem;
-}
-
-/* customize articles */
-
-@media (min-width: 900px) {
-  main > .section > .content {
-    max-width: 700px;
-  }
 }
