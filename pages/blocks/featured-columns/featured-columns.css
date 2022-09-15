@@ -86,19 +86,23 @@ main .featured-columns.small .featured-column:last-child:not(.picture-column) {
 }
 
 main .featured-columns h2 {
-  font-size: var(--type-heading-m-size);
+  font-size: var(--type-heading-xl-size);
+  line-height: var(--type-heading-xl-lh);
 }
 
 main .featured-columns h3 {
-  font-size: var(--type-heading-s-size);
+  font-size: var(--type-heading-l-size);
+  line-height: var(--type-heading-l-lh);
 }
 
 main .featured-columns.small h2 {
-  font-size: var(--type-heading-s-size);
+  font-size: var(--type-heading-l-size);
+  line-height: var(--type-heading-l-lh);
 }
 
 main .featured-columns.small h3 {
-  font-size: var(--type-heading-xs-size);
+  font-size: var(--type-heading-s-size);
+  line-height: var(--type-heading-s-lh);
 }
 
 main .featured-columns p {
@@ -180,10 +184,12 @@ main .dark-theme .featured-columns p {
 
   main .featured-columns.small h2 {
     font-size: var(--type-heading-m-size);
+    line-height: var(--type-heading-m-lh);
   }
 
   main .featured-columns.small h3 {
     font-size: var(--type-heading-s-size);
+    line-height: var(--type-heading-s-lh);
   }
 }
 

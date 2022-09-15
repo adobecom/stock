@@ -16,6 +16,7 @@ main .banner {
 main .banner h1,
 main .banner h2 {
   font-size: var(--type-heading-xl-size);
+  line-height: var(--type-heading-xl-lh);
 }
 
 main .banner p:not(.detail-M) {
