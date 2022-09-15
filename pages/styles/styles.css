@@ -307,6 +307,10 @@ main > .section:not(:empty):not(:first-child) > .content:first-child {
   padding-top: 0;
 }
 
+main > .section.section.has-background + .section:not(:empty):not(:first-child) > .content:first-child {
+  padding-top: 0;
+}
+
 main > .section > .content + .page-feed {
   margin-top: var(--section-spacing-xs);
 }
