@@ -157,6 +157,7 @@ main .page-feed .pf-card .pf-card-text h3,
 main .page-feed .pf-card .pf-card-text h4,
 main .page-feed .pf-card .pf-card-text h5 {
   font-size: var(--type-heading-xs-size);
+  line-height: var(--type-heading-xs-lh);
   min-height: 47px;
   margin-top: 0;
   margin-bottom: 0;
@@ -168,6 +169,7 @@ main .page-feed.horizontal .pf-card .pf-card-text h3,
 main .page-feed.horizontal .pf-card .pf-card-text h4,
 main .page-feed.horizontal .pf-card .pf-card-text h5 {
   font-size: var(--type-heading-xs-size);
+  line-height: var(--type-heading-xs-lh);
   margin-bottom: 0;
   margin-top: 4px;
 }
