@@ -308,7 +308,7 @@ main > .section:not(:empty):not(:first-child) > .content:first-child {
 }
 
 main > .section.section.has-background + .section:not(:empty):not(:first-child) > .content:first-child {
-  padding-top: 0;
+  padding-top: var(--section-spacing-m);;
 }
 
 main > .section > .content + .page-feed {
