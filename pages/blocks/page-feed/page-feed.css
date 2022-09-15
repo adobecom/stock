@@ -178,9 +178,12 @@ main .page-feed .pf-card .pf-card-text p {
 }
 
 main .page-feed .pf-card .pf-card-text p {
+  color: #747474;
+}
+
+main .page-feed .pf-card .pf-card-text p:not(.detail-M) {
   font-size: var(--type-body-xs-size);
   line-height: var(--type-body-xs-lh);
-  color: #747474;
 }
 
 main .page-feed .pf-card-banner {
