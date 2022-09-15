@@ -349,3 +349,7 @@ main .section:first-child > .breadcrumbs + .content + .share {
   padding-top: 16px;
   padding-bottom: 32px;
 }
+
+.milo-video {
+  margin: 0 0 12px 0;
+}
