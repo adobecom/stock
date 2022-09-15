@@ -19,6 +19,11 @@ main .banner h2 {
   line-height: var(--type-heading-xl-lh);
 }
 
+main .banner h3 {
+  font-size: var(--type-heading-l-size);
+  line-height: var(--type-heading-l-lh);
+}
+
 main .banner p:not(.detail-M) {
   font-size: var(--type-body-m-size);
   line-height: var(--type-body-m-lh);
