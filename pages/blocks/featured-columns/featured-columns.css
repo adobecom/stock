@@ -86,8 +86,8 @@ main .featured-columns.small .featured-column:last-child:not(.picture-column) {
 }
 
 main .featured-columns h2 {
-  font-size: var(--type-heading-l-size);
-  line-height: var(--type-heading-l-lh);
+  font-size: var(--type-heading-xl-size);
+  line-height: var(--type-heading-xl-lh);
 }
 
 main .featured-columns h3 {
@@ -101,8 +101,8 @@ main .featured-columns.small h2 {
 }
 
 main .featured-columns.small h3 {
-  font-size: var(--type-heading-l-size);
-  line-height: var(--type-heading-l-lh);
+  font-size: var(--type-heading-m-size);
+  line-height: var(--type-heading-m-lh);
 }
 
 main .featured-columns p {
