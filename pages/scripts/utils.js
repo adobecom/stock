@@ -30,6 +30,10 @@ export function getLocaleRoot() {
   return locale.contentRoot;
 }
 
+export function toClassName(name) {
+  return (name && typeof name === 'string') ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-') : '';
+}
+
 export async function fetchPlaceholders() {
   const root = getLocaleRoot();
   if (!window.placeholders) {
@@ -41,7 +45,7 @@ export async function fetchPlaceholders() {
         window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
       });
     } catch {
-      const resp = await fetch(`/pages/artisthub/placeholders.json`);
+      const resp = await fetch('/pages/artisthub/placeholders.json');
       const json = await resp.json();
       window.placeholders = {};
       json.data.forEach((placeholder) => {
@@ -103,7 +107,7 @@ export function transformLinkToAnimation(a) {
 
 export function turnH6intoDetailM(scope = document) {
   scope.querySelectorAll('h6').forEach((h6) => {
-    const p = createTag('p', { class:'detail-M' }, h6.innerHTML);
+    const p = createTag('p', { class: 'detail-M' }, h6.innerHTML);
     const attrs = h6.attributes;
     for (let i = 0, len = attrs.length; i < len; i += 1) {
       p.setAttribute(attrs[i].name, attrs[i].value);
@@ -123,6 +127,7 @@ export async function loadPageFeedCard(a) {
   if (pfCard) {
     turnH6intoDetailM(pfCard);
     pfCard.append(createTag('div', {}, a));
+    // eslint-disable-next-line consistent-return
     return pfCard;
   }
 }
@@ -147,7 +152,7 @@ export function decorateButtons(scope = document) {
       const p = a.closest('p');
       if (p) {
         const childNodes = Array.from(p.childNodes);
-        const whitespace = new RegExp('^\\s*$');
+        const whitespace = /^\s*$/;
         // Check that the 'button-container' contains buttons only
         const buttonsOnly = childNodes.every((c) => {
           if (isNodeName(c, 'a') || (isNodeName(c, '#text') && whitespace.test(c.textContent))) return true;
@@ -224,23 +229,19 @@ export async function gnavUnderline() {
   const links = document.querySelectorAll('.gnav-navitem > a');
   let currentActivePage;
   for (let i = 0; i < links.length; i += 1) {
-    if (relHref.startsWith(makeRelative(links[i].href)) && links[i].textContent !== "Home") {
+    if (relHref.startsWith(makeRelative(links[i].href)) && links[i].textContent !== 'Home') {
       currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
       if (currentActivePage) currentActivePage.classList.remove('active-page');
       links[i].classList.add('active-page');
     }
-  };
+  }
   for (let x = 0; x < links.length; x += 1) {
     if (makeRelative(links[x].href) === relHref) {
       currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
       if (currentActivePage) currentActivePage.classList.remove('active-page');
       links[x].classList.add('active-page');
     }
-  };
-}
-
-export function toClassName(name) {
-  return (name && typeof name === 'string') ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-') : '';
+  }
 }
 
 export function loadCSS(href, callback) {
@@ -268,13 +269,14 @@ export function getMetadata(name) {
 export async function loadBlockCSS(blockName) {
   const href = `/pages/blocks/${blockName}/${blockName}.css`;
   if (document.querySelector(`head > link[href="${href}"]`)) return;
+  // eslint-disable-next-line consistent-return
   return new Promise((resolve) => {
     loadCSS(href, resolve);
   });
 }
 
 export function createSVG(path, name = undefined) {
-  const anchor = (typeof(name) === 'string') ? name : null;
+  const anchor = (typeof (name) === 'string') ? name : null;
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
   use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `${path}${(anchor) ? '#' : ''}${anchor}`);
@@ -292,11 +294,19 @@ export function externalLinks() {
   });
 }
 
-export function handleAnchors() {
+export async function getNavbarHeight() {
+  const placeholders = await fetchPlaceholders((plhldrs) => plhldrs);
+  return (placeholders['navbar-height']) ? (placeholders['navbar-height']) : 97;
+}
+
+export async function handleAnchors() {
+  const navbarHeight = await getNavbarHeight();
   const sectionToggles = Array.from(document.querySelectorAll('[data-anchor-section]'));
-  sectionToggles.forEach((toggleSection, index) => {
+  sectionToggles.forEach(async (toggleSection, index) => {
     if (window.location.hash === toggleSection.getAttribute('data-anchor-section')) {
       toggleSection.classList.add('anchor-section-toggle--active');
+      await delay(500);
+      window.scroll({ top: toggleSection.offsetTop - navbarHeight, left: 0, behavior: 'smooth' });
     } else if (index === 0 && !window.location.hash) {
       toggleSection.classList.add('anchor-section-toggle--active');
     } else {

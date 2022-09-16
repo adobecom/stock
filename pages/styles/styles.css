@@ -33,6 +33,7 @@
   --section-spacing-m: 64px;
   --section-spacing-l: 90px;
   --section-spacing-xl: 100px;
+  --navbar-height: 65px;
 }
 
 @media screen and (min-width: 1000px) {
@@ -51,7 +52,7 @@ main video {
 }
 
 .milo-video {
-  margin: 0 0 12px 0;
+  margin: 0 0 12px;
 }
 
 main > div.section > .content {
@@ -253,7 +254,7 @@ body header.gnav {
 }
 
 body header.gnav + main {
-  margin-top: 65px; /* should be the same as gnav height */
+  margin-top: var(--navbar-height); /* should be the same as gnav height */
 }
 
 @media (min-width: 1200px) {

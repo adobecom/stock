@@ -1,9 +1,14 @@
-export default function anchorSection(block) {
-  const navbarHeight = 65;
+import { getNavbarHeight } from '../../scripts/utils.js';
+
+export default async function anchorSection(block) {
+  const navbarHeight = await getNavbarHeight();
+  console.log(navbarHeight)
   const anchor = block.textContent.trim();
+  if (!anchor[0] === '#') return;
   const section = block.closest('main > .section');
   block.remove();
   section.setAttribute('data-anchor-section', anchor);
+  section.setAttribute('id', anchor.substring(1));
   Array.from(document.querySelectorAll(`a[href$="${anchor}"]`)).forEach((a) => {
     a.addEventListener('click', (e) => {
       e.preventDefault();
