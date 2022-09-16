@@ -292,13 +292,13 @@ export function externalLinks() {
   });
 }
 
-export async function getNavBarHeight() {
+export async function getNavbarHeight() {
   const placeholders = await fetchPlaceholders((placeholders) => placeholders);
   return placeholders['navbar-height'];
 }
 
 export async function handleAnchors() {
-  const navbarHeight = await getNavBarHeight();
+  const navbarHeight = await getNavbarHeight();
   const sectionToggles = Array.from(document.querySelectorAll('[data-anchor-section]'));
   sectionToggles.forEach((toggleSection, index) => {
     if (window.location.hash === toggleSection.getAttribute('data-anchor-section')) {
