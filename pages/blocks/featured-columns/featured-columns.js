@@ -61,7 +61,10 @@ export default function featuredColumns(block) {
       const a = cell.querySelector('a');
       if (a && cell.childNodes.length === 1 && (a.href.endsWith('.mp4'))) {
         lazyDecorateVideo(cell, a);
-      } else if (cell.querySelector(':scope > .milo-video:first-child:last-child')) {
+      } else if (cell.querySelector(':scope > .milo-video') 
+              || cell.querySelector(':scope > p.button-container > .milo-video')
+              || cell.querySelector(':scope > p.button-container > a[href*="youtu.be"]')
+              || cell.querySelector(':scope > p.button-container > a[href*="youtube.com"]')) {
         cell.classList.add('picture-column');
       } else {
         const pic = cell.querySelector('picture:first-child:last-child');
