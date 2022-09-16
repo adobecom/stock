@@ -292,7 +292,13 @@ export function externalLinks() {
   });
 }
 
-export function handleAnchors() {
+export async function getNavBarHeight() {
+  const placeholders = await fetchPlaceholders((placeholders) => placeholders);
+  return placeholders['navbar-height'];
+}
+
+export async function handleAnchors() {
+  const navbarHeight = await getNavBarHeight();
   const sectionToggles = Array.from(document.querySelectorAll('[data-anchor-section]'));
   sectionToggles.forEach((toggleSection, index) => {
     if (window.location.hash === toggleSection.getAttribute('data-anchor-section')) {
@@ -301,6 +307,7 @@ export function handleAnchors() {
       toggleSection.classList.add('anchor-section-toggle--active');
     } else {
       toggleSection.classList.add('anchor-section-toggle--hidden');
+      window.scroll({ top: section.offsetTop - navbarHeight, left: 0, behavior: 'smooth', });
     }
   });
 }
