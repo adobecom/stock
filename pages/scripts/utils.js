@@ -30,6 +30,10 @@ export function getLocaleRoot() {
   return locale.contentRoot;
 }
 
+export function toClassName(name) {
+  return (name && typeof name === 'string') ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-') : '';
+}
+
 export async function fetchPlaceholders() {
   const root = getLocaleRoot();
   if (!window.placeholders) {
@@ -239,10 +243,6 @@ export async function gnavUnderline() {
   };
 }
 
-export function toClassName(name) {
-  return (name && typeof name === 'string') ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-') : '';
-}
-
 export function loadCSS(href, callback) {
   if (!document.querySelector(`head > link[href="${href}"]`)) {
     const link = document.createElement('link');
@@ -293,16 +293,17 @@ export function externalLinks() {
 }
 
 export async function getNavbarHeight() {
-  const placeholders = await fetchPlaceholders((placeholders) => placeholders);
-  return (placeholders['navbar-height']) ? (placeholders['navbar-height']) : 65;
+  const placeholders = await fetchPlaceholders((plhldrs) => plhldrs);
+  return (placeholders['navbar-height']) ? (placeholders['navbar-height']) : 97;
 }
 
 export async function handleAnchors() {
   const navbarHeight = await getNavbarHeight();
   const sectionToggles = Array.from(document.querySelectorAll('[data-anchor-section]'));
-  sectionToggles.forEach((toggleSection, index) => {
+  sectionToggles.forEach(async (toggleSection, index) => {
     if (window.location.hash === toggleSection.getAttribute('data-anchor-section')) {
       toggleSection.classList.add('anchor-section-toggle--active');
+      await delay(500);
       window.scroll({ top: toggleSection.offsetTop - navbarHeight, left: 0, behavior: 'smooth' });
     } else if (index === 0 && !window.location.hash) {
       toggleSection.classList.add('anchor-section-toggle--active');
