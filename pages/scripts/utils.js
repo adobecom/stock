@@ -294,7 +294,7 @@ export function externalLinks() {
 
 export async function getNavbarHeight() {
   const placeholders = await fetchPlaceholders((placeholders) => placeholders);
-  return placeholders['navbar-height'];
+  return (placeholders['navbar-height']) ? (placeholders['navbar-height']) : 65;
 }
 
 export async function handleAnchors() {
@@ -307,7 +307,7 @@ export async function handleAnchors() {
       toggleSection.classList.add('anchor-section-toggle--active');
     } else {
       toggleSection.classList.add('anchor-section-toggle--hidden');
-      window.scroll({ top: section.offsetTop - navbarHeight, left: 0, behavior: 'smooth', });
+      window.scroll({ top: sectionToggles.offsetTop - navbarHeight, left: 0, behavior: 'smooth', });
     }
   });
 }
