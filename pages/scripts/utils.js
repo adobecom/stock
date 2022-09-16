@@ -302,12 +302,12 @@ export async function handleAnchors() {
   const sectionToggles = Array.from(document.querySelectorAll('[data-anchor-section]'));
   sectionToggles.forEach((toggleSection, index) => {
     if (window.location.hash === toggleSection.getAttribute('data-anchor-section')) {
+      window.scroll({ top: toggleSection.offsetTop - navbarHeight, left: 0, behavior: 'smooth' });
       toggleSection.classList.add('anchor-section-toggle--active');
     } else if (index === 0 && !window.location.hash) {
       toggleSection.classList.add('anchor-section-toggle--active');
     } else {
       toggleSection.classList.add('anchor-section-toggle--hidden');
-      window.scroll({ top: toggleSection.offsetTop - navbarHeight, left: 0, behavior: 'smooth' });
     }
   });
 }
