@@ -307,7 +307,7 @@ export async function handleAnchors() {
       toggleSection.classList.add('anchor-section-toggle--active');
     } else {
       toggleSection.classList.add('anchor-section-toggle--hidden');
-      window.scroll({ top: sectionToggles.offsetTop - navbarHeight, left: 0, behavior: 'smooth', });
+      window.scroll({ top: toggleSection.offsetTop - navbarHeight, left: 0, behavior: 'smooth' });
     }
   });
 }
