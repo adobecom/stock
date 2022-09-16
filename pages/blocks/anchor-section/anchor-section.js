@@ -1,4 +1,5 @@
 export default function anchorSection(block) {
+  const navbarHeight = 65;
   const anchor = block.textContent.trim();
   const section = block.closest('main > .section');
   block.remove();
@@ -12,7 +13,7 @@ export default function anchorSection(block) {
       });
       section.classList.add('anchor-section-toggle--active');
       section.classList.remove('anchor-section-toggle--hidden');
-      window.scroll({ top: section.offsetTop - 65, left: 0, behavior: 'smooth', });
+      window.scroll({ top: section.offsetTop - navbarHeight, left: 0, behavior: 'smooth', });
     });
   });
 }
