@@ -54,6 +54,17 @@ main video {
   margin: 0 0 12px 0;
 }
 
+main > div.section > .content {
+  position: relative;
+}
+
+main > div.section > .content .milo-video:first-child {
+  width: var(--grid-container-width);
+  max-width: var(--grid-container-width);
+  min-width: var(--grid-container-width);
+  position: absolute;
+}
+
 /* buttons */
 
 main a.button:any-link {
