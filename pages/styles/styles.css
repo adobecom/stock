@@ -204,7 +204,7 @@ main .section .center p.button-container {
 }
 
 /* customize gnav for stock */
-body header .gnav-brand {
+body header nav.gnav .gnav-brand {
   color: #000;
 }
 
