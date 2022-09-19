@@ -9,7 +9,7 @@ main .page-feed {
   justify-content: center;
   align-items: stretch;
   margin: 0;
-  margin-top: var(--section-spacing-m);
+  margin-top: var(--block-spacing-m);
   flex-wrap: wrap;
   margin-left: auto;
   margin-right: auto;
@@ -541,7 +541,7 @@ main .page-feed.horizontal .pf-card-container-link:hover {
 }
 
 main .section .page-feed + .banner {
-  margin-top: var(--section-spacing-m);
+  margin-top: var(--block-spacing-m);
 }
 
 main .section.has-background .page-feed:first-child {
@@ -555,5 +555,5 @@ main .section.has-background .page-feed:first-child {
 }
 
 main > div.section:first-of-type > .page-feed:first-child {
-  padding-top: var(--section-spacing-m);
+  padding-top: var(--block-spacing-m);
 }

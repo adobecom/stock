@@ -31,7 +31,7 @@ main h1, main h2, main h3, main h4 {
 }
 
 main h1 {
-  padding-top: var(--section-spacing-s);
+  padding-top: var(--block-spacing-s);
 }
 
 main h2 {
@@ -72,7 +72,7 @@ main p:not(.detail-M) + h2,
 main p:not(.detail-M) + h3,
 main p:not(.detail-M) + h4
 main p:not(.detail-M) + p.detail-M {
-  padding-top: var(--section-spacing-m);
+  padding-top: var(--block-spacing-m);
 }
 
 main li {

@@ -75,5 +75,5 @@ main .image-rows p.icon-container a {
 }
 
 main .image-rows + .image-rows {
-  margin-top: var(--section-spacing-m);
+  margin-top: var(--block-spacing-m);
 }
