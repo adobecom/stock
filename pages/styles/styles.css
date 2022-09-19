@@ -33,7 +33,6 @@
   --section-spacing-m: 80px;
   --section-spacing-l: 96px;
   --section-spacing-xl: 120px;
-  --navbar-height: 65px;
 }
 
 @media screen and (min-width: 1000px) {
@@ -207,10 +206,6 @@ main .section .center p.button-container {
 /* customize gnav for stock */
 body header .gnav-brand {
   color: #000;
-}
-
-body header.gnav + main {
-  margin-top: var(--navbar-height); /* should be the same as gnav height */
 }
 
 @media (min-width: 1200px) {
