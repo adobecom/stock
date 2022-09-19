@@ -28,21 +28,21 @@
   --color-transparent-button-bg-down: rgba(0,0,0,0.2);
 
   /* Spacing between sections */
-  --section-spacing-xs: 38px;
-  --section-spacing-s: 50px;
-  --section-spacing-m: 64px;
-  --section-spacing-l: 90px;
-  --section-spacing-xl: 100px;
+  --section-spacing-xs: 40px;
+  --section-spacing-s: 64px;
+  --section-spacing-m: 80px;
+  --section-spacing-l: 96px;
+  --section-spacing-xl: 120px;
   --navbar-height: 65px;
 }
 
 @media screen and (min-width: 1000px) {
   :root {
-    --section-spacing-xl: 128px;
-    --section-spacing-l: 90px;
-    --section-spacing-m: 64px;
-    --section-spacing-s: 50px;
-    --section-spacing-xs: 38px;
+    --section-spacing-xs: 40px;
+    --section-spacing-s: 64px;
+    --section-spacing-m: 80px;
+    --section-spacing-l: 96px;
+    --section-spacing-xl: 120px;
   }
 }
 
