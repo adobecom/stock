@@ -241,7 +241,7 @@ main > .section > .page-feed + .content > p.button-container:first-child {
 }
 
 main > .section > .content > *:first-child {
-  margin-top: var(--block-spacing-xs);
+  margin-top: var(--block-spacing-m);
 }
 
 main > .section:not(:empty):not(:first-child).has-background + .section:not(.has-background) {
