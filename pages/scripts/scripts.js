@@ -62,7 +62,6 @@ const { loadArea, loadDelayed, setConfig } = await import(`${miloLibs}/utils/uti
 
 (async function loadPage() {
   setConfig({ ...CONFIG, miloLibs });
-  document.body.style.visibility = 'hidden';
   decorateButtons();
   turnH6intoDetailM();
   await loadArea();
@@ -71,7 +70,6 @@ const { loadArea, loadDelayed, setConfig } = await import(`${miloLibs}/utils/uti
   customSpacings();
   gnavUnderline();
   handleAnchors();
-  document.body.style.removeProperty('visibility');
   const { default: loadModals } = await import(`${miloLibs}/blocks/modals/modals.js`);
   loadModals();
   loadDelayed();
