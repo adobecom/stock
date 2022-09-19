@@ -70,7 +70,5 @@ const { loadArea, loadDelayed, setConfig } = await import(`${miloLibs}/utils/uti
   customSpacings();
   gnavUnderline();
   handleAnchors();
-  const { default: loadModals } = await import(`${miloLibs}/blocks/modals/modals.js`);
-  loadModals();
   loadDelayed();
 }());
