@@ -249,7 +249,7 @@ main > .section > .page-feed + .content > p.button-container:first-child {
   margin-top: 0;
 }
 
-main > .section:not(:empty):not(:first-child) {
+main > .section:not(:empty):not(:first-child):not(.anchor-section-toggle--active) {
   padding-top: var(--section-spacing-m);
 }
 
@@ -287,10 +287,6 @@ main > .section > .page-feed + .content > p.button-container:first-child {
   justify-content: center;
   text-align: center;
   margin-top: 0;
-}
-
-main > .section:not(:empty):not(:first-child) {
-  padding-top: var(--section-spacing-m);
 }
 
 main > .section:not(:empty):last-child {
