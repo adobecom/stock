@@ -238,6 +238,10 @@ main > .section > .content > *:first-child {
   margin-top: var(--block-spacing-m);
 }
 
+main > .section.has-background > .content:first-child > *:first-child {
+  margin-top: 0;
+}
+
 main > .section:not(:empty):not(:first-child).has-background + .section:not(.has-background) {
   padding-top: 0;
 }
