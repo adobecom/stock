@@ -23,6 +23,10 @@ main .page-feed:last-child {
   margin-bottom: var(--block-spacing-m);
 }
 
+main > .section.has-background > .page-feed:last-child {
+  margin-bottom: 0;
+}
+
 main .page-feed.col-2-pf-cards,
 main .page-feed.col-3-pf-cards,
 main .page-feed.col-4-pf-cards,
