@@ -234,12 +234,6 @@ main > .section:not(.has-background) > .content:first-child {
   padding-top: var(--block-spacing-m);
 }
 
-main > .section > .page-feed + .content > p.button-container:first-child {
-  justify-content: center;
-  text-align: center;
-  margin-top: 0;
-}
-
 main > .section > .content > *:first-child {
   margin-top: var(--block-spacing-m);
 }
@@ -273,7 +267,7 @@ main > .section > .content + .page-feed {
 main > .section > .page-feed + .content > p.button-container:first-child {
   justify-content: center;
   text-align: center;
-  margin-top: 0;
+  margin-top: var(--block-spacing-xs);
 }
 
 main > .section:not(:empty):last-child {

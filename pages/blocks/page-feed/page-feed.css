@@ -19,6 +19,10 @@ main .page-feed {
   margin-right: auto;
 }
 
+main .page-feed:last-child {
+  margin-bottom: var(--block-spacing-m);
+}
+
 main .page-feed.col-2-pf-cards,
 main .page-feed.col-3-pf-cards,
 main .page-feed.col-4-pf-cards,
