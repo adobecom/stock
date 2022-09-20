@@ -136,8 +136,12 @@ function decorateTabbedArea($block, payload) {
         $tab.classList.add('active');
         loadTabContent($block, payload, index);
       });
+    }
 
-      if (index === 1) {
+    if (index === 1) {
+      const paragraphs = payload.videos[payload.videoIndex][`${payload.placeholders['course-tab-transcript']}`].split('\n');
+
+      if (paragraphs.length > 0) {
         const $transcriptTab = createTag('a', { class: 'tab' });
         const iOfLastColumn = [payload.videos.length - 1];
         $transcriptTab.textContent = Object.keys(payload.videos[iOfLastColumn])[iOfLastColumn];
@@ -178,7 +182,7 @@ function loadVideo(block, payload) {
     source.src = src;
     source.type = type;
     videoPlayer.load();
-  }
+  };
 
   if (payload.videos[payload.videoIndex]) {
     const webmSrc = payload.videos[payload.videoIndex].webm;
