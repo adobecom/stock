@@ -13,7 +13,7 @@
 import {
   fetchPlaceholders,
   loadBlockCSS,
-  createTag
+  createTag,
 } from '../../scripts/utils.js';
 
 function handlize(string) {
@@ -85,12 +85,16 @@ function loadTranscript($block, payload) {
   const $contentArea = $block.querySelector('.content-area');
   $contentArea.innerHTML = '';
   const paragraphs = payload.videos[payload.videoIndex][`${payload.placeholders['course-tab-transcript']}`].split('\n');
-  if (paragraphs.length > 0) {
+  const $transcriptTab = $block.querySelector(`.tab-${payload.placeholders['course-tab-transcript'].toLowerCase()}`);
+  $transcriptTab.style.display = 'block';
+  if (paragraphs.length > 1 || paragraphs[0] !== '') {
     paragraphs.forEach((p) => {
       const para = createTag('p');
       para.textContent = p;
       $contentArea.append(para);
     });
+  } else {
+    $transcriptTab.style.display = 'none';
   }
 }
 
@@ -121,7 +125,7 @@ function decorateTabbedArea($block, payload) {
 
   payload.tabs.forEach((tab, index) => {
     if (!isEmptyTab(tab)) {
-      const $tab = createTag('a', { class: 'tab' });
+      const $tab = createTag('a', { class: `tab tab-${tab.heading.toLowerCase()}` });
       if (index === 0) {
         $tab.classList.add('active');
       }
@@ -139,23 +143,23 @@ function decorateTabbedArea($block, payload) {
     }
 
     if (index === 1) {
+      const $transcriptTab = createTag('a', { class: 'tab' });
+      const iOfLastColumn = [payload.videos.length - 1];
+      $transcriptTab.textContent = Object.keys(payload.videos[iOfLastColumn])[iOfLastColumn];
+      $tabs.append($transcriptTab);
+
+      $transcriptTab.addEventListener('click', () => {
+        const $allTabs = $block.querySelectorAll('.tab');
+        for (let i = 0; i < $allTabs.length; i += 1) {
+          $allTabs[i].classList.remove('active');
+        }
+        $transcriptTab.classList.add('active');
+        loadTranscript($block, payload);
+      });
+
       const paragraphs = payload.videos[payload.videoIndex][`${payload.placeholders['course-tab-transcript']}`].split('\n');
-
-      if (paragraphs.length > 0) {
-        console.log(paragraphs);
-        const $transcriptTab = createTag('a', { class: 'tab' });
-        const iOfLastColumn = [payload.videos.length - 1];
-        $transcriptTab.textContent = Object.keys(payload.videos[iOfLastColumn])[iOfLastColumn];
-        $tabs.append($transcriptTab);
-
-        $transcriptTab.addEventListener('click', () => {
-          const $allTabs = $block.querySelectorAll('.tab');
-          for (let i = 0; i < $allTabs.length; i += 1) {
-            $allTabs[i].classList.remove('active');
-          }
-          $transcriptTab.classList.add('active');
-          loadTranscript($block, payload);
-        });
+      if (paragraphs.length > 1 || paragraphs[0] !== '') {
+        $transcriptTab.style.display = 'none';
       }
     }
   });
@@ -189,8 +193,8 @@ function loadVideo(block, payload) {
     const webmSrc = payload.videos[payload.videoIndex].webm;
     const mp4Src = payload.videos[payload.videoIndex].mp4;
 
-    if (webmSrc && webmSrc !== '') replaceVideo('video/webm', webmSrc );
-    if (mp4Src && mp4Src !== '') replaceVideo('video/mp4', mp4Src );
+    if (webmSrc && webmSrc !== '') replaceVideo('video/webm', webmSrc);
+    if (mp4Src && mp4Src !== '') replaceVideo('video/mp4', mp4Src);
     if (title) {
       title.innerHTML = '';
       title.textContent = payload.videos[payload.videoIndex]['Video Name'];
@@ -295,8 +299,6 @@ async function buildPayload(block, payload) {
       });
     }
   });
-
-  console.log(payload);
 }
 
 export default async function decorate(block) {
