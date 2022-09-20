@@ -108,13 +108,14 @@ function isEmptyTab(tab) {
   if (tab.content.length > 1) {
     const contentEmpty = (content) => content.innerContent === '';
     return Array.from(tab.content).every(contentEmpty);
-  } else {
-    return tab.content === '';
   }
+  return tab.content === '';
 }
 
 function decorateTabbedArea($block, payload) {
   const $tabbedArea = createTag('div', { class: 'tabbed-area' });
+  const $title = createTag('h3', { class: 'video-title' });
+  $title.textContent = payload.videos[payload.videoIndex]['Video Name'];
   const $tabs = createTag('div', { class: 'tabs' });
   const $contentArea = createTag('div', { class: 'content-area' });
 
@@ -154,9 +155,9 @@ function decorateTabbedArea($block, payload) {
     }
   });
 
-  tabbedArea.append(title, tabs, contentArea);
-  block.append(tabbedArea);
-  loadTabContent(block, payload, 0);
+  $tabbedArea.append($title, $tabs, $contentArea);
+  $block.append($tabbedArea);
+  loadTabContent($block, payload, 0);
 }
 
 async function fetchVideos(url) {
