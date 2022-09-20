@@ -1,0 +1,11 @@
+main .anchor-section {
+  display: none;
+}
+
+main div.section.anchor-section-toggle--active {
+  display: block;
+}
+
+main div.section.anchor-section-toggle--hidden {
+  display: none;
+}

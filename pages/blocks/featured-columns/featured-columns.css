@@ -24,7 +24,7 @@ main .featured-columns .featured-row {
   align-items: center;
   position: relative;
   box-sizing: border-box;
-  padding-bottom: var(--section-spacing-large);
+  padding-bottom: var(--section-spacing-l);
 }
 
 main .featured-columns .featured-row:last-child {
@@ -45,15 +45,15 @@ main .featured-columns .featured-column:not(.picture-column) {
 }
 
 main .featured-columns {
-  margin-top: var(--section-spacing-small);
+  margin-top: var(--section-spacing-s);
 }
 
 main .featured-columns {
-  margin-bottom: var(--section-spacing-small);
+  margin-bottom: var(--section-spacing-s);
 }
 
 main .featured-columns.small .featured-row {
-  padding-bottom: var(--section-spacing-small);
+  padding-bottom: var(--section-spacing-s);
 }
 
 main .featured-columns.small .featured-row:last-child {
@@ -86,23 +86,28 @@ main .featured-columns.small .featured-column:last-child:not(.picture-column) {
 }
 
 main .featured-columns h2 {
-  font-size: var(--heading-font-size-m);
+  font-size: var(--type-heading-xl-size);
+  line-height: var(--type-heading-xl-lh);
 }
 
 main .featured-columns h3 {
-  font-size: var(--heading-font-size-s);
+  font-size: var(--type-heading-l-size);
+  line-height: var(--type-heading-l-lh);
 }
 
 main .featured-columns.small h2 {
-  font-size: var(--heading-font-size-s);
+  font-size: var(--type-heading-l-size);
+  line-height: var(--type-heading-l-lh);
 }
 
 main .featured-columns.small h3 {
-  font-size: var(--heading-font-size-xs);
+  font-size: var(--type-heading-m-size);
+  line-height: var(--type-heading-m-lh);
 }
 
 main .featured-columns p {
-  font-size: var(--body-font-size-s);
+  font-size: var(--type-body-s-size);
+  line-height: var(--type-body-s-lh);
   color: #4B4B4B;
 }
 
@@ -131,6 +136,9 @@ main .featured-columns .picture-column img {
   width: 100%;
   height: auto;
   transition: filter 0.3s, transform 0.3s;
+  max-height: 600px;
+  object-fit: cover;
+  object-position: center top;
 }
 
 main .featured-columns .picture-column a {
@@ -175,15 +183,17 @@ main .dark-theme .featured-columns p {
   }
 
   main .featured-columns.small h2 {
-    font-size: var(--heading-font-size-m);
+    font-size: var(--type-heading-m-size);
+    line-height: var(--type-heading-m-lh);
   }
 
   main .featured-columns.small h3 {
-    font-size: var(--heading-font-size-s);
+    font-size: var(--type-heading-s-size);
+    line-height: var(--type-heading-s-lh);
   }
 }
 
-main .cards + .featured-columns {
-  margin-top: var(--section-spacing-large);
-  margin-bottom: var(--section-spacing-large);
+main .page-feed + .featured-columns {
+  margin-top: var(--section-spacing-l);
+  margin-bottom: var(--section-spacing-l);
 }

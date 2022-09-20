@@ -1,104 +1,68 @@
 :root {
-  /* colors */
-
-  --color-white: #FFF;
-  --color-gray-100: #F8F8F8;
-  --color-gray-200: #E8E8E8;
-  --color-gray-300: #D4D4D4;
-  --color-gray-400: #B6B6B6;
-  --color-gray-500: #909090;
-  --color-gray-600: #686868;
-  --color-gray-700: #444;
-  --color-gray-800: #242424;
-  --color-black: #000;
+  /* Colors */
+  --link-color: #035fe6;
+  --link-hover-color: #136ff6;
+  --link-color-dark: #5EAAF7;
+  --link-hover-color-dark: #5EAAF7;
+  --text-color: #2c2c2c;
   --color-brand-title: #000B1D;
-  --color-info-primary: #242424;
-  --color-info-primary-hover: #090909;
-  --color-info-primary-down: #000;
-  --color-info-secondary: #E8E8E8;
-  --color-info-secondary-hover: #d4d4d4;
-  --color-info-secondary-down: #cdcdcd;
-  --color-info-accent: #1473E6;
-  --color-info-accent-hover: #186dd4;
-  --color-info-accent-down: #1d62b6;
-  --color-info-accent-subtle: #486EC2;
-  --color-info-transparent: #4B4B4B;
-  --color-info-transparent-hover: #3d3d3d;
-  --color-info-transparent-down: #363636;
-  --color-info-transparent-bg: transparent;
-  --color-info-transparent-bg-hover: rgba(0,0,0,0.1);
-  --color-info-transparent-bg-down: rgba(0,0,0,0.2);
+  --color-primary: #242424;
+  --color-primary-hover: #090909;
+  --color-primary-down: #000;
+  --color-secondary: #E8E8E8;
+  --color-secondary-hover: #d4d4d4;
+  --color-secondary-down: #cdcdcd;
+  --color-accent: #1473E6;
+  --color-accent-hover: #186dd4;
+  --color-accent-down: #1d62b6;
+  --color-accent-faded: #486EC2;
+  --color-accent-light: #DEDEF9;
   --color-premium: #EBCF2D;
 
-  --gradient-highlight-vertical: linear-gradient(15deg, #7c84fc, #ff4dd2);
-  --gradient-highlight-horizontal: linear-gradient(90deg, #ff4dd2, #7c84fc);
+  /* transparent button */
+  --color-transparent-button-border: #4B4B4B;
+  --color-transparent-button-border-hover: #3d3d3d;
+  --color-transparent-button-border-down: #363636;
+  --color-transparent-button-bg: transparent;
+  --color-transparent-button-bg-hover: rgba(0,0,0,0.1);
+  --color-transparent-button-bg-down: rgba(0,0,0,0.2);
 
-  --heading-color: var(--color-gray-800);
-
-  /* font-sizes */
-
-  --body-font-size-xxl: 28px;
-  --body-font-size-xl: 22px;
-  --body-font-size-l: 20px;
-  --body-font-size-m: 18px;
-  --body-font-size-s: 16px;
-  --body-font-size-xs: 14px;
-  --body-font-size-xxs: 12px;
-
-  --heading-font-weight: 700;
-  --heading-line-height: 1.25;
-  --heading-font-size-xxxl: 45px;
-  --heading-font-size-xxl: 36px;
-  --heading-font-size-xl: 28px;
-  --heading-font-size-l: 24px;
-  --heading-font-size-m: 22px;
-  --heading-font-size-s: 18px;
-  --heading-font-size-xs: 14px;
-  --heading-font-size-xxs: 12px;
-
-  /* spacing between sections */
-
-  --section-spacing: 64px;
-  --section-spacing-x-large: 90px;
-  --section-spacing-large: 90px;
-  --section-spacing-small: 50px;
-  --section-spacing-x-small: 38px;
+  /* Spacing between sections */
+  --section-spacing-xs: 38px;
+  --section-spacing-s: 50px;
+  --section-spacing-m: 64px;
+  --section-spacing-l: 90px;
+  --section-spacing-xl: 100px;
 }
 
 @media screen and (min-width: 1000px) {
   :root {
-    --body-font-size-xxl: 28px;
-    --body-font-size-xl: 24px;
-    --body-font-size-l: 20px;
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
-    --body-font-size-xxs: 12px;
-    --heading-font-size-xxxl: 60px;
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 32px;
-    --heading-font-size-m: 28px;
-    --heading-font-size-s: 22px;
-    --heading-font-size-xs: 18px;
-    --heading-font-size-xxs: 14px;
-    --section-spacing: 64px;
-    --section-spacing-x-large: 128px;
-    --section-spacing-large: 90px;
-    --section-spacing-small: 50px;
-    --section-spacing-x-small: 38px;
+    --section-spacing-xl: 128px;
+    --section-spacing-l: 90px;
+    --section-spacing-m: 64px;
+    --section-spacing-s: 50px;
+    --section-spacing-xs: 38px;
   }
+}
+
+main img,
+main video {
+  max-width: 100%;
+}
+
+.milo-video {
+  margin: 0 0 12px 0;
 }
 
 /* buttons */
 
-a.button:any-link {
+main a.button:any-link {
   text-decoration: none;
   border-radius: 40px;
   padding: 4px 1.2em 5px 1.2em;
-  /*outline: none; (keep outline for a11n) */
   text-align: center;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--type-body-xs-size);
+  line-height: var(--type-body-xs-lh);
   font-style: normal; 
   font-weight: 600;
   line-height: var(--body-line-height);
@@ -114,7 +78,7 @@ a.button:any-link {
   min-width: 100px;
 }
 
-p.button-container {
+main p.button-container {
   display: flex;
   margin: 10px 0;
   padding-bottom: 0;
@@ -123,101 +87,103 @@ p.button-container {
   align-items: flex-start;
 }
 
-p.button-container a.button {
+main p.button-container a.button {
   margin: 0 0 12px 0;
 }
 
-p.button-container > a.button:not(:last-child),
-p.button-container > strong:not(:last-child),
-p.button-container > em:not(:last-child) {
+main p.button-container > a.button:not(:last-child),
+main p.button-container > strong:not(:last-child),
+main p.button-container > em:not(:last-child) {
   margin-right: 16px;
 }
 
-a.button.xlarge:any-link {
+main a.button.xlarge:any-link {
   padding: 13px 1.5em 13px 1.5em;
-  font-size: var(--body-font-size-m);
+  font-size: var(--type-body-m-size);
+  line-height: var(--type-body-m-lh);
 }
 
-a.button.large:any-link {
+main a.button.large:any-link {
   padding: 10px 1.5em 10px 1.5em;
 }
 
-a.button.small:any-link {
+main a.button.small:any-link {
   padding: 4px 1em 4px 1em;
   border-radius: 15px;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--type-body-xs-size);
+  line-height: var(--type-body-xs-lh);
 }
 
-a.button:any-link,
-a.button.primary:any-link {
+main a.button:any-link,
+main a.button.primary:any-link {
   color: var(--color-white);
-  background-color: var(--color-info-primary);
-  border-color: var(--color-info-primary);
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
-a.button:any-link:hover,
-a.button.primary:any-link:hover {
-  background-color: var(--color-info-primary-hover);
-  border-color: var(--color-info-primary-hover);
+main a.button:any-link:hover,
+main a.button.primary:any-link:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
-a.button:any-link:active,
-a.button.primary:any-link:active {
-  background-color: var(--color-info-primary-down);
-  border-color: var(--color-info-primary-down);
+main a.button:any-link:active,
+main a.button.primary:any-link:active {
+  background-color: var(--color-primary-down);
+  border-color: var(--color-primary-down);
 }
 
-a.button.secondary:any-link {
+main a.button.secondary:any-link {
   color: var(--color-black);
-  background-color: var(--color-info-secondary);
-  border-color: var(--color-info-secondary);
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
 }
 
-a.button.secondary:any-link:hover {
-  background-color: var(--color-info-secondary-hover);
-  border-color: var(--color-info-secondary-hover);
+main a.button.secondary:any-link:hover {
+  background-color: var(--color-secondary-hover);
+  border-color: var(--color-secondary-hover);
 }
 
-a.button.secondary:any-link:active {
-  background-color: var(--color-info-secondary-down);
-  border-color: var(--color-info-secondary-down);
+main a.button.secondary:any-link:active {
+  background-color: var(--color-secondary-down);
+  border-color: var(--color-secondary-down);
 }
 
-a.button.accent:any-link {
+main a.button.accent:any-link {
   color: var(--color-white);
-  background-color: var(--color-info-accent);
-  border-color: var(--color-info-accent);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
-a.button.accent:any-link:hover {
-  background-color: var(--color-info-accent-hover);
-  border-color: var(--color-info-accent-hover);
+main a.button.accent:any-link:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
 }
 
-a.button.accent:any-link:active {
-  background-color: var(--color-info-accent-down);
-  border-color: var(--color-info-accent-down);
+main a.button.accent:any-link:active {
+  background-color: var(--color-accent-down);
+  border-color: var(--color-accent-down);
 }
 
-a.button.transparent:any-link {
-  color: var(--color-info-transparent);
-  border-color: var(--color-info-transparent);
-  background-color: var(--color-info-transparent-bg);
+main a.button.transparent:any-link {
+  color: var(--color-transparent-button-border);
+  border-color: var(--color-transparent-button-border);
+  background-color: var(--color-transparent-button-bg);
 }
 
-a.button.transparent:any-link:hover {
-  color: var(--color-info-transparent-hover);
-  border-color: var(--color-info-transparent-hover);
-  background-color: var(--color-info-transparent-bg-hover);
+main a.button.transparent:any-link:hover {
+  color: var(--color-transparent-button-border-hover);
+  border-color: var(--color-transparent-button-border-hover);
+  background-color: var(--color-transparent-button-bg-hover);
 }
 
-a.button.transparent:any-link:active {
-  color: var(--color-info-transparent-down);
-  border-color: var(--color-info-transparent-down);
-  background-color: var(--color-info-transparent-bg-down);
+main a.button.transparent:any-link:active {
+  color: var(--color-transparent-button-border-down);
+  border-color: var(--color-transparent-button-border-down);
+  background-color: var(--color-transparent-button-bg-down);
 }
 
-a.button > svg {
+main a.button > svg {
   float: left;
   display: inline;
   width: 20px;
@@ -227,73 +193,96 @@ a.button > svg {
   color: currentColor;
 }
 
-a.button > svg > use {
+main a.button > svg > use {
   fill: currentColor;
   color: currentColor;
 }
 
-.center .content p.button-container,
-.section .center p.button-container {
+main .center .content p.button-container,
+main .section .center p.button-container {
   justify-content: center;
 }
 
-/* other small adjustments */
+/* customize gnav for stock */
 
-img,
-video {
-  max-width: 100%;
+body nav.gnav .gnav-brand {
+  justify-content: flex-start
 }
 
-/* prevent spacing below the picture tag */
-
-picture {
-  vertical-align: bottom;
-  display: inline;
-}
-
-picture img {
-  display: block;
-}
-
-/* youtube container */
-.youtube-container {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%;
-}
-
-.youtube-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
+body nav.gnav .gnav-brand picture {
   width: 100%;
   height: 100%;
-  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+body nav.gnav .gnav-brand picture img {
+  width: auto;
+  height: 100%;
 }
 
 @media (min-width: 1200px) {
-  .gnav-navitem > a.active-page {
+  body nav.gnav .gnav-navitem.has-Menu.is-Open .gnav-navitem-menu li,
+  body nav.gnav .gnav-navitem.has-Menu.is-Open .gnav-navitem-menu ul {
+    padding: 0;
+  }
+  body nav.gnav .gnav-navitem.has-Menu.is-Open .gnav-navitem-menu ul li a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+body header.gnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+body header.gnav + main {
+  margin-top: 65px; /* should be the same as gnav height */
+}
+
+@media (min-width: 1200px) {
+  nav.gnav .gnav-navitem > a.active-page {
     border-bottom: 2px solid #000;
     padding-bottom: 18px;
   }
 }
 
+/* prevent spacing from <picture> tag */
+main picture {
+  vertical-align: bottom;
+  display: inline;
+}
+main picture img {
+  display: block;
+}
+
+/* customize section spacings for stock */
+
 main > .section > .content:not(:first-child) {
-  margin-top: var(--section-spacing);
+  margin-top: var(--section-spacing-m);
 }
 
-main > .section > .content + .cards {
-  margin-top: var(--section-spacing-x-small);
+main > .section > .content + .page-feed {
+  margin-top: var(--section-spacing-xs);
 }
 
-main > .section > .cards + .content > p.button-container:first-child {
+main > .section:not(.has-background) > .content:first-child {
+  padding-top: var(--section-spacing-m);
+}
+
+main > .section > .page-feed + .content > p.button-container:first-child {
   justify-content: center;
   text-align: center;
   margin-top: 0;
 }
 
 main > .section:not(:empty):not(:first-child) {
-  padding-top: var(--section-spacing);
+  padding-top: var(--section-spacing-m);
 }
 
 main > .section:not(:empty):not(:first-child).has-background + .section:not(.has-background) {
@@ -301,42 +290,49 @@ main > .section:not(:empty):not(:first-child).has-background + .section:not(.has
 }
 
 main > .section:not(:empty):last-child {
-  padding-bottom: var(--section-spacing);
+  padding-bottom: var(--section-spacing-m);
 }
 
 main > .section.has-background,
 .fragment > .section.has-background {
-  padding-bottom: var(--section-spacing);
-  padding-top: var(--section-spacing);
+  padding-bottom: var(--section-spacing-m);
+  padding-top: var(--section-spacing-m);
 }
-
 
 main > .section > .content:not(:first-child) {
-  margin-top: var(--section-spacing);
+  margin-top: var(--section-spacing-m);
 }
 
-main > .section > .content + .cards {
-  margin-top: var(--section-spacing-x-small);
+main > .section:not(:empty):not(:first-child) > .content:first-child {
+  padding-top: 0;
 }
 
-main > .section > .cards + .content > p.button-container:first-child {
+main > .section.section.has-background + .section:not(:empty):not(:first-child) > .content:first-child {
+  padding-top: var(--section-spacing-m);;
+}
+
+main > .section > .content + .page-feed {
+  margin-top: var(--section-spacing-xs);
+}
+
+main > .section > .page-feed + .content > p.button-container:first-child {
   justify-content: center;
   text-align: center;
   margin-top: 0;
 }
 
 main > .section:not(:empty):not(:first-child) {
-  padding-top: var(--section-spacing);
+  padding-top: var(--section-spacing-m);
 }
 
 main > .section:not(:empty):last-child {
-  padding-bottom: var(--section-spacing);
+  padding-bottom: var(--section-spacing-m);
 }
 
 main > .section.has-background,
 .fragment > .section.has-background {
-  padding-bottom: var(--section-spacing);
-  padding-top: var(--section-spacing);
+  padding-bottom: var(--section-spacing-m);
+  padding-top: var(--section-spacing-m);
 }
 
 main > .section.center > .content > p > picture > img,
@@ -346,9 +342,18 @@ main > .section.center > .content > picture > img {
 }
 
 main > .section:not(.has-background) > .content:last-child {
-  padding-bottom: var(--section-spacing);
+  padding-bottom: var(--section-spacing-m);
 }
 
 main > .section > .content + .image-rows {
-  padding-top: var(--section-spacing);
+  padding-top: var(--section-spacing-m);
+}
+
+main .section:first-child > .breadcrumbs + .content h1:first-child {
+  padding-top: 8px;
+}
+
+main .section:first-child > .breadcrumbs + .content + .share {
+  padding-top: 16px;
+  padding-bottom: 32px;
 }
