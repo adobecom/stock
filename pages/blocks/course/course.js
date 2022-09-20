@@ -82,12 +82,12 @@ async function buildCards(block, payload) {
 }
 
 function loadTranscript($block, payload) {
-  const $contentArea = $block.querySelector('.content-area');
-  $contentArea.innerHTML = '';
   const paragraphs = payload.videos[payload.videoIndex][`${payload.placeholders['course-tab-transcript']}`].split('\n');
   const $transcriptTab = $block.querySelector(`.tab-${payload.placeholders['course-tab-transcript'].toLowerCase()}`);
-  $transcriptTab.style.display = 'block';
   if (paragraphs.length > 1 || paragraphs[0] !== '') {
+    const $contentArea = $block.querySelector('.content-area');
+    $contentArea.innerHTML = '';
+    $transcriptTab.style.display = 'block';
     paragraphs.forEach((p) => {
       const para = createTag('p');
       para.textContent = p;
@@ -143,10 +143,16 @@ function decorateTabbedArea($block, payload) {
     }
 
     if (index === 1) {
-      const $transcriptTab = createTag('a', { class: `tab tab-${payload.placeholders['course-tab-transcript'].toLowerCase()}` });
+      const tabName = payload.placeholders['course-tab-transcript'];
+      const $transcriptTab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
       const iOfLastColumn = [payload.videos.length - 1];
       $transcriptTab.textContent = Object.keys(payload.videos[iOfLastColumn])[iOfLastColumn];
       $tabs.append($transcriptTab);
+
+      const paragraphs = payload.videos[payload.videoIndex][`${tabName}`].split('\n');
+      if (paragraphs.length <= 1 && paragraphs[0] === '') {
+        $transcriptTab.style.display = 'none';
+      }
 
       $transcriptTab.addEventListener('click', () => {
         const $allTabs = $block.querySelectorAll('.tab');
@@ -156,11 +162,6 @@ function decorateTabbedArea($block, payload) {
         $transcriptTab.classList.add('active');
         loadTranscript($block, payload);
       });
-
-      const paragraphs = payload.videos[payload.videoIndex][`${payload.placeholders['course-tab-transcript']}`].split('\n');
-      if (paragraphs.length > 1 || paragraphs[0] !== '') {
-        $transcriptTab.style.display = 'none';
-      }
     }
   });
 
@@ -201,9 +202,7 @@ function loadVideo(block, payload) {
     }
   }
 
-  if (activeTab === allTabs[2]) {
-    loadTranscript(block, payload);
-  }
+  loadTranscript(block, payload);
 
   videoPlayer.pause();
   videoPlayer.currentTime = 0;
@@ -263,7 +262,7 @@ function decorateVideoPlayer(block, payload) {
   videoMenu.append(videoList);
   videoWrapper.append(videoPlayer);
   videoPlayerWrapper.append(videoWrapper, videoMenu);
-  block.append(videoPlayerWrapper);
+  block.prepend(videoPlayerWrapper);
   loadVideo(block, payload);
 }
 
@@ -311,6 +310,6 @@ export default async function decorate(block) {
 
   await buildPayload(block, payload);
   block.innerHTML = '';
-  decorateVideoPlayer(block, payload);
   decorateTabbedArea(block, payload);
+  decorateVideoPlayer(block, payload);
 }
