@@ -10,10 +10,10 @@
  * governing permissions and limitations under the License.
  */
 
-import { 
+import {
   fetchPlaceholders,
   loadBlockCSS,
-  createTag
+  createTag,
 } from '../../scripts/utils.js';
 
 function handlize(string) {
@@ -81,17 +81,20 @@ async function buildCards(block, payload) {
   }
 }
 
-function loadTranscript(block, payload) {
-  const contentArea = block.querySelector('.content-area');
-  contentArea.innerHTML = '';
-
-  const paragraphs = payload.videos[payload.videoIndex].Transcript.split('\n');
-  if (paragraphs.length > 0) {
+function loadTranscript($block, payload) {
+  const paragraphs = payload.videos[payload.videoIndex][`${payload.placeholders['course-tab-transcript']}`].split('\n');
+  const $transcriptTab = $block.querySelector(`.tab-${payload.placeholders['course-tab-transcript'].toLowerCase()}`);
+  if (paragraphs.length > 1 || paragraphs[0] !== '') {
+    const $contentArea = $block.querySelector('.content-area');
+    $contentArea.innerHTML = '';
+    $transcriptTab.style.display = 'block';
     paragraphs.forEach((p) => {
       const para = createTag('p');
       para.textContent = p;
-      contentArea.append(para);
+      $contentArea.append(para);
     });
+  } else {
+    $transcriptTab.style.display = 'none';
   }
 }
 
@@ -105,50 +108,66 @@ function loadTabContent(block, payload, index) {
   }
 }
 
-function decorateTabbedArea(block, payload) {
-  const tabbedArea = createTag('div', { class: 'tabbed-area' });
-  const title = createTag('h3', { class: 'video-title' });
-  title.textContent = payload.videos[payload.videoIndex]['Video Name'];
-  const tabs = createTag('div', { class: 'tabs' });
-  const contentArea = createTag('div', { class: 'content-area' });
+function isEmptyTab(tab) {
+  if (tab.content.length > 1) {
+    const contentEmpty = (content) => content.innerContent === '';
+    return Array.from(tab.content).every(contentEmpty);
+  }
+  return tab.content === '';
+}
+
+function decorateTabbedArea($block, payload) {
+  const $tabbedArea = createTag('div', { class: 'tabbed-area' });
+  const $title = createTag('h3', { class: 'video-title' });
+  $title.textContent = payload.videos[payload.videoIndex]['Video Name'];
+  const $tabs = createTag('div', { class: 'tabs' });
+  const $contentArea = createTag('div', { class: 'content-area' });
 
   payload.tabs.forEach((tab, index) => {
-    const tabButton = createTag('button', { class: 'tab', type: 'button' });
-    if (index === 0) {
-      tabButton.classList.add('active');
-    }
-    tabButton.textContent = tab.heading;
-    tabs.append(tabButton);
-
-    tabButton.addEventListener('click', () => {
-      const allTabs = block.querySelectorAll('.tab');
-      for (let i = 0; i < allTabs.length; i += 1) {
-        allTabs[i].classList.remove('active');
+    if (!isEmptyTab(tab)) {
+      const $tab = createTag('a', { class: `tab tab-${tab.heading.toLowerCase()}` });
+      if (index === 0) {
+        $tab.classList.add('active');
       }
-      tabButton.classList.add('active');
-      loadTabContent(block, payload, index);
-    });
+      $tab.textContent = tab.heading;
+      $tabs.append($tab);
+
+      $tab.addEventListener('click', () => {
+        const $allTabs = $block.querySelectorAll('.tab');
+        for (let i = 0; i < $allTabs.length; i += 1) {
+          $allTabs[i].classList.remove('active');
+        }
+        $tab.classList.add('active');
+        loadTabContent($block, payload, index);
+      });
+    }
 
     if (index === 1) {
-      const trascriptTab = createTag('button', { class: 'tab', type: 'button' });
-      const indexOfLastColumn = [payload.videos.length - 1];
-      trascriptTab.textContent = Object.keys(payload.videos[indexOfLastColumn])[indexOfLastColumn];
-      tabs.append(trascriptTab);
+      const tabName = payload.placeholders['course-tab-transcript'];
+      const $transcriptTab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
+      const iOfLastColumn = [payload.videos.length - 1];
+      $transcriptTab.textContent = Object.keys(payload.videos[iOfLastColumn])[iOfLastColumn];
+      $tabs.append($transcriptTab);
 
-      trascriptTab.addEventListener('click', () => {
-        const allTabs = block.querySelectorAll('.tab');
-        for (let i = 0; i < allTabs.length; i += 1) {
-          allTabs[i].classList.remove('active');
+      const paragraphs = payload.videos[payload.videoIndex][`${tabName}`].split('\n');
+      if (paragraphs.length <= 1 && paragraphs[0] === '') {
+        $transcriptTab.style.display = 'none';
+      }
+
+      $transcriptTab.addEventListener('click', () => {
+        const $allTabs = $block.querySelectorAll('.tab');
+        for (let i = 0; i < $allTabs.length; i += 1) {
+          $allTabs[i].classList.remove('active');
         }
-        trascriptTab.classList.add('active');
-        loadTranscript(block, payload);
+        $transcriptTab.classList.add('active');
+        loadTranscript($block, payload);
       });
     }
   });
 
-  tabbedArea.append(title, tabs, contentArea);
-  block.append(tabbedArea);
-  loadTabContent(block, payload, 0);
+  $tabbedArea.append($title, $tabs, $contentArea);
+  $block.append($tabbedArea);
+  loadTabContent($block, payload, 0);
 }
 
 async function fetchVideos(url) {
@@ -169,23 +188,21 @@ function loadVideo(block, payload) {
     source.src = src;
     source.type = type;
     videoPlayer.load();
-  }
+  };
 
   if (payload.videos[payload.videoIndex]) {
     const webmSrc = payload.videos[payload.videoIndex].webm;
     const mp4Src = payload.videos[payload.videoIndex].mp4;
 
-    if (webmSrc && webmSrc !== '') replaceVideo('video/webm', webmSrc );
-    if (mp4Src && mp4Src !== '') replaceVideo('video/mp4', mp4Src );
-    if (title) { 
+    if (webmSrc && webmSrc !== '') replaceVideo('video/webm', webmSrc);
+    if (mp4Src && mp4Src !== '') replaceVideo('video/mp4', mp4Src);
+    if (title) {
       title.innerHTML = '';
       title.textContent = payload.videos[payload.videoIndex]['Video Name'];
     }
   }
 
-  if (activeTab === allTabs[2]) {
-    loadTranscript(block, payload);
-  }
+  loadTranscript(block, payload);
 
   videoPlayer.pause();
   videoPlayer.currentTime = 0;
@@ -245,7 +262,7 @@ function decorateVideoPlayer(block, payload) {
   videoMenu.append(videoList);
   videoWrapper.append(videoPlayer);
   videoPlayerWrapper.append(videoWrapper, videoMenu);
-  block.append(videoPlayerWrapper);
+  block.prepend(videoPlayerWrapper);
   loadVideo(block, payload);
 }
 
@@ -293,6 +310,6 @@ export default async function decorate(block) {
 
   await buildPayload(block, payload);
   block.innerHTML = '';
-  decorateVideoPlayer(block, payload);
   decorateTabbedArea(block, payload);
+  decorateVideoPlayer(block, payload);
 }
