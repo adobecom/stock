@@ -11,17 +11,7 @@
  */
 
 import { fetchPlaceholders } from '../../scripts/scripts.js';
-
-function createTag(name, attrs) {
-  const el = document.createElement(name);
-  if (typeof attrs === 'object') {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const [key, value] of Object.entries(attrs)) {
-      el.setAttribute(key, value);
-    }
-  }
-  return el;
-}
+import { createTag } from '../../scripts/utils.js';
 
 function handlize(string) {
   return string.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '');
@@ -80,58 +70,10 @@ function buildCards($block, payload) {
   }
 }
 
-function injectFBSDK() {
-  const $holder = createTag('div', { id: 'fb-root' });
-  const $sdkScript = createTag('script');
-  $sdkScript.innerHTML = '(function(d, s, id) {\n    var js, fjs = d.getElementsByTagName(s)[0];\n    if (d.getElementById(id)) return;\n    js = d.createElement(s); js.id = id;\n    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";\n    fjs.parentNode.insertBefore(js, fjs);\n    }(document, \'script\', \'facebook-jssdk\'));'
-  const body = document.querySelector('body');
-  body.prepend($holder, $sdkScript);
-}
-
-function makeTwitterButton() {
-  const $twitter = createTag('span');
-  const $button = createTag('a', {
-    href: 'https://twitter.com/share?ref_src=twsrc%5Etfw',
-    className: 'twitter-share-button',
-    'data-show-count': false,
-  });
-  const $script = createTag('script', {
-    async: true,
-    src: 'https://platform.twitter.com/widgets.js',
-    charSet: 'utf-8',
-  });
-  $button.textContent = 'Tweet';
-  $twitter.append($button, $script);
-  return $twitter;
-}
-
-function decorateSocialShareLinks() {
-  const $wrapper = createTag('div', { class: 'social-wrapper' });
-  const $heading = createTag('div', { class: 'social-heading' });
-  const $socialButtons = createTag('div', { class: 'social-buttons' });
-
-  $wrapper.append($heading, $socialButtons);
-
-  // FB
-  injectFBSDK();
-  $socialButtons.append(createTag('div', {
-    class: 'fb-share-button',
-    'data-href': window.location.href,
-    'data-layout': 'button',
-  }));
-
-  // Twitter
-  $socialButtons.append(makeTwitterButton());
-
-  // LinkedIn
-  return $wrapper;
-}
-
 function loadTranscript($block, payload) {
   const $contentArea = $block.querySelector('.content-area');
   $contentArea.innerHTML = '';
-
-  const paragraphs = payload.videos[payload.videoIndex].Transcript.split('\n');
+  const paragraphs = payload.videos[payload.videoIndex][`${payload.placeholders['course-tab-transcript']}`].split('\n');
   if (paragraphs.length > 0) {
     paragraphs.forEach((p) => {
       const $p = createTag('p');
@@ -151,42 +93,53 @@ function loadTabContent($block, payload, index) {
   }
 }
 
+function isEmptyTab(tab) {
+  if (tab.content.length > 1) {
+    const contentEmpty = (content) => content.innerContent === '';
+    return Array.from(tab.content).every(contentEmpty);
+  } else {
+    return tab.content === '';
+  }
+}
+
 function decorateTabbedArea($block, payload) {
   const $tabbedArea = createTag('div', { class: 'tabbed-area' });
   const $tabs = createTag('div', { class: 'tabs' });
   const $contentArea = createTag('div', { class: 'content-area' });
 
   payload.tabs.forEach((tab, index) => {
-    const $tab = createTag('a', { class: 'tab' });
-    if (index === 0) {
-      $tab.classList.add('active');
-    }
-    $tab.textContent = tab.heading;
-    $tabs.append($tab);
-
-    $tab.addEventListener('click', () => {
-      const $allTabs = $block.querySelectorAll('.tab');
-      for (let i = 0; i < $allTabs.length; i += 1) {
-        $allTabs[i].classList.remove('active');
+    if (!isEmptyTab(tab)) {
+      const $tab = createTag('a', { class: 'tab' });
+      if (index === 0) {
+        $tab.classList.add('active');
       }
-      $tab.classList.add('active');
-      loadTabContent($block, payload, index);
-    });
+      $tab.textContent = tab.heading;
+      $tabs.append($tab);
 
-    if (index === 1) {
-      const $trascriptTab = createTag('a', { class: 'tab' });
-      const indexOfLastColumn = [payload.videos.length - 1];
-      $trascriptTab.textContent = Object.keys(payload.videos[indexOfLastColumn])[indexOfLastColumn];
-      $tabs.append($trascriptTab);
-
-      $trascriptTab.addEventListener('click', () => {
+      $tab.addEventListener('click', () => {
         const $allTabs = $block.querySelectorAll('.tab');
         for (let i = 0; i < $allTabs.length; i += 1) {
           $allTabs[i].classList.remove('active');
         }
-        $trascriptTab.classList.add('active');
-        loadTranscript($block, payload);
+        $tab.classList.add('active');
+        loadTabContent($block, payload, index);
       });
+
+      if (index === 1) {
+        const $transcriptTab = createTag('a', { class: 'tab' });
+        const iOfLastColumn = [payload.videos.length - 1];
+        $transcriptTab.textContent = Object.keys(payload.videos[iOfLastColumn])[iOfLastColumn];
+        $tabs.append($transcriptTab);
+
+        $transcriptTab.addEventListener('click', () => {
+          const $allTabs = $block.querySelectorAll('.tab');
+          for (let i = 0; i < $allTabs.length; i += 1) {
+            $allTabs[i].classList.remove('active');
+          }
+          $transcriptTab.classList.add('active');
+          loadTranscript($block, payload);
+        });
+      }
     }
   });
 
@@ -314,6 +267,8 @@ async function buildPayload($block, payload) {
       });
     }
   });
+
+  console.log(payload);
 }
 
 export default async function decorate($block) {
