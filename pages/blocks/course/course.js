@@ -143,7 +143,7 @@ function decorateTabbedArea($block, payload) {
     }
 
     if (index === 1) {
-      const $transcriptTab = createTag('a', { class: 'tab' });
+      const $transcriptTab = createTag('a', { class: `tab tab-${payload.placeholders['course-tab-transcript']}` });
       const iOfLastColumn = [payload.videos.length - 1];
       $transcriptTab.textContent = Object.keys(payload.videos[iOfLastColumn])[iOfLastColumn];
       $tabs.append($transcriptTab);
