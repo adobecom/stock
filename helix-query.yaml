@@ -17,10 +17,6 @@ indices:
         select: head > meta[name="authors"]
         value: |
           attribute(el, 'content')
-      categories:
-        select: head > meta[name="categories"]
-        value: |
-          attribute(el, 'content')
       tags:
         select: head > meta[property="article:tag"]
         value: |
