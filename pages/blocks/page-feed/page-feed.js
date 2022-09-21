@@ -105,7 +105,20 @@ export default async function pageFeed(block) {
     }
   };
   block.innerHTML = '';
-  block.classList.add(`col-${cards.length}-pf-cards`);
+  console.log(cards.length);
+  let len = cards.length;
+  if (cards.length === 1 || cards.length === 2 ) {
+    len = 2;
+  } else if (cards.length % 3 === 0) {
+    len = 3;
+  } else if (cards.length % 4 === 0) {
+    len = 4;
+  } else if (cards.length % 5 === 0) {
+    len = 5;
+  } else if (cards.length > 6) {
+    len = 6;
+  }
+  block.classList.add(`col-${len}-pf-cards`);
   cards.forEach((card) => {
     block.append(card);
   });

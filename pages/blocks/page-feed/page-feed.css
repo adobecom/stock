@@ -5,12 +5,11 @@
 /* (Borderless) shows the cards with out the border. It's also a variant that's best used for featured mentors section. */
 
 main .page-feed {
-  display: flex;
+  display: grid;
   justify-content: center;
   align-items: stretch;
   margin: 0;
   margin-top: var(--block-spacing-m);
-  flex-wrap: wrap;
   margin-left: auto;
   margin-right: auto;
   gap: 24px;
@@ -25,14 +24,6 @@ main .page-feed:last-child {
 
 main > .section.has-background > .page-feed:last-child {
   margin-bottom: 0;
-}
-
-main .page-feed.col-2-pf-cards,
-main .page-feed.col-3-pf-cards,
-main .page-feed.col-4-pf-cards,
-main .page-feed.col-5-pf-cards,
-main .page-feed.col-6-pf-cards {
-  flex-wrap: nowrap;
 }
 
 main .page-feed .pf-card > a {
@@ -51,6 +42,7 @@ main .page-feed .pf-card {
   min-width: 200px;
   margin: 0;
   position: relative;
+  justify-self: center;
 }
 
 main .page-feed.borderless .pf-card {
@@ -238,13 +230,11 @@ main .page-feed.col-5-pf-cards .pf-card-banner .icon {
   top: 82px;
 }
 
-main .page-feed.col-1-pf-cards .pf-card-banner .icon,
 main .page-feed.col-2-pf-cards .pf-card-banner .icon,
 main .page-feed.col-3-pf-cards .pf-card-banner .icon {
   top: 232px;
 }
 
-main .page-feed.pf-overlay.col-1-pf-cards .pf-card-banner .icon,
 main .page-feed.pf-overlay.col-2-pf-cards .pf-card-banner .icon,
 main .page-feed.pf-overlay.col-3-pf-cards .pf-card-banner .icon,
 main .page-feed.pf-overlay .pf-card-banner .icon {
@@ -270,20 +260,16 @@ main .page-feed.col-5-pf-cards .pf-card-picture video {
   height: 150px;
 }
 
-main .page-feed.col-1-pf-cards .pf-card-picture img,
 main .page-feed.col-2-pf-cards .pf-card-picture img,
 main .page-feed.col-3-pf-cards .pf-card-picture img,
-main .page-feed.col-1-pf-cards .pf-card-picture video,
 main .page-feed.col-2-pf-cards .pf-card-picture video,
 main .page-feed.col-3-pf-cards .pf-card-picture video {
   height: 300px;
 }
 
-main .page-feed.pf-overlay.col-1-pf-cards .pf-card-picture img,
 main .page-feed.pf-overlay.col-2-pf-cards .pf-card-picture img,
 main .page-feed.pf-overlay.col-3-pf-cards .pf-card-picture img,
 main .page-feed.pf-overlay .pf-card-picture img,
-main .page-feed.pf-overlay.col-1-pf-cards .pf-card-picture video,
 main .page-feed.pf-overlay.col-2-pf-cards .pf-card-picture video,
 main .page-feed.pf-overlay.col-3-pf-cards .pf-card-picture video,
 main .page-feed.pf-overlay .pf-card-picture video {
@@ -362,26 +348,8 @@ main .page-feed.horizontal .pf-card-container-link {
   flex-direction: row;
 }
 
-main .page-feed.horizontal {
-  flex-wrap: wrap;
-}
-
-main .page-feed.col-3-pf-cards.horizontal {
-  flex-wrap: nowrap;
-}
-
-main .page-feed.horizontal.col-4-pf-cards {
-  max-width: 900px;
-}
-
 main .page-feed.horizontal .pf-card {
-  flex-basis: 40%;
   max-width: 375px;
-}
-
-main .page-feed.horizontal.col-4-pf-cards .pf-card {
-  flex-basis: 50%;
-  width: 100%;
 }
 
 main .page-feed.horizontal .pf-card-picture {
@@ -390,11 +358,9 @@ main .page-feed.horizontal .pf-card-picture {
   position: relative;
 }
 
-main .page-feed.horizontal.col-1-pf-cards .pf-card-picture img,
 main .page-feed.horizontal.col-2-pf-cards .pf-card-picture img,
 main .page-feed.horizontal.col-3-pf-cards .pf-card-picture img,
 main .page-feed.horizontal .pf-card-picture img,
-main .page-feed.horizontal.col-1-pf-cards .pf-card-picture video,
 main .page-feed.horizontal.col-2-pf-cards .pf-card-picture video,
 main .page-feed.horizontal.col-3-pf-cards .pf-card-picture video,
 main .page-feed.horizontal .pf-card-picture video {
@@ -413,23 +379,44 @@ main .page-feed.horizontal .pf-card {
   min-height: 128px;
 }
 
+main .page-feed.col-2-pf-cards {
+  grid-template-columns: 1fr 1fr;
+}
+
+main .page-feed.col-3-pf-cards {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+main .page-feed.col-4-pf-cards {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+main .page-feed.col-5-pf-cards {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+main .page-feed.col-6-pf-cards {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+main .page-feed.horizontal.col-3-pf-cards,
+main .page-feed.horizontal.col-5-pf-cards,
+main .page-feed.horizontal.col-6-pf-cards {
+  grid-template-columns: 1fr;
+}
+
+main .page-feed.horizontal.col-2-pf-cards,
+main .page-feed.horizontal.col-4-pf-cards {
+  grid-template-columns: 1fr 1fr;
+}
+
+main .page-feed.horizontal.col-4-pf-cards {
+  max-width: 770px;
+}
+
 @media screen and (max-width: 999px) {
-  main .page-feed.col-4-pf-cards {
-    flex-wrap: wrap;
-  }
-
-  main .page-feed.col-4-pf-cards .pf-card {
-    flex-basis: calc(50% - 16px);
-  }
-
-  main .page-feed.horizontal.col-4-pf-cards .pf-card {
-    flex-basis: 100%;
-  }
-
-  main .page-feed.col-1-pf-cards .pf-card-picture img,
   main .page-feed.col-2-pf-cards .pf-card-picture img,
   main .page-feed.col-3-pf-cards .pf-card-picture img,
-  main .page-feed.col-1-pf-cards .pf-card-picture video,
   main .page-feed.col-2-pf-cards .pf-card-picture video,
   main .page-feed.col-3-pf-cards .pf-card-picture video {
     height: 200px;
@@ -439,72 +426,88 @@ main .page-feed.horizontal .pf-card {
     justify-content: center;
   }
 
-  main .page-feed.col-1-pf-cards .pf-card-banner .icon,
   main .page-feed.col-2-pf-cards .pf-card-banner .icon,
   main .page-feed.col-3-pf-cards .pf-card-banner .icon {
     top: 132px;
   }
 
-  main .page-feed + .page-feed {
-    margin-top: 24px;
+  main .page-feed.col-2-pf-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  main .page-feed.col-3-pf-cards {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  main .page-feed.col-4-pf-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  main .page-feed.col-6-pf-cards {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 }
 
+main .page-feed + .page-feed {
+  margin-top: 24px;
+}
+
+main > div.section:first-of-type > .page-feed:first-child {
+  padding-top: var(--block-spacing-m);
+}
+
 @media screen and (max-width: 1200px) {
-  main .page-feed.col-5-pf-cards {
-    flex-wrap: wrap;
-  }
-
-  main .page-feed.col-5-pf-cards .pf-card {
-    flex-basis: 25%;
-  }
-
   main .page-feed.col-3-pf-cards.horizontal {
-    flex-wrap: wrap;
     max-width: 600px;
   }
 
   main .page-feed.col-3-pf-cards.horizontal .pf-card {
-    flex-basis: 100%;
     width: 100%;
   }
-}
 
-@media screen and (max-width: 1420px) {
   main .page-feed.col-6-pf-cards {
-    flex-wrap: wrap;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
-  main .page-feed.col-6-pf-cards .pf-card {
-    flex-basis: 25%;
-  }
-
-  main .page-feed.horizontal .pf-card {
-    flex-basis: 50%;
+  main .page-feed.col-5-pf-cards {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media screen and (max-width: 799px) {
-  main .page-feed .pf-card,
-  main .page-feed.col-2-pf-cards .pf-card,
-  main .page-feed.col-3-pf-cards .pf-card,
-  main .page-feed.col-4-pf-cards .pf-card,
-  main .page-feed.col-5-pf-cards .pf-card,
-  main .page-feed.col-6-pf-cards .pf-card {
-    flex-basis: 100%;
+  main .page-feed .pf-card {
+    max-width: 500px;
   }
 
-  main .page-feed,
+  main .page-feed.col-3-pf-cards,
+  main .page-feed.col-5-pf-cards {
+    grid-template-columns: 1fr;
+  }
+
+  main .page-feed.col-2-pf-cards,
+  main .page-feed.col-4-pf-cards,
+  main .page-feed.col-6-pf-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  main .page-feed.horizontal.col-2-pf-cards,
+  main .page-feed.horizontal.col-4-pf-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 599px) {
   main .page-feed.col-2-pf-cards,
   main .page-feed.col-3-pf-cards,
   main .page-feed.col-4-pf-cards,
   main .page-feed.col-5-pf-cards,
   main .page-feed.col-6-pf-cards {
-    flex-wrap: wrap;
+    grid-template-columns: 1fr;
   }
 
-  main .page-feed .pf-card {
-    max-width: 500px;
+  main .page-feed.horizontal.col-2-pf-cards,
+  main .page-feed.horizontal.col-4-pf-cards {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -558,10 +561,10 @@ main .section.has-background .page-feed:first-child {
 
 @media screen and (min-width: 1200px) {
   main .page-feed.borderless.col-2-pf-cards > .pf-card {
-    max-width: 520px;
+    max-width: 700px;
   }
-}
 
-main > div.section:first-of-type > .page-feed:first-child {
-  padding-top: var(--block-spacing-m);
+  main .page-feed.borderless.pf-fit.col-2-pf-cards {
+    max-width: 1000px;
+  }
 }
