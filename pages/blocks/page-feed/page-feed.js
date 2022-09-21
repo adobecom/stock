@@ -2,6 +2,7 @@
 import {
   createTag,
   transformLinkToAnimation,
+  loadPageFeedFromSpreadsheet,
   loadPageFeedCard,
 } from '../../scripts/utils.js';
 
@@ -84,8 +85,20 @@ export default async function pageFeed(block) {
     if (children.length > 0 && children[0].querySelector('ul')) {
       const pageLinks = children[0].querySelector('ul').querySelectorAll('a');
       for (let i = 0; i < pageLinks.length; i += 1) {
-        const card = await loadPageFeedCard(pageLinks[i]);
-        if (card) cards.push(buildCard(card, overlay));
+        if (pageLinks[i] && pageLinks[i].href && pageLinks[i].href.endsWith('.json')) {
+          const linksFromSpreadsheet = await loadPageFeedFromSpreadsheet(pageLinks[i].href);
+          if (linksFromSpreadsheet && linksFromSpreadsheet.length) {
+            for (let x = 0; x < linksFromSpreadsheet.length; x += 1) {
+              if (linksFromSpreadsheet[x].setting !== 'in_featured_pod') {
+                const card = await loadPageFeedCard(linksFromSpreadsheet[x].link);
+                if (card) cards.push(buildCard(card, overlay));
+              }
+            }
+          }
+        } else if (pageLinks[i] && pageLinks[i].href) {
+          const card = await loadPageFeedCard(pageLinks[i]);
+          if (card) cards.push(buildCard(card, overlay));
+        }
       }
     } else {
       cards.push(buildCard(rows[n], overlay));

@@ -117,7 +117,9 @@ export function turnH6intoDetailM(scope = document) {
 }
 
 export async function loadPageFeedCard(a) {
-  const relHref = makeRelative(a.href);
+  const aEl = (a && a.nodeType) ? a : createTag('a', { href: a });
+  const href = (typeof (a) === 'string') ? a : a.href;
+  const relHref = makeRelative(href);
   const resp = await fetch(`${relHref}.plain.html`);
   if (!resp.ok) return;
   const html = await resp.text();
@@ -126,10 +128,22 @@ export async function loadPageFeedCard(a) {
   const pfCard = doc.querySelector('.page-feed-card > div');
   if (pfCard) {
     turnH6intoDetailM(pfCard);
-    pfCard.append(createTag('div', {}, a));
+    pfCard.append(createTag('div', {}, aEl));
     // eslint-disable-next-line consistent-return
     return pfCard;
   }
+}
+
+export async function loadPageFeedFromSpreadsheet(sheetUrl) {
+  const relHref = makeRelative(sheetUrl);
+  const resp = await fetch(relHref);
+  if (!resp.ok) return;
+  const json = await resp.json();
+  const returnUrls = [];
+  json.data.forEach((row) => {
+    returnUrls.push({ link: row['page-url'], setting: row['setting'] })
+  });
+  return returnUrls;
 }
 
 export function decorateButtons(scope = document) {
