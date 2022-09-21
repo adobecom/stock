@@ -309,8 +309,7 @@ export function externalLinks() {
 }
 
 export async function getNavbarHeight() {
-  const placeholders = await fetchPlaceholders((plhldrs) => plhldrs);
-  return (placeholders['navbar-height']) ? (placeholders['navbar-height']) : 97;
+  return 97;
 }
 
 export async function handleAnchors() {
