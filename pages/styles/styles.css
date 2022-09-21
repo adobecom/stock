@@ -304,6 +304,7 @@ main .section:first-child > .breadcrumbs + .content + .share {
 }
 
 /* temporary hide for now */
-.footer-region {
+.footer-region,
+.footer-social {
   display: none;
 }
