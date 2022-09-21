@@ -105,7 +105,6 @@ export default async function pageFeed(block) {
     }
   };
   block.innerHTML = '';
-  console.log(cards.length);
   let len = cards.length;
   if (cards.length === 1 || cards.length === 2 ) {
     len = 2;
