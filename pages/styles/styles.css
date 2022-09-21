@@ -302,3 +302,8 @@ main .section:first-child > .breadcrumbs + .content + .share {
   padding-top: 16px;
   padding-bottom: 32px;
 }
+
+/* temporary hide for now */
+.footer-region {
+  display: none;
+}
