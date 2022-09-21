@@ -211,7 +211,7 @@ body header nav.gnav .gnav-brand {
 @media (min-width: 1200px) {
   nav.gnav .gnav-navitem > a.active-page {
     border-bottom: 2px solid #000;
-    padding-bottom: 11px;
+    padding-top: 1px;
   }
 }
 
