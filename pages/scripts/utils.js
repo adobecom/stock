@@ -309,11 +309,12 @@ export function externalLinks() {
 }
 
 export async function getNavbarHeight() {
-  return 97;
+  const placeholders = await fetchPlaceholders((plhldrs) => plhldrs);
+  return (placeholders['navbar-height']) ? (placeholders['navbar-height']) : 97;
 }
 
 export async function handleAnchors() {
-  const navbarHeight = getNavbarHeight();
+  const navbarHeight = await getNavbarHeight();
   const sectionToggles = Array.from(document.querySelectorAll('[data-anchor-section]'));
   sectionToggles.forEach(async (toggleSection, index) => {
     if (window.location.hash === toggleSection.getAttribute('data-anchor-section')) {
