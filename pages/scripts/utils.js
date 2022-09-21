@@ -313,7 +313,7 @@ export async function getNavbarHeight() {
 }
 
 export async function handleAnchors() {
-  const navbarHeight = await getNavbarHeight();
+  const navbarHeight = getNavbarHeight();
   const sectionToggles = Array.from(document.querySelectorAll('[data-anchor-section]'));
   sectionToggles.forEach(async (toggleSection, index) => {
     if (window.location.hash === toggleSection.getAttribute('data-anchor-section')) {

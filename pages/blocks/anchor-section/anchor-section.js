@@ -1,7 +1,7 @@
 import { getNavbarHeight } from '../../scripts/utils.js';
 
 export default async function anchorSection(block) {
-  const navbarHeight = await getNavbarHeight();
+  const navbarHeight = getNavbarHeight();
   const anchor = block.textContent.trim();
   if (!anchor[0] === '#') return;
   const section = block.closest('main > .section');
