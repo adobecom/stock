@@ -395,13 +395,8 @@ main .page-feed.col-5-pf-cards {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
-main .page-feed.col-6-pf-cards {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-}
-
 main .page-feed.horizontal.col-3-pf-cards,
-main .page-feed.horizontal.col-5-pf-cards,
-main .page-feed.horizontal.col-6-pf-cards {
+main .page-feed.horizontal.col-5-pf-cards {
   grid-template-columns: 1fr;
 }
 
@@ -442,10 +437,6 @@ main .page-feed.horizontal.col-4-pf-cards {
   main .page-feed.col-4-pf-cards {
     grid-template-columns: 1fr 1fr;
   }
-  
-  main .page-feed.col-6-pf-cards {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  }
 }
 
 main .page-feed + .page-feed {
@@ -465,10 +456,6 @@ main > div.section:first-of-type > .page-feed:first-child {
     width: 100%;
   }
 
-  main .page-feed.col-6-pf-cards {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
   main .page-feed.col-5-pf-cards {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -485,8 +472,7 @@ main > div.section:first-of-type > .page-feed:first-child {
   }
 
   main .page-feed.col-2-pf-cards,
-  main .page-feed.col-4-pf-cards,
-  main .page-feed.col-6-pf-cards {
+  main .page-feed.col-4-pf-cards {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -500,8 +486,7 @@ main > div.section:first-of-type > .page-feed:first-child {
   main .page-feed.col-2-pf-cards,
   main .page-feed.col-3-pf-cards,
   main .page-feed.col-4-pf-cards,
-  main .page-feed.col-5-pf-cards,
-  main .page-feed.col-6-pf-cards {
+  main .page-feed.col-5-pf-cards {
     grid-template-columns: 1fr;
   }
 
