@@ -81,6 +81,33 @@ async function buildCards(block, payload) {
   }
 }
 
+function loadTabContent(block, payload, index) {
+  const contentArea = block.querySelector('.content-area');
+  if (index === payload.tabs.length - 1) {
+    contentArea.innerHTML = '';
+    buildCards(block, payload);
+  } else {
+    contentArea.innerHTML = payload.tabs[index].content;
+  }
+}
+
+function loadDescription(block, payload, index) {
+  if (payload.videos[payload.videoIndex][payload.placeholders['course-tab-description']] !== '') {
+    const paragraphs = payload.videos[payload.videoIndex][`${payload.placeholders['course-tab-description']}`].split('\n');
+    if (paragraphs.length > 1 || paragraphs[0] !== '') {
+      const $contentArea = block.querySelector('.content-area');
+      $contentArea.innerHTML = '';
+      paragraphs.forEach((p) => {
+        const para = createTag('p');
+        para.textContent = p;
+        $contentArea.append(para);
+      });
+    }
+  } else {
+    loadTabContent(block, payload, index);
+  }
+}
+
 function loadTranscript($block, payload) {
   const paragraphs = payload.videos[payload.videoIndex][`${payload.placeholders['course-tab-transcript']}`].split('\n');
   const $transcriptTab = $block.querySelector(`.tab-${payload.placeholders['course-tab-transcript'].toLowerCase()}`);
@@ -95,16 +122,6 @@ function loadTranscript($block, payload) {
     });
   } else {
     $transcriptTab.style.display = 'none';
-  }
-}
-
-function loadTabContent(block, payload, index) {
-  const contentArea = block.querySelector('.content-area');
-  if (index === payload.tabs.length - 1) {
-    contentArea.innerHTML = '';
-    buildCards(block, payload);
-  } else {
-    contentArea.innerHTML = payload.tabs[index].content;
   }
 }
 
@@ -138,7 +155,11 @@ function decorateTabbedArea($block, payload) {
           $allTabs[i].classList.remove('active');
         }
         $tab.classList.add('active');
-        loadTabContent($block, payload, index);
+        if (index === 0) {
+          loadDescription($block, payload, 0);
+        } else {
+          loadTabContent($block, payload, index);
+        }
       });
     }
 
@@ -178,9 +199,9 @@ async function fetchVideos(url) {
 
 function loadVideo(block, payload) {
   const videoPlayer = block.querySelector('.video-player');
+  const source = videoPlayer.querySelector('source');
   const activeTab = block.querySelector('.tab.active');
   const allTabs = block.querySelectorAll('.tab');
-  const source = videoPlayer.querySelector('source');
   const title = block.querySelector('.video-title');
 
   const replaceVideo = (type, src) => {
@@ -200,9 +221,15 @@ function loadVideo(block, payload) {
       title.innerHTML = '';
       title.textContent = payload.videos[payload.videoIndex]['Video Name'];
     }
-  }
 
-  loadTranscript(block, payload);
+    if (activeTab.classList.contains('tab-description')) {
+      loadDescription(block, payload, 0);
+    }
+
+    if (activeTab.classList.contains('tab-transcript')) {
+      loadTranscript(block, payload);
+    }
+  }
 
   videoPlayer.pause();
   videoPlayer.currentTime = 0;
