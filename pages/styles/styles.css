@@ -28,20 +28,20 @@
   --color-transparent-button-bg-down: rgba(0,0,0,0.2);
 
   /* Spacing between sections */
-  --section-spacing-xs: 38px;
-  --section-spacing-s: 50px;
-  --section-spacing-m: 64px;
-  --section-spacing-l: 90px;
-  --section-spacing-xl: 100px;
+  --block-spacing-xs: 40px;
+  --block-spacing-s: 64px;
+  --block-spacing-m: 80px;
+  --block-spacing-l: 96px;
+  --block-spacing-xl: 120px;
 }
 
 @media screen and (min-width: 1000px) {
   :root {
-    --section-spacing-xl: 128px;
-    --section-spacing-l: 90px;
-    --section-spacing-m: 64px;
-    --section-spacing-s: 50px;
-    --section-spacing-xs: 38px;
+    --block-spacing-xs: 40px;
+    --block-spacing-s: 64px;
+    --block-spacing-m: 80px;
+    --block-spacing-l: 96px;
+    --block-spacing-xl: 120px;
   }
 }
 
@@ -51,7 +51,7 @@ main video {
 }
 
 .milo-video {
-  margin: 0 0 12px 0;
+  margin: 0 0 12px;
 }
 
 /* buttons */
@@ -204,51 +204,14 @@ main .section .center p.button-container {
 }
 
 /* customize gnav for stock */
-
-body nav.gnav .gnav-brand {
-  justify-content: flex-start
-}
-
-body nav.gnav .gnav-brand picture {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-body nav.gnav .gnav-brand picture img {
-  width: auto;
-  height: 100%;
+body header nav.gnav .gnav-brand {
+  color: #000;
 }
 
 @media (min-width: 1200px) {
-  body nav.gnav .gnav-navitem.has-Menu.is-Open .gnav-navitem-menu li,
-  body nav.gnav .gnav-navitem.has-Menu.is-Open .gnav-navitem-menu ul {
-    padding: 0;
-  }
-  body nav.gnav .gnav-navitem.has-Menu.is-Open .gnav-navitem-menu ul li a {
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-}
-
-body header.gnav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-body header.gnav + main {
-  margin-top: 65px; /* should be the same as gnav height */
-}
-
-@media (min-width: 1200px) {
-  nav.gnav .gnav-navitem > a.active-page {
+  nav.gnav .gnav-navitem:not(.is-open) > a.active-page {
     border-bottom: 2px solid #000;
-    padding-bottom: 18px;
+    padding-top: 2px;
   }
 }
 
@@ -263,26 +226,20 @@ main picture img {
 
 /* customize section spacings for stock */
 
-main > .section > .content:not(:first-child) {
-  margin-top: var(--section-spacing-m);
-}
-
 main > .section > .content + .page-feed {
-  margin-top: var(--section-spacing-xs);
+  margin-top: var(--block-spacing-xs);
 }
 
 main > .section:not(.has-background) > .content:first-child {
-  padding-top: var(--section-spacing-m);
+  padding-top: var(--block-spacing-m);
 }
 
-main > .section > .page-feed + .content > p.button-container:first-child {
-  justify-content: center;
-  text-align: center;
+main > .section > .content > *:first-child {
+  margin-top: var(--block-spacing-m);
+}
+
+main > .section.has-background > .content:first-child > *:first-child {
   margin-top: 0;
-}
-
-main > .section:not(:empty):not(:first-child) {
-  padding-top: var(--section-spacing-m);
 }
 
 main > .section:not(:empty):not(:first-child).has-background + .section:not(.has-background) {
@@ -290,49 +247,37 @@ main > .section:not(:empty):not(:first-child).has-background + .section:not(.has
 }
 
 main > .section:not(:empty):last-child {
-  padding-bottom: var(--section-spacing-m);
+  padding-bottom: var(--block-spacing-m);
 }
 
 main > .section.has-background,
 .fragment > .section.has-background {
-  padding-bottom: var(--section-spacing-m);
-  padding-top: var(--section-spacing-m);
-}
-
-main > .section > .content:not(:first-child) {
-  margin-top: var(--section-spacing-m);
+  padding-bottom: var(--block-spacing-m);
+  padding-top: var(--block-spacing-m);
 }
 
 main > .section:not(:empty):not(:first-child) > .content:first-child {
   padding-top: 0;
 }
 
-main > .section.section.has-background + .section:not(:empty):not(:first-child) > .content:first-child {
-  padding-top: var(--section-spacing-m);;
-}
-
 main > .section > .content + .page-feed {
-  margin-top: var(--section-spacing-xs);
+  margin-top: var(--block-spacing-xs);
 }
 
 main > .section > .page-feed + .content > p.button-container:first-child {
   justify-content: center;
   text-align: center;
-  margin-top: 0;
-}
-
-main > .section:not(:empty):not(:first-child) {
-  padding-top: var(--section-spacing-m);
+  margin-top: var(--block-spacing-xs);
 }
 
 main > .section:not(:empty):last-child {
-  padding-bottom: var(--section-spacing-m);
+  padding-bottom: var(--block-spacing-m);
 }
 
 main > .section.has-background,
 .fragment > .section.has-background {
-  padding-bottom: var(--section-spacing-m);
-  padding-top: var(--section-spacing-m);
+  padding-bottom: var(--block-spacing-m);
+  padding-top: var(--block-spacing-m);
 }
 
 main > .section.center > .content > p > picture > img,
@@ -342,11 +287,11 @@ main > .section.center > .content > picture > img {
 }
 
 main > .section:not(.has-background) > .content:last-child {
-  padding-bottom: var(--section-spacing-m);
+  padding-bottom: var(--block-spacing-m);
 }
 
 main > .section > .content + .image-rows {
-  padding-top: var(--section-spacing-m);
+  padding-top: var(--block-spacing-m);
 }
 
 main .section:first-child > .breadcrumbs + .content h1:first-child {
@@ -356,4 +301,10 @@ main .section:first-child > .breadcrumbs + .content h1:first-child {
 main .section:first-child > .breadcrumbs + .content + .share {
   padding-top: 16px;
   padding-bottom: 32px;
+}
+
+/* temporary hide for now */
+footer .footer-region,
+footer .footer-social {
+  display: none;
 }

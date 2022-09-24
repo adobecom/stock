@@ -1,6 +1,6 @@
 main .course {
   max-width: var(--grid-container-width);
-  margin: var(--section-spacing-s) auto;
+  margin: var(--block-spacing-s) auto;
 }
 
 main .course .video-player-wrapper {
@@ -95,7 +95,7 @@ main .course .tabbed-area .tabs {
 
 main .course .tabbed-area {
   max-width: 900px;
-  padding-bottom: var(--section-spacing-l)
+  padding-bottom: var(--block-spacing-l)
 }
 
 main .course .tabs {

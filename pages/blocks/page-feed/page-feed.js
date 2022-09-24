@@ -2,6 +2,7 @@
 import {
   createTag,
   transformLinkToAnimation,
+  loadPageFeedFromSpreadsheet,
   loadPageFeedCard,
 } from '../../scripts/utils.js';
 
@@ -84,16 +85,49 @@ export default async function pageFeed(block) {
     if (children.length > 0 && children[0].querySelector('ul')) {
       const pageLinks = children[0].querySelector('ul').querySelectorAll('a');
       for (let i = 0; i < pageLinks.length; i += 1) {
-        const card = await loadPageFeedCard(pageLinks[i]);
-        if (card) cards.push(buildCard(card, overlay));
+        if (pageLinks[i] && pageLinks[i].href && pageLinks[i].href.endsWith('.json')) {
+          const linksFromSpreadsheet = await loadPageFeedFromSpreadsheet(pageLinks[i].href);
+          if (linksFromSpreadsheet && linksFromSpreadsheet.length) {
+            for (let x = 0; x < linksFromSpreadsheet.length; x += 1) {
+              if (linksFromSpreadsheet[x].setting !== 'in_featured_pod') {
+                const card = await loadPageFeedCard(linksFromSpreadsheet[x].link);
+                if (card) cards.push(buildCard(card, overlay));
+              }
+            }
+          }
+        } else if (pageLinks[i] && pageLinks[i].href) {
+          const card = await loadPageFeedCard(pageLinks[i]);
+          if (card) cards.push(buildCard(card, overlay));
+        }
       }
     } else {
       cards.push(buildCard(rows[n], overlay));
     }
   };
   block.innerHTML = '';
-  block.classList.add(`col-${cards.length}-pf-cards`);
-  cards.forEach((card) => {
-    block.append(card);
+  const pfRows = [cards];
+  let len = cards.length;
+  if (cards.length === 1 || cards.length === 2 ) {
+    len = 2;
+  } else if (cards.length % 3 === 0) {
+    len = 3;
+  } else if (cards.length % 4 === 0) {
+    len = 4;
+  } else if (cards.length % 5 === 0) {
+    len = 5;
+  }
+  if (cards.length === 5) {
+    block.classList.add(`col-3-pf-cards`);
+    const pfRowTwo = createTag('div', { class: 'page-feed col-2-pf-cards' });
+    block.insertAdjacentElement('afterend', pfRowTwo)
+    pfRowTwo.append(cards[3]);
+    pfRowTwo.append(cards[4]);
+  } else {
+    block.classList.add(`col-${len}-pf-cards`);
+  }
+  cards.forEach((card, index) => {
+    if (len != 5 || (len === 5 && index < 3)) {
+      block.append(card);
+    }
   });
 }

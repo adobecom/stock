@@ -24,7 +24,7 @@ main .featured-columns .featured-row {
   align-items: center;
   position: relative;
   box-sizing: border-box;
-  padding-bottom: var(--section-spacing-l);
+  padding-bottom: var(--block-spacing-l);
 }
 
 main .featured-columns .featured-row:last-child {
@@ -45,15 +45,15 @@ main .featured-columns .featured-column:not(.picture-column) {
 }
 
 main .featured-columns {
-  margin-top: var(--section-spacing-s);
+  margin-top: var(--block-spacing-s);
 }
 
 main .featured-columns {
-  margin-bottom: var(--section-spacing-s);
+  margin-bottom: var(--block-spacing-s);
 }
 
 main .featured-columns.small .featured-row {
-  padding-bottom: var(--section-spacing-s);
+  padding-bottom: var(--block-spacing-s);
 }
 
 main .featured-columns.small .featured-row:last-child {
@@ -194,6 +194,6 @@ main .dark-theme .featured-columns p {
 }
 
 main .page-feed + .featured-columns {
-  margin-top: var(--section-spacing-l);
-  margin-bottom: var(--section-spacing-l);
+  margin-top: var(--block-spacing-l);
+  margin-bottom: var(--block-spacing-l);
 }
