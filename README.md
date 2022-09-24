@@ -1,4 +1,4 @@
-# Adobe Stock
+# Adobe Stock Pages
 
 ## Developing
 1. Install the [Helix CLI](https://github.com/adobe/helix-cli): `sudo npm install -g @adobe/helix-cli`
