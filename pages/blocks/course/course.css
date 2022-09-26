@@ -68,6 +68,9 @@ main .course .video-player-list-link {
   padding: 6px 0;
   text-align: left;
   margin: 0;
+}
+
+main .course .video-player-list-link .video-title-span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
