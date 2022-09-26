@@ -166,7 +166,8 @@ function decorateTabbedArea($block, payload) {
       });
     } else {
       if (index === 0) {
-        const $tab = createTag('a', { class: `tab tab-${tab.heading.toLowerCase()}` });
+        const tabName = payload.placeholders['course-tab-description'];
+        const $tab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
         $tab.classList.add('active');
         $tab.textContent = tab.heading;
         $tabs.append($tab);
@@ -204,7 +205,7 @@ function decorateTabbedArea($block, payload) {
     }
   });
 
-  loadTabContent($block, payload, 0);
+  loadDescription($block, payload, 0);
 }
 
 async function fetchVideos(url) {
