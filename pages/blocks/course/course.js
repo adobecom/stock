@@ -243,8 +243,8 @@ function loadVideo(block, payload) {
     }
 
     if (activeTab) {
-      const descriptionTabName = `tab-${payload.placeholders['course-tab-description']}`;
-      const transcriptTabNaame = `tab-${payload.placeholders['course-tab-transcript']}`;
+      const descriptionTabName = `tab-${payload.placeholders['course-tab-description'].toLowerCase()}`;
+      const transcriptTabNaame = `tab-${payload.placeholders['course-tab-transcript'].toLowerCase()}`;
       if (activeTab.classList.contains(descriptionTabName)) {
         loadDescription(block, payload, 0);
       }
@@ -255,8 +255,8 @@ function loadVideo(block, payload) {
     }
   }
 
-  videoPlayer.pause();
   videoPlayer.currentTime = 0;
+  videoPlayer.play();
 }
 
 function decorateVideoList(block, payload) {
