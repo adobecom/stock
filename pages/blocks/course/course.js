@@ -177,11 +177,7 @@ function decorateTabbedArea($block, payload) {
             $allTabs[i].classList.remove('active');
           }
           $tab.classList.add('active');
-          if (index === 0) {
-            loadDescription($block, payload, 0);
-          } else {
-            loadTabContent($block, payload, index);
-          }
+          loadDescription($block, payload, 0);
         });
       }
 
