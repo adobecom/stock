@@ -31,9 +31,6 @@ main .course .video-wrapper video {
 main .course .video-player-menu {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 main .course .video-player-menu-heading {
@@ -139,10 +136,6 @@ main .course .tabs .tab:hover {
 }
 
 @media screen and (max-width: 999px) {
-  main .course .video-player-wrapper {
-    flex-direction: column;
-  }
-
   main .course .tabbed-area .video-title {
     width: 100%;
     max-width: unset;
@@ -155,7 +148,11 @@ main .course .tabs .tab:hover {
   }
 
   main .course .video-player-wrapper {
-    grid-template-columns: 1fr;
+    display: block;
+  }
+
+  main .course .video-player-wrapper .video-wrapper {
+    margin-bottom: 32px;
   }
 
   main .course .tabs {
@@ -205,8 +202,11 @@ main .course .page-feed.horizontal.col-6-pf-cards {
     max-width: 100%;
   }
 
+  main .course .video-player-wrapper .video-wrapper {
+    margin-bottom: 0;
+  }
+
   main .course .video-player-wrapper {
-    gap: 0;
     margin-bottom: 16px;
   }
 
