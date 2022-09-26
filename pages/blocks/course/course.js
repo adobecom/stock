@@ -92,8 +92,8 @@ function loadTabContent(block, payload, index) {
 }
 
 function loadDescription(block, payload, index) {
-  if (payload.videos[payload.videoIndex][payload.placeholders['course-tab-description']] !== '') {
-    const paragraphs = payload.videos[payload.videoIndex][`${payload.placeholders['course-tab-description']}`].split('\n');
+  if (payload.videos[payload.videoIndex].Description !== undefined) {
+    const paragraphs = payload.videos[payload.videoIndex].Description.split('\n');
     if (paragraphs.length > 1 || paragraphs[0] !== '') {
       const $contentArea = block.querySelector('.content-area');
       $contentArea.innerHTML = '';
@@ -140,6 +140,9 @@ function decorateTabbedArea($block, payload) {
   const $tabs = createTag('div', { class: 'tabs' });
   const $contentArea = createTag('div', { class: 'content-area' });
 
+  $tabbedArea.append($title, $tabs, $contentArea);
+  $block.append($tabbedArea);
+
   payload.tabs.forEach((tab, index) => {
     if (!isEmptyTab(tab)) {
       const $tab = createTag('a', { class: `tab tab-${tab.heading.toLowerCase()}` });
@@ -161,33 +164,46 @@ function decorateTabbedArea($block, payload) {
           loadTabContent($block, payload, index);
         }
       });
-    }
-
-    if (index === 1) {
-      const tabName = payload.placeholders['course-tab-transcript'];
-      const $transcriptTab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
-      const iOfLastColumn = [payload.videos.length - 1];
-      $transcriptTab.textContent = Object.keys(payload.videos[iOfLastColumn])[iOfLastColumn];
-      $tabs.append($transcriptTab);
-
-      const paragraphs = payload.videos[payload.videoIndex][`${tabName}`].split('\n');
-      if (paragraphs.length <= 1 && paragraphs[0] === '') {
-        $transcriptTab.style.display = 'none';
+    } else {
+      if (index === 0) {
+        const $tab = createTag('a', { class: `tab tab-${tab.heading.toLowerCase()}` });
+        $tab.classList.add('active');
+        $tab.textContent = tab.heading;
+        $tabs.append($tab);
+        $tab.addEventListener('click', () => {
+          const $allTabs = $block.querySelectorAll('.tab');
+          for (let i = 0; i < $allTabs.length; i += 1) {
+            $allTabs[i].classList.remove('active');
+          }
+          $tab.classList.add('active');
+          loadDescription($block, payload, 0);
+        });
       }
 
-      $transcriptTab.addEventListener('click', () => {
-        const $allTabs = $block.querySelectorAll('.tab');
-        for (let i = 0; i < $allTabs.length; i += 1) {
-          $allTabs[i].classList.remove('active');
+      if (index === 1) {
+        const tabName = payload.placeholders['course-tab-transcript'];
+        const $transcriptTab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
+        const iOfLastColumn = [payload.videos.length - 1];
+        $transcriptTab.textContent = Object.keys(payload.videos[iOfLastColumn])[iOfLastColumn];
+        $tabs.append($transcriptTab);
+
+        const paragraphs = payload.videos[payload.videoIndex][`${tabName}`].split('\n');
+        if (paragraphs.length <= 1 && paragraphs[0] === '') {
+          $transcriptTab.style.display = 'none';
         }
-        $transcriptTab.classList.add('active');
-        loadTranscript($block, payload);
-      });
+
+        $transcriptTab.addEventListener('click', () => {
+          const $allTabs = $block.querySelectorAll('.tab');
+          for (let i = 0; i < $allTabs.length; i += 1) {
+            $allTabs[i].classList.remove('active');
+          }
+          $transcriptTab.classList.add('active');
+          loadTranscript($block, payload);
+        });
+      }
     }
   });
 
-  $tabbedArea.append($title, $tabs, $contentArea);
-  $block.append($tabbedArea);
   loadTabContent($block, payload, 0);
 }
 
@@ -201,8 +217,12 @@ function loadVideo(block, payload) {
   const videoPlayer = block.querySelector('.video-player');
   const source = videoPlayer.querySelector('source');
   const activeTab = block.querySelector('.tab.active');
-  const allTabs = block.querySelectorAll('.tab');
   const title = block.querySelector('.video-title');
+  const tabbedArea = block.querySelector('.tabbed-area');
+  if (tabbedArea) {
+    tabbedArea.remove();
+    decorateTabbedArea(block, payload);
+  }
 
   const replaceVideo = (type, src) => {
     if (!videoPlayer.paused) videoPlayer.pause();
@@ -222,12 +242,14 @@ function loadVideo(block, payload) {
       title.textContent = payload.videos[payload.videoIndex]['Video Name'];
     }
 
-    if (activeTab.classList.contains('tab-description')) {
-      loadDescription(block, payload, 0);
-    }
+    if (activeTab) {
+      if (activeTab.classList.contains('tab-description')) {
+        loadDescription(block, payload, 0);
+      }
 
-    if (activeTab.classList.contains('tab-transcript')) {
-      loadTranscript(block, payload);
+      if (activeTab.classList.contains('tab-transcript')) {
+        loadTranscript(block, payload);
+      }
     }
   }
 
