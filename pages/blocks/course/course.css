@@ -135,6 +135,18 @@ main .course .tabs .tab:hover {
   border-bottom: solid 3px var(--text-color);
 }
 
+main .course .content-area ul li {
+  font-size: var(--type-body-s-size);
+  line-height: var(--type-body-s-lh);
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+main .course .content-area ul {
+  padding-top: 0;
+  padding-bottom: 12px;
+}
+
 @media screen and (max-width: 999px) {
   main .course .tabbed-area .video-title {
     width: 100%;
