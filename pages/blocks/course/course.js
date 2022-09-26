@@ -243,11 +243,13 @@ function loadVideo(block, payload) {
     }
 
     if (activeTab) {
-      if (activeTab.classList.contains('tab-description')) {
+      const descriptionTabName = `tab-${payload.placeholders['course-tab-description']}`;
+      const transcriptTabNaame = `tab-${payload.placeholders['course-tab-transcript']}`;
+      if (activeTab.classList.contains(descriptionTabName)) {
         loadDescription(block, payload, 0);
       }
 
-      if (activeTab.classList.contains('tab-transcript')) {
+      if (activeTab.classList.contains(transcriptTabNaame)) {
         loadTranscript(block, payload);
       }
     }
@@ -350,11 +352,18 @@ async function buildPayload(block, payload) {
 }
 
 export default async function decorate(block) {
+  const results = await fetchPlaceholders((placeholders) => placeholders);
+
   const payload = {
     videoIndex: 0,
     tabs: [],
     videos: [],
-    placeholders: await fetchPlaceholders((placeholders) => placeholders),
+    placeholders: {
+      'course-tab-description': results['course-tab-description'] ? results['course-tab-description'] : 'Description',
+      'course-tab-resources': results['course-tab-resources'] ? results['course-tab-resources'] : 'Resources',
+      'course-tab-takeaways': results['course-tab-takeaways'] ? results['course-tab-takeaways'] : 'Takeaways',
+      'course-tab-transcript': results['course-tab-transcript'] ? results['course-tab-transcript'] : 'Transcript',
+    },
   };
 
   await buildPayload(block, payload);
