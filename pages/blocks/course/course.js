@@ -92,7 +92,7 @@ function loadTabContent(block, payload, index) {
 }
 
 function loadDescription(block, payload, index) {
-  if (payload.videos[payload.videoIndex].Description !== '') {
+  if (payload.videos[payload.videoIndex].Description !== undefined) {
     const paragraphs = payload.videos[payload.videoIndex].Description.split('\n');
     if (paragraphs.length > 1 || paragraphs[0] !== '') {
       const $contentArea = block.querySelector('.content-area');
@@ -170,7 +170,6 @@ function decorateTabbedArea($block, payload) {
         $tab.classList.add('active');
         $tab.textContent = tab.heading;
         $tabs.append($tab);
-        loadDescription($block, payload, 0);
         $tab.addEventListener('click', () => {
           const $allTabs = $block.querySelectorAll('.tab');
           for (let i = 0; i < $allTabs.length; i += 1) {
@@ -219,6 +218,11 @@ function loadVideo(block, payload) {
   const source = videoPlayer.querySelector('source');
   const activeTab = block.querySelector('.tab.active');
   const title = block.querySelector('.video-title');
+  const tabbedArea = block.querySelector('.tabbed-area');
+  if (tabbedArea) {
+    tabbedArea.remove();
+    decorateTabbedArea(block, payload);
+  }
 
   const replaceVideo = (type, src) => {
     if (!videoPlayer.paused) videoPlayer.pause();
