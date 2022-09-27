@@ -35,20 +35,23 @@ main .course .video-player-menu {
 
 main .course .video-player-menu-heading {
   font-weight: 800;
-  margin-left: -20px;
   margin-bottom: 8px;
   font-size: 20px;
 }
 
-main .course .video-player-list {
+main .course .video-player-list-wrapper {
   padding: 24px;
-  padding-left: 48px;
   background-color: #f4f4f4;
+}
+
+main .course .video-player-list {
+  padding: 0;
   margin: 0;
 }
 
 main .course .video-player-list-item {
-  padding: 0;
+  padding: 0 0 0 20px;
+  list-style: none;
 }
 
 main .course .video-player-list-link {
@@ -67,7 +70,19 @@ main .course .video-player-list-link {
   margin: 0;
 }
 
+main .course .video-player-list-link .video-title-wrapper {
+  position: relative;
+  max-width: calc(100% - 48px);
+}
+
+main .course .video-player-list-link .video-number-span {
+  position: absolute;
+  padding-right: 6px;
+  right: 100%;
+}
+
 main .course .video-player-list-link .video-title-span {
+  display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -85,9 +100,6 @@ main .course .video-player-list-link.active {
 
 main .course .tabbed-area .video-title {
   padding-bottom: 40px;
-}
-
-main .course .tabbed-area .video-title {
   width: 100%;
   max-width: var(--grid-container-width);
 }
