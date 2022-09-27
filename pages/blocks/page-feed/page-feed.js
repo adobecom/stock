@@ -115,25 +115,15 @@ export default async function pageFeed(block) {
     len = 4;
   } else if (cards.length % 5 === 0) {
     len = 5;
-  } else if (cards.length % 2 === 0) {
-    len = 4;
   } else {
-    odd = true;
+    len = 4;
   }
   if (cards.length === 5) {
     block.classList.add(`col-2-pf-cards`);
     const pfRowFive = createTag('div', { class: 'page-feed col-3-pf-cards' });
-    pfRowFive.append(cards[0]);
-    pfRowFive.append(cards[1]);
-    pfRowFive.append(cards[2]);
-    block.insertAdjacentElement('beforebegin', pfRowFive)
-  } else if (odd) { 
-    block.classList.add(`col-4-pf-cards`);
-    const pfRowOdd = createTag('div', { class: 'page-feed col-3-pf-cards' });
-    pfRowOdd.append(cards[0]);
-    pfRowOdd.append(cards[1]);
-    pfRowOdd.append(cards[2]);
-    block.insertAdjacentElement('beforebegin', pfRowOdd)
+    pfRowFive.append(cards[4]);
+    pfRowFive.append(cards[5]);
+    block.insertAdjacentElement('afterend', pfRowFive)
   }
   cards.forEach((card, index) => {
     if (len != 5 || (len === 5 && index < 3)) {
