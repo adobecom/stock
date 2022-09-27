@@ -50,7 +50,8 @@ main .course .video-player-list {
 }
 
 main .course .video-player-list-item {
-  padding: 0;
+  padding: 0 0 0 20px;
+  list-style: none;
 }
 
 main .course .video-player-list-link {
@@ -69,7 +70,19 @@ main .course .video-player-list-link {
   margin: 0;
 }
 
+main .course .video-player-list-link .video-title-wrapper {
+  position: relative;
+  max-width: calc(100% - 48px);
+}
+
+main .course .video-player-list-link .video-number-span {
+  position: absolute;
+  padding-right: 6px;
+  right: 100%;
+}
+
 main .course .video-player-list-link .video-title-span {
+  display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

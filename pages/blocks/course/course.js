@@ -257,14 +257,18 @@ function decorateVideoList(block, payload) {
   payload.videos.forEach((video, index) => {
     const listItem = createTag('li', { class: 'video-player-list-item' });
     const clickable = createTag('button', { class: 'video-player-list-link', type: 'button' });
+    const titleWrapper = createTag('span', { class: 'video-title-wrapper' });
+    const numberSpan = createTag('span', { class: 'video-number-span' });
     const titleSpan = createTag('span', { class: 'video-title-span' });
     const durationSpan = createTag('span', { class: 'video-title-duration' });
 
+    numberSpan.textContent = `${index + 1}. `;
     titleSpan.textContent = video['Video Name'];
     durationSpan.textContent = video['Video Length'];
     list.append(listItem);
     listItem.append(clickable);
-    clickable.append(titleSpan, durationSpan);
+    titleWrapper.append(numberSpan, titleSpan);
+    clickable.append(titleWrapper, durationSpan);
 
     if (index === 0) {
       clickable.classList.add('active');
