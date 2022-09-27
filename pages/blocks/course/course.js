@@ -81,7 +81,7 @@ async function buildCards(block, payload) {
   }
 }
 
-function loadTabContent(block, payload, index) {
+function loadTabContentFromDoc(block, payload, index) {
   const contentArea = block.querySelector('.content-area');
   if (index === payload.tabs.length - 1) {
     contentArea.innerHTML = '';
@@ -91,7 +91,7 @@ function loadTabContent(block, payload, index) {
   }
 }
 
-function loadDescription(block, payload, index) {
+function loadDescriptionFromSheet(block, payload) {
   if (payload.videos[payload.videoIndex].Description !== undefined) {
     const paragraphs = payload.videos[payload.videoIndex].Description.split('\n');
     if (paragraphs.length > 1 || paragraphs[0] !== '') {
@@ -104,12 +104,12 @@ function loadDescription(block, payload, index) {
       });
     }
   } else {
-    loadTabContent(block, payload, index);
+    loadTabContentFromDoc(block, payload, 0);
   }
 }
 
-function loadTranscript($block, payload) {
-  const paragraphs = payload.videos[payload.videoIndex][`${payload.placeholders['course-tab-transcript']}`].split('\n');
+function loadTranscriptFromSheet($block, payload) {
+  const paragraphs = payload.videos[payload.videoIndex].Transcript.split('\n');
   const $transcriptTab = $block.querySelector(`.tab-${payload.placeholders['course-tab-transcript'].toLowerCase()}`);
   if (paragraphs.length > 1 || paragraphs[0] !== '') {
     const $contentArea = $block.querySelector('.content-area');
@@ -159,14 +159,15 @@ function decorateTabbedArea($block, payload) {
         }
         $tab.classList.add('active');
         if (index === 0) {
-          loadDescription($block, payload, 0);
+          loadDescriptionFromSheet($block, payload);
         } else {
-          loadTabContent($block, payload, index);
+          loadTabContentFromDoc($block, payload, index);
         }
       });
     } else {
       if (index === 0) {
-        const $tab = createTag('a', { class: `tab tab-${tab.heading.toLowerCase()}` });
+        const tabName = payload.placeholders['course-tab-description'];
+        const $tab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
         $tab.classList.add('active');
         $tab.textContent = tab.heading;
         $tabs.append($tab);
@@ -176,7 +177,7 @@ function decorateTabbedArea($block, payload) {
             $allTabs[i].classList.remove('active');
           }
           $tab.classList.add('active');
-          loadDescription($block, payload, 0);
+          loadDescriptionFromSheet($block, payload);
         });
       }
 
@@ -198,13 +199,13 @@ function decorateTabbedArea($block, payload) {
             $allTabs[i].classList.remove('active');
           }
           $transcriptTab.classList.add('active');
-          loadTranscript($block, payload);
+          loadTranscriptFromSheet($block, payload);
         });
       }
     }
   });
 
-  loadTabContent($block, payload, 0);
+  loadDescriptionFromSheet($block, payload);
 }
 
 async function fetchVideos(url) {
@@ -216,7 +217,6 @@ async function fetchVideos(url) {
 function loadVideo(block, payload) {
   const videoPlayer = block.querySelector('.video-player');
   const source = videoPlayer.querySelector('source');
-  const activeTab = block.querySelector('.tab.active');
   const title = block.querySelector('.video-title');
   const tabbedArea = block.querySelector('.tabbed-area');
   if (tabbedArea) {
@@ -240,18 +240,6 @@ function loadVideo(block, payload) {
     if (title) {
       title.innerHTML = '';
       title.textContent = payload.videos[payload.videoIndex]['Video Name'];
-    }
-
-    if (activeTab) {
-      const descriptionTabName = `tab-${payload.placeholders['course-tab-description'].toLowerCase()}`;
-      const transcriptTabNaame = `tab-${payload.placeholders['course-tab-transcript'].toLowerCase()}`;
-      if (activeTab.classList.contains(descriptionTabName)) {
-        loadDescription(block, payload, 0);
-      }
-
-      if (activeTab.classList.contains(transcriptTabNaame)) {
-        loadTranscript(block, payload);
-      }
     }
   }
 
@@ -363,6 +351,8 @@ export default async function decorate(block) {
       'course-tab-resources': results['course-tab-resources'] ? results['course-tab-resources'] : 'Resources',
       'course-tab-takeaways': results['course-tab-takeaways'] ? results['course-tab-takeaways'] : 'Takeaways',
       'course-tab-transcript': results['course-tab-transcript'] ? results['course-tab-transcript'] : 'Transcript',
+      'course-menu-heading': results['course-menu-heading'] ? results['course-menu-heading'] : 'Lessons',
+      'course-menu-share-heading': results['course-menu-share-heading'] ? results['course-menu-share-heading'] : 'Share this course:',
     },
   };
 
