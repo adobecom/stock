@@ -35,15 +35,17 @@ main .course .video-player-menu {
 
 main .course .video-player-menu-heading {
   font-weight: 800;
-  margin-left: -20px;
   margin-bottom: 8px;
   font-size: 20px;
 }
 
-main .course .video-player-list {
+main .course .video-player-list-wrapper {
   padding: 24px;
-  padding-left: 48px;
   background-color: #f4f4f4;
+}
+
+main .course .video-player-list {
+  padding: 0;
   margin: 0;
 }
 
@@ -85,9 +87,6 @@ main .course .video-player-list-link.active {
 
 main .course .tabbed-area .video-title {
   padding-bottom: 40px;
-}
-
-main .course .tabbed-area .video-title {
   width: 100%;
   max-width: var(--grid-container-width);
 }

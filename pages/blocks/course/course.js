@@ -164,44 +164,41 @@ function decorateTabbedArea($block, payload) {
           loadTabContentFromDoc($block, payload, index);
         }
       });
-    } else {
-      if (index === 0) {
-        const tabName = payload.placeholders['course-tab-description'];
-        const $tab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
-        $tab.classList.add('active');
-        $tab.textContent = tab.heading;
-        $tabs.append($tab);
-        $tab.addEventListener('click', () => {
-          const $allTabs = $block.querySelectorAll('.tab');
-          for (let i = 0; i < $allTabs.length; i += 1) {
-            $allTabs[i].classList.remove('active');
-          }
-          $tab.classList.add('active');
-          loadDescriptionFromSheet($block, payload);
-        });
-      }
-
-      if (index === 1) {
-        const tabName = payload.placeholders['course-tab-transcript'];
-        const $transcriptTab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
-        const iOfLastColumn = [payload.videos.length - 1];
-        $transcriptTab.textContent = Object.keys(payload.videos[iOfLastColumn])[iOfLastColumn];
-        $tabs.append($transcriptTab);
-
-        const paragraphs = payload.videos[payload.videoIndex][`${tabName}`].split('\n');
-        if (paragraphs.length <= 1 && paragraphs[0] === '') {
-          $transcriptTab.style.display = 'none';
+    } else if (index === 0) {
+      const tabName = payload.placeholders['course-tab-description'];
+      const $tab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
+      $tab.classList.add('active');
+      $tab.textContent = tab.heading;
+      $tabs.append($tab);
+      $tab.addEventListener('click', () => {
+        const $allTabs = $block.querySelectorAll('.tab');
+        for (let i = 0; i < $allTabs.length; i += 1) {
+          $allTabs[i].classList.remove('active');
         }
+        $tab.classList.add('active');
+        loadDescriptionFromSheet($block, payload);
+      });
+    }
 
-        $transcriptTab.addEventListener('click', () => {
-          const $allTabs = $block.querySelectorAll('.tab');
-          for (let i = 0; i < $allTabs.length; i += 1) {
-            $allTabs[i].classList.remove('active');
-          }
-          $transcriptTab.classList.add('active');
-          loadTranscriptFromSheet($block, payload);
-        });
+    if (index === 1) {
+      const tabName = payload.placeholders['course-tab-transcript'];
+      const $transcriptTab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
+      $transcriptTab.textContent = tabName;
+      $tabs.append($transcriptTab);
+
+      const paragraphs = payload.videos[payload.videoIndex][`${tabName}`].split('\n');
+      if (paragraphs.length <= 1 && paragraphs[0] === '') {
+        $transcriptTab.style.display = 'none';
       }
+
+      $transcriptTab.addEventListener('click', () => {
+        const $allTabs = $block.querySelectorAll('.tab');
+        for (let i = 0; i < $allTabs.length; i += 1) {
+          $allTabs[i].classList.remove('active');
+        }
+        $transcriptTab.classList.add('active');
+        loadTranscriptFromSheet($block, payload);
+      });
     }
   });
 
@@ -214,7 +211,7 @@ async function fetchVideos(url) {
   return resp.data;
 }
 
-function loadVideo(block, payload) {
+function loadVideo(block, payload, initialLoad = true) {
   const videoPlayer = block.querySelector('.video-player');
   const source = videoPlayer.querySelector('source');
   const title = block.querySelector('.video-title');
@@ -243,16 +240,19 @@ function loadVideo(block, payload) {
     }
   }
 
-  videoPlayer.currentTime = 0;
-  videoPlayer.play();
+  if (!initialLoad) {
+    videoPlayer.currentTime = 0;
+    videoPlayer.play();
+  }
 }
 
 function decorateVideoList(block, payload) {
+  const listWrapper = createTag('div', { class: 'video-player-list-wrapper' });
   const list = createTag('ol', { class: 'video-player-list' });
   const videoMenuHeading = createTag('div', { class: 'video-player-menu-heading' });
 
   videoMenuHeading.textContent = payload.placeholders['course-menu-heading'];
-  list.append(videoMenuHeading);
+  listWrapper.append(videoMenuHeading, list);
 
   payload.videos.forEach((video, index) => {
     const listItem = createTag('li', { class: 'video-player-list-item' });
@@ -276,12 +276,12 @@ function decorateVideoList(block, payload) {
         allVideoButtons[payload.videoIndex].classList.remove('active');
         allVideoButtons[index].classList.add('active');
         payload.videoIndex = index;
-        loadVideo(block, payload);
+        loadVideo(block, payload, false);
       }
     });
   });
 
-  return list;
+  return listWrapper;
 }
 
 function decorateVideoPlayer(block, payload) {
@@ -302,7 +302,7 @@ function decorateVideoPlayer(block, payload) {
   videoWrapper.append(videoPlayer);
   videoPlayerWrapper.append(videoWrapper, videoMenu);
   block.prepend(videoPlayerWrapper);
-  loadVideo(block, payload);
+  loadVideo(block, payload, true);
 }
 
 async function buildPayload(block, payload) {
