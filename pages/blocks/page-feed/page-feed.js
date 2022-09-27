@@ -121,8 +121,8 @@ export default async function pageFeed(block) {
   if (cards.length === 5) {
     block.classList.add(`col-2-pf-cards`);
     const pfRowFive = createTag('div', { class: 'page-feed col-3-pf-cards' });
+    pfRowFive.append(cards[3]);
     pfRowFive.append(cards[4]);
-    pfRowFive.append(cards[5]);
     block.insertAdjacentElement('afterend', pfRowFive)
   } else {
     block.classList.add(`col-${len}-pf-cards`);
