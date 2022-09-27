@@ -274,7 +274,6 @@ export function loadCSS(href, callback) {
 }
 
 export function getMetadata(name) {
-  // to-do make blocks use Milo's getMetadata() function instead, QA test to see if they still work
   const attr = name && name.includes(':') ? 'property' : 'name';
   const meta = [...document.head.querySelectorAll(`meta[${attr}="${name}"]`)].map((el) => el.content).join(', ');
   return meta;
