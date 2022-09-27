@@ -124,6 +124,8 @@ export default async function pageFeed(block) {
     pfRowFive.append(cards[4]);
     pfRowFive.append(cards[5]);
     block.insertAdjacentElement('afterend', pfRowFive)
+  } else {
+    block.classList.add(`col-${len}-pf-cards`);
   }
   cards.forEach((card, index) => {
     if (len != 5 || (len === 5 && index < 3)) {
