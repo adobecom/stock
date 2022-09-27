@@ -115,6 +115,8 @@ export default async function pageFeed(block) {
     len = 4;
   } else if (cards.length % 5 === 0) {
     len = 5;
+  } else if (cards.length > 6) {
+    len = 6;
   }
   if (cards.length === 5) {
     block.classList.add(`col-3-pf-cards`);
