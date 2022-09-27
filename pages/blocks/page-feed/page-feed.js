@@ -105,8 +105,8 @@ export default async function pageFeed(block) {
     }
   };
   block.innerHTML = '';
-  const pfRows = [cards];
   let len = cards.length;
+  let odd = false;
   if (cards.length === 1 || cards.length === 2 ) {
     len = 2;
   } else if (cards.length % 3 === 0) {
@@ -115,17 +115,25 @@ export default async function pageFeed(block) {
     len = 4;
   } else if (cards.length % 5 === 0) {
     len = 5;
-  } else if (cards.length > 6) {
-    len = 6;
+  } else if (cards.length % 2 === 0) {
+    len = 4;
+  } else {
+    odd = true;
   }
   if (cards.length === 5) {
-    block.classList.add(`col-3-pf-cards`);
-    const pfRowTwo = createTag('div', { class: 'page-feed col-2-pf-cards' });
-    block.insertAdjacentElement('afterend', pfRowTwo)
-    pfRowTwo.append(cards[3]);
-    pfRowTwo.append(cards[4]);
-  } else {
-    block.classList.add(`col-${len}-pf-cards`);
+    block.classList.add(`col-2-pf-cards`);
+    const pfRowFive = createTag('div', { class: 'page-feed col-3-pf-cards' });
+    pfRowFive.append(cards[0]);
+    pfRowFive.append(cards[1]);
+    pfRowFive.append(cards[2]);
+    block.insertAdjacentElement('beforebegin', pfRowFive)
+  } else if (odd) { 
+    block.classList.add(`col-4-pf-cards`);
+    const pfRowOdd = createTag('div', { class: 'page-feed col-3-pf-cards' });
+    pfRowOdd.append(cards[0]);
+    pfRowOdd.append(cards[1]);
+    pfRowOdd.append(cards[2]);
+    block.insertAdjacentElement('beforebegin', pfRowOdd)
   }
   cards.forEach((card, index) => {
     if (len != 5 || (len === 5 && index < 3)) {
