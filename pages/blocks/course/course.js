@@ -351,6 +351,8 @@ export default async function decorate(block) {
       'course-tab-resources': results['course-tab-resources'] ? results['course-tab-resources'] : 'Resources',
       'course-tab-takeaways': results['course-tab-takeaways'] ? results['course-tab-takeaways'] : 'Takeaways',
       'course-tab-transcript': results['course-tab-transcript'] ? results['course-tab-transcript'] : 'Transcript',
+      'course-menu-heading': results['course-menu-heading'] ? results['course-menu-heading'] : 'Lessons',
+      'course-menu-share-heading': results['course-menu-share-heading'] ? results['course-menu-share-heading'] : 'Share this course:',
     },
   };
 
