@@ -325,6 +325,10 @@ main .banner.large p.button-container {
   order: -2;
 }
 
+main .banner.large .banner-content p.detail-M:first-child {
+  padding-top: 16px;
+}
+
 main .banner.large p.button-container + p {
   order: -1;
 }
@@ -420,7 +424,7 @@ main .banner .banner-content h1:first-child,
 main .banner .banner-content h2:first-child,
 main .banner .banner-content h3:first-child,
 main .banner .banner-content h4:first-child,
-main .banner .banner-content p.detail-M {
+main .banner .banner-content p.detail-M:first-child {
   padding-top: 0;
 }
 
@@ -557,6 +561,10 @@ main .banner .banner-column.banner-image {
     width: 100%;
     height: 100%;
     max-height: unset;
+  }
+
+  main .banner.large .banner-content p.detail-M:first-child {
+    padding-top: 0;
   }
 
   /* small */
