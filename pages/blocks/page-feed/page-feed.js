@@ -1,10 +1,12 @@
-
 import {
   createTag,
   transformLinkToAnimation,
   loadPageFeedFromSpreadsheet,
   loadPageFeedCard,
+  fetchPlaceholders,
 } from '../../scripts/utils.js';
+
+const placeholders = await fetchPlaceholders((result) => result);
 
 function buildCard(card, overlay = false) {
   card.classList.add('pf-card');
@@ -65,13 +67,60 @@ function buildCard(card, overlay = false) {
     div.classList.add('pf-card-overlay');
     card.appendChild(div);
   }
-  return card
+  return card;
+}
+
+function decorateCards(block, cards, limit, offset) {
+  let len;
+  let currentOffset = offset;
+  if (cards.length === 1 || cards.length === 2) {
+    len = 2;
+  } else if (cards.length % 3 === 0) {
+    len = 3;
+  } else if (cards.length % 4 === 0) {
+    len = 4;
+  } else if (cards.length % 5 === 0) {
+    len = 5;
+  } else {
+    len = 4;
+  }
+  if (cards.length === 5) {
+    block.classList.add('col-3-pf-cards');
+    const pfRowFive = createTag('div', { class: 'page-feed col-2-pf-cards' });
+    pfRowFive.append(cards[3]);
+    pfRowFive.append(cards[4]);
+    block.insertAdjacentElement('afterend', pfRowFive);
+  } else {
+    block.classList.add(`col-${len}-pf-cards`);
+  }
+
+  const range = currentOffset + limit < cards.length ? currentOffset + limit : cards.length;
+
+  for (let i = offset; i < range; i += 1) {
+    if (len !== 5 || (len === 5 && i < 3)) {
+      block.append(cards[i]);
+      currentOffset += 1;
+    }
+  }
+
+  if (currentOffset < cards.length) {
+    const loadMore = document.createElement('a');
+    loadMore.className = 'button transparent';
+    loadMore.href = '#';
+    loadMore.textContent = placeholders['load-more'];
+    block.insertAdjacentElement('afterend', loadMore);
+    loadMore.addEventListener('click', (event) => {
+      event.preventDefault();
+      loadMore.remove();
+      decorateCards(block, cards, limit, currentOffset);
+    });
+  }
 }
 
 export default async function pageFeed(block) {
   const rows = Array.from(block.children);
-  block.innerHTML = '';
   const cards = [];
+  const limit = 6;
   const overlay = (block.classList.contains('overlay'));
   if (block.classList.contains('fit')) {
     block.classList.add('pf-fit');
@@ -80,8 +129,9 @@ export default async function pageFeed(block) {
     block.classList.add('pf-overlay');
     block.classList.remove('overlay');
   }
+
   for (let n = 0; n < rows.length; n += 1) {
-    const children = rows[n].children;
+    const { children } = rows[n];
     if (children.length > 0 && children[0].querySelector('ul')) {
       const pageLinks = children[0].querySelector('ul').querySelectorAll('a');
       for (let i = 0; i < pageLinks.length; i += 1) {
@@ -103,33 +153,7 @@ export default async function pageFeed(block) {
     } else {
       cards.push(buildCard(rows[n], overlay));
     }
-  };
+  }
   block.innerHTML = '';
-  let len = cards.length;
-  let odd = false;
-  if (cards.length === 1 || cards.length === 2 ) {
-    len = 2;
-  } else if (cards.length % 3 === 0) {
-    len = 3;
-  } else if (cards.length % 4 === 0) {
-    len = 4;
-  } else if (cards.length % 5 === 0) {
-    len = 5;
-  } else {
-    len = 4;
-  }
-  if (cards.length === 5) {
-    block.classList.add(`col-3-pf-cards`);
-    const pfRowFive = createTag('div', { class: 'page-feed col-2-pf-cards' });
-    pfRowFive.append(cards[3]);
-    pfRowFive.append(cards[4]);
-    block.insertAdjacentElement('afterend', pfRowFive)
-  } else {
-    block.classList.add(`col-${len}-pf-cards`);
-  }
-  cards.forEach((card, index) => {
-    if (len != 5 || (len === 5 && index < 3)) {
-      block.append(card);
-    }
-  });
+  decorateCards(block, cards, limit, 0);
 }
