@@ -92,7 +92,7 @@ function loadTabContentFromDoc(block, payload, index) {
 }
 
 function loadDescriptionFromSheet(block, payload) {
-  if (payload.videos[payload.videoIndex].Description !== undefined) {
+  if (payload.videos[payload.videoIndex].Description) {
     const paragraphs = payload.videos[payload.videoIndex].Description.split('\n');
     if (paragraphs.length > 1 || paragraphs[0] !== '') {
       const $contentArea = block.querySelector('.content-area');
