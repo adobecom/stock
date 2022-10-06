@@ -70,9 +70,10 @@ function buildCard(card, overlay = false) {
   return card;
 }
 
-function decorateCards(block, cards, limit, offset) {
+function decorateCards(block, cards, offset) {
   let len;
   let currentOffset = offset;
+
   if (cards.length === 1 || cards.length === 2) {
     len = 2;
   } else if (cards.length % 3 === 0) {
@@ -84,6 +85,9 @@ function decorateCards(block, cards, limit, offset) {
   } else {
     len = 4;
   }
+
+  const limit = len % 2 ? 6 : 8;
+
   if (cards.length === 5) {
     block.classList.add('col-3-pf-cards');
     const pfRowFive = createTag('div', { class: 'page-feed col-2-pf-cards' });
@@ -112,7 +116,7 @@ function decorateCards(block, cards, limit, offset) {
     loadMore.addEventListener('click', (event) => {
       event.preventDefault();
       loadMore.remove();
-      decorateCards(block, cards, limit, currentOffset);
+      decorateCards(block, cards, currentOffset);
     });
   }
 }
@@ -120,7 +124,6 @@ function decorateCards(block, cards, limit, offset) {
 export default async function pageFeed(block) {
   const rows = Array.from(block.children);
   const cards = [];
-  const limit = 6;
   const overlay = (block.classList.contains('overlay'));
   if (block.classList.contains('fit')) {
     block.classList.add('pf-fit');
@@ -155,5 +158,5 @@ export default async function pageFeed(block) {
     }
   }
   block.innerHTML = '';
-  decorateCards(block, cards, limit, 0);
+  decorateCards(block, cards, 0);
 }
