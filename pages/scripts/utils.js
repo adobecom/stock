@@ -38,7 +38,7 @@ export async function fetchPlaceholders() {
   const root = getLocaleRoot();
   if (!window.placeholders) {
     try {
-      const resp = await fetch(`${root}/pages/artisthub/placeholders.json`);
+      const resp = await fetch(`${root}/artisthub/placeholders.json`);
       const json = await resp.json();
       window.placeholders = {};
       json.data.forEach((placeholder) => {
