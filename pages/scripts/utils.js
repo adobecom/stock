@@ -119,8 +119,9 @@ export function turnH6intoDetailM(scope = document) {
 export async function loadPageFeedCard(a) {
   const aEl = (a && a.nodeType) ? a : createTag('a', { href: a });
   const href = (typeof (a) === 'string') ? a : a.href;
-  if (! href.startsWith('/')) return null;
-  const resp = await fetch(`${relHref}.plain.html`);
+  const path = makeRelative(href);
+  if (!path.startsWith('/')) return null;
+  const resp = await fetch(`${path}.plain.html`);
   if (!resp.ok) return null;
   const html = await resp.text();
   const parser = new DOMParser();
