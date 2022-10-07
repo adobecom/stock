@@ -18,7 +18,7 @@ export const [setLibs, getLibs] = (() => {
 })();
 const LIBS = 'https://milo.adobe.com/libs';
 const miloLibs = setLibs(LIBS);
-const { getConfig, makeRelative } = await import(`${miloLibs}/utils/utils.js`);
+const { getConfig } = await import(`${miloLibs}/utils/utils.js`);
 /*
  * ------------------------------------------------------------
  * Edit above at your own risk
@@ -116,9 +116,20 @@ export function turnH6intoDetailM(scope = document) {
   });
 }
 
+export function makeRelative(href) {
+  const projectName = 'stock--adobecom';
+  const productionDomains = ['stock.adobe.com'];  
+  const fixedHref = href.replace(/\u2013|\u2014/g, '--');
+  const hosts = [`${projectName}.hlx.page`, `${projectName}.hlx.live`, ...productionDomains];
+  const url = new URL(fixedHref);
+  const relative = hosts.some((host) => url.hostname.includes(host))
+    || url.hostname === window.location.hostname;
+  return relative ? `${url.pathname}${url.search}${url.hash}` : href;
+}
+
 export async function loadPageFeedCard(a) {
-  const aEl = (a && a.nodeType) ? a : createTag('a', { href: a });
   const href = (typeof (a) === 'string') ? a : a.href;
+  const aEl = (a && a.nodeType) ? a : createTag('a', { href: href });
   const path = makeRelative(href);
   if (!path.startsWith('/')) return null;
   const resp = await fetch(`${path}.plain.html`);
