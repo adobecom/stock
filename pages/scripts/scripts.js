@@ -72,3 +72,10 @@ const { loadArea, loadDelayed, setConfig } = await import(`${miloLibs}/utils/uti
   handleAnchors();
   loadDelayed();
 }());
+
+const params = new URLSearchParams(window.location.search);
+if (params.get('performance')) {
+  import('./performance.js').then((mod) => {
+    if (mod.default) mod.default();
+  });
+}
