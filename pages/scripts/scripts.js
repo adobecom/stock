@@ -10,16 +10,18 @@
  * governing permissions and limitations under the License.
  */
 
-import {
-  setLibs,
-  unwrapSingularFragments,
-  decorateButtons,
-  turnH6intoDetailM,
-  customSpacings,
-  externalLinks,
-  gnavUnderline,
-  handleAnchors,
-} from './utils.js';
+(async function loadLCPImage() {
+  const lcpImg = document.querySelector('img');
+  await new Promise((resolve) => {
+    if (lcpImg && !lcpImg.complete) {
+      lcpImg?.removeAttribute('loading');
+      lcpImg.addEventListener('load', () => resolve());
+      lcpImg.addEventListener('error', () => resolve());
+    } else {
+      resolve();
+    }
+  });
+}());
 
 const LIBS = 'https://milo.adobe.com/libs';
 const STYLES = '/pages/styles/styles.css';
@@ -34,10 +36,16 @@ const CONFIG = {
   },
 };
 
-(async function loadLCPImage() {
-  const lcpImg = document.querySelector('img');
-  lcpImg?.removeAttribute('loading');
-}());
+const {
+  setLibs,
+  unwrapSingularFragments,
+  decorateButtons,
+  turnH6intoDetailM,
+  customSpacings,
+  externalLinks,
+  gnavUnderline,
+  handleAnchors,
+} = await import('./utils.js');
 
 /*
  * ------------------------------------------------------------
