@@ -2,9 +2,41 @@
 import {
   createTag,
   transformLinkToAnimation,
-  loadPageFeedFromSpreadsheet,
-  loadPageFeedCard,
+  makeRelative,
+  turnH6intoDetailM,
 } from '../../scripts/utils.js';
+
+export async function loadPageFeedCard(a) {
+  const href = (typeof (a) === 'string') ? a : a.href;
+  const path = makeRelative(href);
+  if (!path.startsWith('/')) return null;
+  const resp = await fetch(`${path}.plain.html`);
+  if (!resp.ok) return null;
+  const html = await resp.text();
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const pfCard = doc.querySelector('.page-feed-card > div');
+  if (pfCard) {
+    turnH6intoDetailM(pfCard);
+    const aEl = (a && a.nodeType) ? a : createTag('a', { href: path });
+    pfCard.append(createTag('div', {}, aEl));
+    // eslint-disable-next-line consistent-return
+    return pfCard;
+  }
+}
+
+export async function loadPageFeedFromSpreadsheet(sheetUrl) {
+  const path = makeRelative(sheetUrl);
+  if (!path.startsWith('/')) return null;
+  const resp = await fetch(path);
+  if (!resp.ok) return;
+  const json = await resp.json();
+  const returnUrls = [];
+  json.data.forEach((row) => {
+    returnUrls.push({ link: row['page-url'], setting: row['setting'] })
+  });
+  return returnUrls;
+}
 
 function buildCard(card, overlay = false) {
   card.classList.add('pf-card');

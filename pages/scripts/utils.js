@@ -18,27 +18,24 @@ export const [setLibs, getLibs] = (() => {
 })();
 const LIBS = 'https://milo.adobe.com/libs';
 const miloLibs = setLibs(LIBS);
-const { getConfig, makeRelative } = await import(`${miloLibs}/utils/utils.js`);
-/*
- * ------------------------------------------------------------
- * Edit above at your own risk
- * ------------------------------------------------------------
- */
+const { getConfig } = await import(`${miloLibs}/utils/utils.js`);
 
-export function getLocaleRoot() {
-  const { locale } = getConfig();
-  return locale.contentRoot;
-}
+/*
+* ------------------------------------------------------------
+* Edit above at your own risk
+* ------------------------------------------------------------
+*/
 
 export function toClassName(name) {
   return (name && typeof name === 'string') ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-') : '';
 }
 
 export async function fetchPlaceholders() {
-  const root = getLocaleRoot();
+  const { locale } = getConfig();
+  const localeRoot = locale.contentRoot;
   if (!window.placeholders) {
     try {
-      const resp = await fetch(`${root}/artisthub/placeholders.json`);
+      const resp = await fetch(`${localeRoot}/pages/artisthub/placeholders.json`);
       const json = await resp.json();
       window.placeholders = {};
       json.data.forEach((placeholder) => {
@@ -57,7 +54,6 @@ export async function fetchPlaceholders() {
 }
 
 export function createTag(tag, attributes, html) {
-  // Copied over from milo to prevent having to await import this function each time
   const el = document.createElement(tag);
   if (html) {
     if (html instanceof HTMLElement || html instanceof SVGElement) {
@@ -116,34 +112,15 @@ export function turnH6intoDetailM(scope = document) {
   });
 }
 
-export async function loadPageFeedCard(a) {
-  const aEl = (a && a.nodeType) ? a : createTag('a', { href: a });
-  const href = (typeof (a) === 'string') ? a : a.href;
-  if (! href.startsWith('/')) return null;
-  const resp = await fetch(`${relHref}.plain.html`);
-  if (!resp.ok) return null;
-  const html = await resp.text();
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-  const pfCard = doc.querySelector('.page-feed-card > div');
-  if (pfCard) {
-    turnH6intoDetailM(pfCard);
-    pfCard.append(createTag('div', {}, aEl));
-    // eslint-disable-next-line consistent-return
-    return pfCard;
-  }
-}
-
-export async function loadPageFeedFromSpreadsheet(sheetUrl) {
-  const relHref = makeRelative(sheetUrl);
-  const resp = await fetch(relHref);
-  if (!resp.ok) return;
-  const json = await resp.json();
-  const returnUrls = [];
-  json.data.forEach((row) => {
-    returnUrls.push({ link: row['page-url'], setting: row['setting'] })
-  });
-  return returnUrls;
+export function makeRelative(href) {
+  const projectName = 'stock--adobecom';
+  const productionDomains = ['stock.adobe.com'];  
+  const fixedHref = href.replace(/\u2013|\u2014/g, '--');
+  const hosts = [`${projectName}.hlx.page`, `${projectName}.hlx.live`, ...productionDomains];
+  const url = new URL(fixedHref);
+  const relative = hosts.some((host) => url.hostname.includes(host))
+    || url.hostname === window.location.hostname;
+  return relative ? `${url.pathname}${url.search}${url.hash}` : href;
 }
 
 export function decorateButtons(scope = document) {
