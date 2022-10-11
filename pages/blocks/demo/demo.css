@@ -1,0 +1,8 @@
+.demo {
+  background-color: rgb(123, 10, 97);
+  color: #FFF;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 24px auto;
+}
