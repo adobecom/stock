@@ -86,7 +86,7 @@ export function transformLinkToAnimation(a) {
   // replace anchor with video element
   const videoUrl = new URL(a.href);
   const helixId = videoUrl.hostname.includes('hlx.blob.core') ? videoUrl.pathname.split('/')[2] : videoUrl.pathname.split('media_')[1].split('.')[0];
-  const videoHref = `/media_${helixId}.mp4`;
+  const videoHref = `/pages/media_${helixId}.mp4`;
   const video = createTag('video', attribs);
   video.innerHTML = `<source src="${videoHref}" type="video/mp4">`;
   const innerDiv = a.closest('div');
@@ -114,7 +114,7 @@ export function turnH6intoDetailM(scope = document) {
 
 export function makeRelative(href) {
   const projectName = 'stock--adobecom';
-  const productionDomains = ['stock.adobe.com'];  
+  const productionDomains = ['stock.adobe.com'];
   const fixedHref = href.replace(/\u2013|\u2014/g, '--');
   const hosts = [`${projectName}.hlx.page`, `${projectName}.hlx.live`, ...productionDomains];
   const url = new URL(fixedHref);
