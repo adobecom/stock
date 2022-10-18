@@ -14,6 +14,7 @@ import {
   fetchPlaceholders,
   loadBlockCSS,
   createTag,
+  makeRelative,
 } from '../../scripts/utils.js';
 
 function handlize(string) {
@@ -312,10 +313,13 @@ function decorateVideoPlayer(block, payload) {
 async function buildPayload(block, payload) {
   const placeholderKeys = ['course-tab-description', 'course-tab-takeaways', 'course-tab-transcript'];
   const rows = Array.from(block.children);
-  const videoSpreadSheetUrl = rows[0].querySelector('a').href;
+  let videoSpreadSheetUrl = rows[0].querySelector('a').href;
   payload.videos = await fetchVideos(videoSpreadSheetUrl);
+  payload.videos.forEach((video) => {
+    video.mp4 = makeRelative(video.mp4);
+    video.webm = makeRelative(video.webm);
+  });
   rows.shift();
-
   rows.forEach((row, index, array) => {
     const heading = payload.placeholders[placeholderKeys[index]];
     const content = row.querySelector('div').innerHTML;
