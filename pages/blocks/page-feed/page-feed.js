@@ -7,6 +7,21 @@ import {
 } from '../../scripts/utils.js';
 
 const placeholders = await fetchPlaceholders((result) => result);
+const payload = {
+  offset: 0,
+};
+
+function getFetchRange() {
+  let range;
+
+  if (payload.offset + payload.limit < payload.total) {
+    range = payload.offset + payload.limit;
+  } else {
+    range = payload.total;
+  }
+  
+  return range;
+}
 
 export async function loadPageFeedCard(a) {
   const href = (typeof (a) === 'string') ? a : a.href;
@@ -35,7 +50,7 @@ export async function loadPageFeedFromSpreadsheet(sheetUrl) {
   const json = await resp.json();
   const returnUrls = [];
   json.data.forEach((row) => {
-    returnUrls.push({ link: row['page-url'], setting: row['setting'] })
+    returnUrls.push({ link: row['page-url'], setting: row['setting'] });
   });
   return returnUrls;
 }
@@ -102,53 +117,82 @@ function buildCard(card, overlay = false) {
   return card;
 }
 
-function decorateCards(block, cards, offset) {
-  let len;
-  let currentOffset = offset;
+function decorateLoadMoreButton(block) {
+  const loadMoreWrapper = createTag('div', { class: 'content' });
+  const loadMore = document.createElement('a');
+  loadMore.className = 'button transparent';
+  loadMore.href = '#';
+  loadMore.textContent = placeholders['load-more'];
+  loadMoreWrapper.append(loadMore);
+  block.insertAdjacentElement('afterend', loadMoreWrapper);
 
-  if (cards.length === 1 || cards.length === 2) {
+  return {
+    wrapper: loadMoreWrapper,
+    button: loadMore,
+  };
+}
+
+function getCols(total) {
+  let len;
+  if (total === 1 || total === 2) {
     len = 2;
-  } else if (cards.length % 3 === 0) {
+  } else if (total % 3 === 0) {
     len = 3;
-  } else if (cards.length % 4 === 0) {
+  } else if (total % 4 === 0) {
     len = 4;
-  } else if (cards.length % 5 === 0) {
+  } else if (total % 5 === 0) {
     len = 5;
   } else {
     len = 4;
   }
 
-  const limit = len % 2 ? 6 : 8;
+  return len;
+}
 
-  if (cards.length === 5) {
+function decorateCards(block, cards, offset) {
+  payload.offset = offset;
+
+  if (payload.total === 5) {
     block.classList.add('col-3-pf-cards');
     const pfRowFive = createTag('div', { class: 'page-feed col-2-pf-cards' });
     pfRowFive.append(cards[3]);
     pfRowFive.append(cards[4]);
+    payload.offset += 2;
     block.insertAdjacentElement('afterend', pfRowFive);
   } else {
-    block.classList.add(`col-${len}-pf-cards`);
+    block.classList.add(`col-${payload.cols}-pf-cards`);
   }
 
-  const range = currentOffset + limit < cards.length ? currentOffset + limit : cards.length;
-
-  for (let i = offset; i < range; i += 1) {
-    if (len !== 5 || (len === 5 && i < 3)) {
+  for (let i = 0; i < cards.length; i += 1) {
+    if (payload.cols !== 5 || (payload.cols === 5 && i < 3)) {
       block.append(cards[i]);
-      currentOffset += 1;
+      payload.offset += 1;
     }
   }
 
-  if (currentOffset < cards.length) {
-    const loadMore = document.createElement('a');
-    loadMore.className = 'button transparent';
-    loadMore.href = '#';
-    loadMore.textContent = placeholders['load-more'];
-    block.insertAdjacentElement('afterend', loadMore);
-    loadMore.addEventListener('click', (event) => {
+  const newRange = getFetchRange();
+
+  if (payload.offset < payload.total) {
+    const loadMoreObject = decorateLoadMoreButton(block);
+    loadMoreObject.button.addEventListener('click', async (event) => {
       event.preventDefault();
-      loadMore.remove();
-      decorateCards(block, cards, currentOffset);
+      loadMoreObject.wrapper.remove();
+
+      const newCards = [];
+
+      for (let i = payload.offset; i < newRange; i += 1) {
+        if (payload.loadFromJson) {
+          if (payload.pageLinks[i].setting !== 'in_featured_pod') {
+            const card = await loadPageFeedCard(payload.pageLinks[i].link);
+            if (card) newCards.push(buildCard(card, payload.overlay));
+          }
+        } else if (payload.pageLinks[i] && payload.pageLinks[i].href) {
+          const card = await loadPageFeedCard(payload.pageLinks[i]);
+          if (card) newCards.push(buildCard(card, payload.overlay));
+        }
+      }
+
+      decorateCards(block, newCards, payload.offset);
     });
   }
 }
@@ -157,6 +201,7 @@ export default async function pageFeed(block) {
   const rows = Array.from(block.children);
   const cards = [];
   const overlay = (block.classList.contains('overlay'));
+  payload.overlay = overlay;
   if (block.classList.contains('fit')) {
     block.classList.add('pf-fit');
     block.classList.remove('fit');
@@ -169,20 +214,34 @@ export default async function pageFeed(block) {
     const { children } = rows[n];
     if (children.length > 0 && children[0].querySelector('ul')) {
       const pageLinks = children[0].querySelector('ul').querySelectorAll('a');
-      for (let i = 0; i < pageLinks.length; i += 1) {
-        if (pageLinks[i] && pageLinks[i].href && pageLinks[i].href.endsWith('.json')) {
-          const linksFromSpreadsheet = await loadPageFeedFromSpreadsheet(pageLinks[i].href);
-          if (linksFromSpreadsheet && linksFromSpreadsheet.length) {
-            for (let x = 0; x < linksFromSpreadsheet.length; x += 1) {
-              if (linksFromSpreadsheet[x].setting !== 'in_featured_pod') {
-                const card = await loadPageFeedCard(linksFromSpreadsheet[x].link);
-                if (card) cards.push(buildCard(card, overlay));
-              }
+      if (pageLinks[0] && pageLinks[0].href && pageLinks[0].href.endsWith('.json')) {
+        payload.loadFromJson = true;
+        const linksFromSpreadsheet = await loadPageFeedFromSpreadsheet(pageLinks[0].href);
+        if (linksFromSpreadsheet && linksFromSpreadsheet.length) {
+          payload.pageLinks = linksFromSpreadsheet;
+          payload.total = linksFromSpreadsheet.length;
+          payload.cols = getCols(payload.total);
+          payload.limit = payload.cols % 2 ? 6 : 8;
+          const range = getFetchRange();
+          for (let x = 0; x < range; x += 1) {
+            if (linksFromSpreadsheet[x].setting !== 'in_featured_pod') {
+              const card = await loadPageFeedCard(linksFromSpreadsheet[x].link);
+              if (card) cards.push(buildCard(card, overlay));
             }
           }
-        } else if (pageLinks[i] && pageLinks[i].href) {
-          const card = await loadPageFeedCard(pageLinks[i]);
-          if (card) cards.push(buildCard(card, overlay));
+        }
+      } else {
+        payload.pageLinks = pageLinks;
+        payload.loadFromJson = false;
+        payload.total = pageLinks.length;
+        payload.cols = getCols(payload.total);
+        payload.limit = payload.cols % 2 ? 6 : 8;
+        const range = getFetchRange();
+        for (let i = 0; i < range; i += 1) {
+          if (pageLinks[i] && pageLinks[i].href) {
+            const card = await loadPageFeedCard(pageLinks[i]);
+            if (card) cards.push(buildCard(card, overlay));
+          }
         }
       }
     } else {
@@ -190,5 +249,5 @@ export default async function pageFeed(block) {
     }
   }
   block.innerHTML = '';
-  decorateCards(block, cards, 0);
+  decorateCards(block, cards, payload.offset);
 }
