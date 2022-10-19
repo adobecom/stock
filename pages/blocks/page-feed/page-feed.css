@@ -557,12 +557,7 @@ main .section.has-background .page-feed:first-child {
   margin-top: 0;
 }
 
-main .section .page-feed ~ .content {
-  display: flex;
-  justify-content: center;
-}
-
-main .section .page-feed ~ .button.transparent {
+main .section .page-feed + .content > p.button-container:first-child {
   margin: 24px auto 0;
   display: block;
   width: max-content;

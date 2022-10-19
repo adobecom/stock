@@ -9,6 +9,7 @@ import {
 const placeholders = await fetchPlaceholders((result) => result);
 const payload = {
   offset: 0,
+  limit: 8,
 };
 
 function getFetchRange() {
@@ -19,7 +20,7 @@ function getFetchRange() {
   } else {
     range = payload.total;
   }
-  
+
   return range;
 }
 
@@ -119,11 +120,13 @@ function buildCard(card, overlay = false) {
 
 function decorateLoadMoreButton(block) {
   const loadMoreWrapper = createTag('div', { class: 'content' });
+  const loadMoreContainer = createTag('p', { class: 'button-container' });
   const loadMore = document.createElement('a');
   loadMore.className = 'button transparent';
   loadMore.href = '#';
   loadMore.textContent = placeholders['load-more'];
-  loadMoreWrapper.append(loadMore);
+  loadMoreContainer.append(loadMore);
+  loadMoreWrapper.append(loadMoreContainer);
   block.insertAdjacentElement('afterend', loadMoreWrapper);
 
   return {
@@ -142,6 +145,8 @@ function getCols(total) {
     len = 4;
   } else if (total % 5 === 0) {
     len = 5;
+  } else if (total % 7 === 0) {
+    len = 7;
   } else {
     len = 4;
   }
@@ -159,12 +164,21 @@ function decorateCards(block, cards, offset) {
     pfRowFive.append(cards[4]);
     payload.offset += 2;
     block.insertAdjacentElement('afterend', pfRowFive);
+  } else if (payload.total === 7) {
+    block.classList.add('col-3-pf-cards');
+    const pfRowSeven = createTag('div', { class: 'page-feed col-4-pf-cards' });
+    pfRowSeven.append(cards[3]);
+    pfRowSeven.append(cards[4]);
+    pfRowSeven.append(cards[5]);
+    pfRowSeven.append(cards[6]);
+    payload.offset += 4;
+    block.insertAdjacentElement('afterend', pfRowSeven);
   } else {
     block.classList.add(`col-${payload.cols}-pf-cards`);
   }
 
   for (let i = 0; i < cards.length; i += 1) {
-    if (payload.cols !== 5 || (payload.cols === 5 && i < 3)) {
+    if (![5, 7].includes(payload.cols) || ([5, 7].includes(payload.cols) && i < 3)) {
       block.append(cards[i]);
       payload.offset += 1;
     }
@@ -235,7 +249,6 @@ export default async function pageFeed(block) {
         payload.loadFromJson = false;
         payload.total = pageLinks.length;
         payload.cols = getCols(payload.total);
-        payload.limit = payload.cols % 2 ? 6 : 8;
         const range = getFetchRange();
         for (let i = 0; i < range; i += 1) {
           if (pageLinks[i] && pageLinks[i].href) {
