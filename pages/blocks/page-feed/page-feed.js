@@ -258,6 +258,7 @@ export default async function pageFeed(block) {
         }
       }
     } else {
+      payload.cols = getCols(rows.length);
       cards.push(buildCard(rows[n], overlay));
     }
   }
