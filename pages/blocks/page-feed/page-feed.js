@@ -7,20 +7,14 @@ import {
 } from '../../scripts/utils.js';
 
 const placeholders = await fetchPlaceholders((result) => result);
-const payload = {
-  offset: 0,
-  limit: 8,
-  total: 0,
-  cols: 4,
-};
 
-function getFetchRange() {
+function getFetchRange(payload) {
   let range;
 
-  if (payload.offset + payload.limit < payload.total) {
+  if (payload.offset + payload.limit < payload.cardsToBuild.length) {
     range = payload.offset + payload.limit;
   } else {
-    range = payload.total;
+    range = payload.cardsToBuild.length;
   }
 
   return range;
@@ -156,24 +150,20 @@ function getCols(total) {
   return len;
 }
 
-function decorateCards(block, cards) {
-  if (cards.length < payload.limit && cards.length !== payload.total) {
-    payload.total = cards.length;
-  }
-
-  if (payload.total < payload.limit) {
-    payload.cols = getCols(payload.total);
+function decorateCards(block, cards, payload) {
+  if (payload.cardsToBuild.length < payload.limit) {
+    payload.cols = getCols(payload.cardsToBuild.length);
     payload.limit = payload.cols % 2 ? 6 : 8;
   }
 
-  if (payload.total === 5) {
+  if (payload.cardsToBuild.length === 5) {
     block.classList.add('col-3-pf-cards');
     const pfRowFive = createTag('div', { class: 'page-feed col-2-pf-cards' });
     pfRowFive.append(cards[3]);
     pfRowFive.append(cards[4]);
     payload.offset += 2;
     block.insertAdjacentElement('afterend', pfRowFive);
-  } else if (payload.total === 7) {
+  } else if (payload.cardsToBuild.length === 7) {
     block.classList.add('col-3-pf-cards');
     const pfRowSeven = createTag('div', { class: 'page-feed col-4-pf-cards' });
     pfRowSeven.append(cards[3]);
@@ -193,9 +183,9 @@ function decorateCards(block, cards) {
     }
   }
 
-  const newRange = getFetchRange();
+  const newRange = getFetchRange(payload);
 
-  if (payload.offset < payload.total) {
+  if (payload.offset < payload.cardsToBuild.length) {
     const loadMoreObject = decorateLoadMoreButton(block);
     loadMoreObject.button.addEventListener('click', async (event) => {
       event.preventDefault();
@@ -205,27 +195,35 @@ function decorateCards(block, cards) {
 
       for (let i = payload.offset; i < newRange; i += 1) {
         if (payload.loadFromJson) {
-          if (payload.pageLinks[i].setting !== 'in_featured_pod') {
-            const card = await loadPageFeedCard(payload.pageLinks[i].link);
+          if (payload.cardsToBuild[i].setting !== 'in_featured_pod') {
+            const card = await loadPageFeedCard(payload.cardsToBuild[i].link);
             if (card) newCards.push(buildCard(card, payload.overlay));
           }
-        } else if (payload.pageLinks[i] && payload.pageLinks[i].href) {
-          const card = await loadPageFeedCard(payload.pageLinks[i]);
+        } else if (payload.cardsToBuild[i] && payload.cardsToBuild[i].href) {
+          const card = await loadPageFeedCard(payload.cardsToBuild[i]);
           if (card) newCards.push(buildCard(card, payload.overlay));
+        } else {
+          newCards.push(buildCard(payload.cardsToBuild[i], payload.overlay));
         }
       }
 
-      decorateCards(block, newCards);
+      decorateCards(block, newCards, payload);
     });
   }
 }
 
 export default async function pageFeed(block) {
+  const payload = {
+    offset: 0,
+    limit: 8,
+    cols: 4,
+  };
+  const undefinedCards = [];
   const rows = Array.from(block.children);
+  payload.cardsToBuild = rows;
   const cards = [];
   const overlay = (block.classList.contains('overlay'));
   payload.overlay = overlay;
-  payload.total = rows.length;
   if (block.classList.contains('fit')) {
     block.classList.add('pf-fit');
     block.classList.remove('fit');
@@ -240,27 +238,31 @@ export default async function pageFeed(block) {
       const pageLinks = children[0].querySelector('ul').querySelectorAll('a');
       if (pageLinks[0] && pageLinks[0].href && pageLinks[0].href.endsWith('.json')) {
         payload.loadFromJson = true;
-        let linksFromSpreadsheet = await loadPageFeedFromSpreadsheet(pageLinks[0].href);
-        linksFromSpreadsheet = linksFromSpreadsheet.filter((link) => link.setting !== 'in_featured_pod');
-        if (linksFromSpreadsheet && linksFromSpreadsheet.length) {
-          payload.pageLinks = linksFromSpreadsheet;
-          payload.total = linksFromSpreadsheet.length;
-          const range = getFetchRange();
+        const linksFromSpreadsheet = await loadPageFeedFromSpreadsheet(pageLinks[0].href);
+        payload.cardsToBuild = linksFromSpreadsheet.filter((link) => link && link.setting !== 'in_featured_pod');
+        if (payload.cardsToBuild && payload.cardsToBuild.length) {
+          const range = getFetchRange(payload);
           for (let x = 0; x < range; x += 1) {
-            const card = await loadPageFeedCard(linksFromSpreadsheet[x].link);
-            if (card) cards.push(buildCard(card, overlay));
+            const card = await loadPageFeedCard(payload.cardsToBuild[x].link);
+            if (card) {
+              cards.push(buildCard(card, overlay));
+            } else {
+              undefinedCards.push(x);
+            }
           }
         }
       } else {
-        payload.pageLinks = pageLinks;
+        payload.cardsToBuild = pageLinks;
         payload.loadFromJson = false;
-        payload.total = pageLinks.length;
-        const range = getFetchRange();
+        const range = getFetchRange(payload);
         for (let i = 0; i < range; i += 1) {
           if (pageLinks[i] && pageLinks[i].href) {
             const card = await loadPageFeedCard(pageLinks[i]);
-            if (card) cards.push(buildCard(card, overlay));
-            payload.total += 1;
+            if (card) {
+              cards.push(buildCard(card, overlay));
+            } else {
+              undefinedCards.push(i);
+            }
           }
         }
       }
@@ -268,6 +270,11 @@ export default async function pageFeed(block) {
       cards.push(buildCard(rows[n], overlay));
     }
   }
+
+  undefinedCards.forEach((index) => {
+    payload.cardsToBuild.splice(index, 1);
+  });
+
   block.innerHTML = '';
-  decorateCards(block, cards);
+  decorateCards(block, cards, payload);
 }
