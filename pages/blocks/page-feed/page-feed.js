@@ -10,6 +10,7 @@ const placeholders = await fetchPlaceholders((result) => result);
 const payload = {
   offset: 0,
   limit: 8,
+  total: 0,
 };
 
 function getFetchRange() {
@@ -155,6 +156,12 @@ function getCols(total) {
 }
 
 function decorateCards(block, cards) {
+  if (cards.length < payload.limit && cards.length !== payload.total) {
+    payload.total = cards.length;
+  }
+
+  payload.cols = getCols(payload.total);
+
   if (payload.total === 5) {
     block.classList.add('col-3-pf-cards');
     const pfRowFive = createTag('div', { class: 'page-feed col-2-pf-cards' });
@@ -214,7 +221,7 @@ export default async function pageFeed(block) {
   const cards = [];
   const overlay = (block.classList.contains('overlay'));
   payload.overlay = overlay;
-  payload.cols = getCols(rows.length);
+  payload.total = rows.length;
   if (block.classList.contains('fit')) {
     block.classList.add('pf-fit');
     block.classList.remove('fit');
@@ -229,19 +236,17 @@ export default async function pageFeed(block) {
       const pageLinks = children[0].querySelector('ul').querySelectorAll('a');
       if (pageLinks[0] && pageLinks[0].href && pageLinks[0].href.endsWith('.json')) {
         payload.loadFromJson = true;
-        const linksFromSpreadsheet = await loadPageFeedFromSpreadsheet(pageLinks[0].href);
+        let linksFromSpreadsheet = await loadPageFeedFromSpreadsheet(pageLinks[0].href);
+        linksFromSpreadsheet = linksFromSpreadsheet.filter((link) => link.setting !== 'in_featured_pod');
         if (linksFromSpreadsheet && linksFromSpreadsheet.length) {
           payload.pageLinks = linksFromSpreadsheet;
-          payload.total = linksFromSpreadsheet.length;
           payload.limit = payload.cols % 2 ? 6 : 8;
+          payload.total = linksFromSpreadsheet.length;
           const range = getFetchRange();
           for (let x = 0; x < range; x += 1) {
-            if (linksFromSpreadsheet[x].setting !== 'in_featured_pod') {
-              const card = await loadPageFeedCard(linksFromSpreadsheet[x].link);
-              if (card) cards.push(buildCard(card, overlay));
-            }
+            const card = await loadPageFeedCard(linksFromSpreadsheet[x].link);
+            if (card) cards.push(buildCard(card, overlay));
           }
-          payload.cols = getCols(payload.total);
         }
       } else {
         payload.pageLinks = pageLinks;
@@ -252,9 +257,9 @@ export default async function pageFeed(block) {
           if (pageLinks[i] && pageLinks[i].href) {
             const card = await loadPageFeedCard(pageLinks[i]);
             if (card) cards.push(buildCard(card, overlay));
+            payload.total += 1;
           }
         }
-        payload.cols = getCols(payload.total);
       }
     } else {
       cards.push(buildCard(rows[n], overlay));
