@@ -154,9 +154,7 @@ function getCols(total) {
   return len;
 }
 
-function decorateCards(block, cards, offset) {
-  payload.offset = offset;
-
+function decorateCards(block, cards) {
   if (payload.total === 5) {
     block.classList.add('col-3-pf-cards');
     const pfRowFive = createTag('div', { class: 'page-feed col-2-pf-cards' });
@@ -206,7 +204,7 @@ function decorateCards(block, cards, offset) {
         }
       }
 
-      decorateCards(block, newCards, payload.offset);
+      decorateCards(block, newCards);
     });
   }
 }
@@ -216,6 +214,7 @@ export default async function pageFeed(block) {
   const cards = [];
   const overlay = (block.classList.contains('overlay'));
   payload.overlay = overlay;
+  payload.cols = getCols(rows.length);
   if (block.classList.contains('fit')) {
     block.classList.add('pf-fit');
     block.classList.remove('fit');
@@ -234,7 +233,6 @@ export default async function pageFeed(block) {
         if (linksFromSpreadsheet && linksFromSpreadsheet.length) {
           payload.pageLinks = linksFromSpreadsheet;
           payload.total = linksFromSpreadsheet.length;
-          payload.cols = getCols(payload.total);
           payload.limit = payload.cols % 2 ? 6 : 8;
           const range = getFetchRange();
           for (let x = 0; x < range; x += 1) {
@@ -243,12 +241,12 @@ export default async function pageFeed(block) {
               if (card) cards.push(buildCard(card, overlay));
             }
           }
+          payload.cols = getCols(payload.total);
         }
       } else {
         payload.pageLinks = pageLinks;
         payload.loadFromJson = false;
         payload.total = pageLinks.length;
-        payload.cols = getCols(payload.total);
         const range = getFetchRange();
         for (let i = 0; i < range; i += 1) {
           if (pageLinks[i] && pageLinks[i].href) {
@@ -256,12 +254,12 @@ export default async function pageFeed(block) {
             if (card) cards.push(buildCard(card, overlay));
           }
         }
+        payload.cols = getCols(payload.total);
       }
     } else {
-      payload.cols = getCols(rows.length);
       cards.push(buildCard(rows[n], overlay));
     }
   }
   block.innerHTML = '';
-  decorateCards(block, cards, payload.offset);
+  decorateCards(block, cards);
 }
