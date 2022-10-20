@@ -11,6 +11,7 @@ const payload = {
   offset: 0,
   limit: 8,
   total: 0,
+  cols: 4,
 };
 
 function getFetchRange() {
@@ -160,7 +161,10 @@ function decorateCards(block, cards) {
     payload.total = cards.length;
   }
 
-  payload.cols = getCols(payload.total);
+  if (payload.total < payload.limit) {
+    payload.cols = getCols(payload.total);
+    payload.limit = payload.cols % 2 ? 6 : 8;
+  }
 
   if (payload.total === 5) {
     block.classList.add('col-3-pf-cards');
@@ -240,7 +244,6 @@ export default async function pageFeed(block) {
         linksFromSpreadsheet = linksFromSpreadsheet.filter((link) => link.setting !== 'in_featured_pod');
         if (linksFromSpreadsheet && linksFromSpreadsheet.length) {
           payload.pageLinks = linksFromSpreadsheet;
-          payload.limit = payload.cols % 2 ? 6 : 8;
           payload.total = linksFromSpreadsheet.length;
           const range = getFetchRange();
           for (let x = 0; x < range; x += 1) {
