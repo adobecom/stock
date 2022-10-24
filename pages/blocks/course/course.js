@@ -315,7 +315,6 @@ async function buildPayload(block, payload) {
   const videoSpreadSheetUrl = rows[0].querySelector('a').href;
   payload.videos = await fetchVideos(videoSpreadSheetUrl);
   rows.shift();
-
   rows.forEach((row, index, array) => {
     const heading = payload.placeholders[placeholderKeys[index]];
     const content = row.querySelector('div').innerHTML;
