@@ -22,7 +22,7 @@ function hasSchema(host) {
 (() => {
   window.hlx.initSidekick({
     hlx3: true,
-    project: 'stock',
+    project: 'Stock',
     host: 'stock.adobe.com',
     outerHost: 'stock--adobecom.hlx.live',
     libraries: [
