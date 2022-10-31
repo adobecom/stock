@@ -220,7 +220,7 @@ export async function gnavUnderline() {
   const links = document.querySelectorAll('.gnav-navitem > a');
   let currentActivePage;
   for (let i = 0; i < links.length; i += 1) {
-    if (window.location.host === links[i].host && relHref.startsWith(makeRelative(links[i].href)) && links[i].textContent !== 'Home') {
+    if (window.location.host === links[i].host && relHref.startsWith(makeRelative(links[i].href)) && !(relHref.endsWith('/pages/artisthub/'))) {
       currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
       if (currentActivePage) currentActivePage.classList.remove('active-page');
       links[i].classList.add('active-page');
