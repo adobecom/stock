@@ -327,8 +327,10 @@ export async function handleIcons() {
     if (svgEl) {
       icon.parentNode.replaceChild(svgEl, icon);
       const btnContainer = svgEl.closest('p.button-container');
-      btnContainer.classList.remove('button-container');
-      btnContainer.classList.add('icon-container');
+      if (btnContainer) {
+        btnContainer.classList.remove('button-container');
+        btnContainer.classList.add('icon-container');
+      }
     }
   });
 }
