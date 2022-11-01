@@ -581,7 +581,8 @@ main .page-feed.avatar .pf-card-picture {
   margin: 0 auto;
 }
 
-main .page-feed.avatar .pf-card-picture img {
+main .page-feed.avatar .pf-card-picture img,
+main .page-feed.avatar .pf-card-picture video {
   position: absolute;
   top: 0;
   left: 0;
