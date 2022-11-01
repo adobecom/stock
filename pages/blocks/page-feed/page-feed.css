@@ -1,7 +1,11 @@
 /* (Default) shows an image at the top and text at the bottom */
+
 /* (Overlay) shows an image in the background and a dark overlay with white text in front */
+
 /* (Horizontal) shows an image on the left and text on the right */
+
 /* (Fit) shows the full image without cropping, please make sure to use the same height for each card in a card-set */
+
 /* (Borderless) shows the cards with out the border. It's also a variant that's best used for featured mentors section. */
 
 main .page-feed {
@@ -436,7 +440,7 @@ main .page-feed.horizontal.col-4-pf-cards {
   main .page-feed.horizontal.col-3-pf-cards {
     grid-template-columns: 1fr;
   }
-  
+
   main .page-feed.col-4-pf-cards {
     grid-template-columns: 1fr 1fr;
   }
@@ -462,12 +466,12 @@ main > div.section:first-of-type > .page-feed:first-child {
   main .page-feed.col-5-pf-cards {
     grid-template-columns: 1fr 1fr 1fr;
   }
-  
+
   main .page-feed.horizontal.col-3-pf-cards,
   main .page-feed.horizontal.col-5-pf-cards {
     grid-template-columns: 1fr;
   }
-  
+
 }
 
 @media screen and (max-width: 799px) {
@@ -551,6 +555,12 @@ main .section .page-feed + .banner {
 
 main .section.has-background .page-feed:first-child {
   margin-top: 0;
+}
+
+main .section .page-feed + .content > p.button-container:first-child {
+  margin: 24px auto 0;
+  display: block;
+  width: max-content;
 }
 
 @media screen and (min-width: 1200px) {
