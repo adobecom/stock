@@ -316,8 +316,8 @@ async function buildPayload(block, payload) {
   const videoSpreadSheetUrl = rows[0].querySelector('a').href;
   payload.videos = await fetchVideos(videoSpreadSheetUrl);
   payload.videos.forEach((video) => {
-    video.mp4 = makeRelative(video.mp4);
-    video.webm = makeRelative(video.webm);
+    video.mp4 = `/pages${makeRelative(video.mp4)}`;
+    video.webm = `/pages${makeRelative(video.webm)}`;
   });
   rows.shift();
   rows.forEach((row, index, array) => {
