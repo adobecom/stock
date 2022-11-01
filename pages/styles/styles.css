@@ -54,6 +54,23 @@ main video {
   margin: 0 0 12px;
 }
 
+p.icon-container svg.icon {
+  height: 26px;
+  transition: filter 0.3s;
+  display: inline-block;
+  width: auto;
+  margin: 0;
+  color: #adadad;
+}
+
+p.icon-container a svg.icon:hover {
+  filter: brightness(0.7);
+}
+
+p.icon-container > a:not(:last-child) {
+  margin-right: 18px;
+}
+
 /* buttons */
 
 main a.button:any-link {

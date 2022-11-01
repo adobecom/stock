@@ -304,3 +304,31 @@ export async function handleAnchors() {
     }
   });
 }
+
+export async function handleIcons() {
+  const { getSVGsfromFile } = await import(`${miloLibs}/blocks/share/share.js`);
+  const iconsSvgPath = '/pages/img/icons/icons.svg';
+  const icons = document.querySelectorAll('span.icon');
+  icons.forEach((icon) => icon.parentElement.classList.remove('button'));
+  icons.forEach(async (icon) => {
+    let svgEl = null;
+    let iconName = null;
+    for (let i = 0; i < icon.classList.length; i++) {
+      if (icon.classList[i].match(/^icon-\w+/)) {
+        iconName = icon.classList[i].split('-')[1];
+        const svgs = await getSVGsfromFile(iconsSvgPath, [iconName]);
+        if (svgs && svgs.length && svgs[0].svg) { svgEl = svgs[0].svg; }
+      }
+    }
+    if (!svgEl) {
+      const svgs = await getSVGsfromFile(iconsSvgPath, ['link']);
+      if (svgs && svgs.length && svgs[0].svg) { svgEl = svgs[0].svg; }
+    }
+    if (svgEl) {
+      icon.parentNode.replaceChild(svgEl, icon);
+      const btnContainer = svgEl.closest('p.button-container');
+      btnContainer.classList.remove('button-container');
+      btnContainer.classList.add('icon-container');
+    }
+  });
+}
