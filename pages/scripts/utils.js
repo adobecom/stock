@@ -317,7 +317,7 @@ export async function handleIcons() {
       if (icon.classList[i].match(/^icon-\w+/)) {
         iconName = icon.classList[i].split('-')[1];
         const svgs = await getSVGsfromFile(iconsSvgPath, [iconName]);
-        if (svgs && svgs.length && svgs[0].svg) { svgEl = svgs[0].svg; }
+        if (svgs && svgs[0]) { svgEl = svgs[0].svg; }
       }
     }
     if (!svgEl) {
