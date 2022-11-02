@@ -1,10 +1,24 @@
-
 import {
   createTag,
   transformLinkToAnimation,
   makeRelative,
   turnH6intoDetailM,
+  fetchPlaceholders,
 } from '../../scripts/utils.js';
+
+const placeholders = await fetchPlaceholders((result) => result);
+
+function getFetchRange(payload) {
+  let range;
+
+  if (payload.offset + payload.limit < payload.cardsToBuild.length) {
+    range = payload.offset + payload.limit;
+  } else {
+    range = payload.cardsToBuild.length;
+  }
+
+  return range;
+}
 
 export async function loadPageFeedCard(a) {
   const href = (typeof (a) === 'string') ? a : a.href;
@@ -33,7 +47,7 @@ export async function loadPageFeedFromSpreadsheet(sheetUrl) {
   const json = await resp.json();
   const returnUrls = [];
   json.data.forEach((row) => {
-    returnUrls.push({ link: row['page-url'], setting: row['setting'] })
+    returnUrls.push({ link: row['page-url'], setting: row['setting'] });
   });
   return returnUrls;
 }
@@ -97,14 +111,119 @@ function buildCard(card, overlay = false) {
     div.classList.add('pf-card-overlay');
     card.appendChild(div);
   }
-  return card
+  return card;
+}
+
+function decorateLoadMoreButton(block) {
+  const loadMoreWrapper = createTag('div', { class: 'content' });
+  const loadMoreContainer = createTag('p', { class: 'button-container' });
+  const loadMore = document.createElement('a');
+  loadMore.className = 'button transparent';
+  loadMore.href = '#';
+  loadMore.textContent = placeholders['load-more'];
+  loadMoreContainer.append(loadMore);
+  loadMoreWrapper.append(loadMoreContainer);
+  block.insertAdjacentElement('afterend', loadMoreWrapper);
+
+  return {
+    wrapper: loadMoreWrapper,
+    button: loadMore,
+  };
+}
+
+function getCols(total) {
+  let len;
+  if (total === 1 || total === 2) {
+    len = 2;
+  } else if (total % 3 === 0) {
+    len = 3;
+  } else if (total % 4 === 0) {
+    len = 4;
+  } else if (total % 5 === 0) {
+    len = 5;
+  } else if (total % 7 === 0) {
+    len = 7;
+  } else {
+    len = 4;
+  }
+
+  return len;
+}
+
+function decorateCards(block, cards, payload) {
+  if (payload.cardsToBuild.length < payload.limit) {
+    payload.cols = getCols(payload.cardsToBuild.length);
+    payload.limit = payload.cols % 2 ? 6 : 8;
+  }
+
+  if (payload.cardsToBuild.length === 5) {
+    block.classList.add('col-3-pf-cards');
+    const pfRowFive = createTag('div', { class: 'page-feed col-2-pf-cards' });
+    pfRowFive.append(cards[3]);
+    pfRowFive.append(cards[4]);
+    payload.offset += 2;
+    block.insertAdjacentElement('afterend', pfRowFive);
+  } else if (payload.cardsToBuild.length === 7) {
+    block.classList.add('col-3-pf-cards');
+    const pfRowSeven = createTag('div', { class: 'page-feed col-4-pf-cards' });
+    pfRowSeven.append(cards[3]);
+    pfRowSeven.append(cards[4]);
+    pfRowSeven.append(cards[5]);
+    pfRowSeven.append(cards[6]);
+    payload.offset += 4;
+    block.insertAdjacentElement('afterend', pfRowSeven);
+  } else {
+    block.classList.add(`col-${payload.cols}-pf-cards`);
+  }
+
+  for (let i = 0; i < cards.length; i += 1) {
+    if (![5, 7].includes(payload.cols) || ([5, 7].includes(payload.cols) && i < 3)) {
+      block.append(cards[i]);
+      payload.offset += 1;
+    }
+  }
+
+  const newRange = getFetchRange(payload);
+
+  if (payload.offset < payload.cardsToBuild.length) {
+    const loadMoreObject = decorateLoadMoreButton(block);
+    loadMoreObject.button.addEventListener('click', async (event) => {
+      event.preventDefault();
+      loadMoreObject.wrapper.remove();
+
+      const newCards = [];
+
+      for (let i = payload.offset; i < newRange; i += 1) {
+        if (payload.loadFromJson) {
+          if (payload.cardsToBuild[i].setting !== 'in_featured_pod') {
+            const card = await loadPageFeedCard(payload.cardsToBuild[i].link);
+            if (card) newCards.push(buildCard(card, payload.overlay));
+          }
+        } else if (payload.cardsToBuild[i] && payload.cardsToBuild[i].href) {
+          const card = await loadPageFeedCard(payload.cardsToBuild[i]);
+          if (card) newCards.push(buildCard(card, payload.overlay));
+        } else {
+          newCards.push(buildCard(payload.cardsToBuild[i], payload.overlay));
+        }
+      }
+
+      decorateCards(block, newCards, payload);
+    });
+  }
 }
 
 export default async function pageFeed(block) {
+  const payload = {
+    offset: 0,
+    limit: 8,
+    cols: 4,
+  };
+  const undefinedCards = [];
   const rows = Array.from(block.children);
-  block.innerHTML = '';
+  payload.cardsToBuild = rows;
   const cards = [];
   const overlay = (block.classList.contains('overlay'));
+  payload.overlay = overlay;
   if (block.classList.contains('fit')) {
     block.classList.add('pf-fit');
     block.classList.remove('fit');
@@ -112,56 +231,50 @@ export default async function pageFeed(block) {
     block.classList.add('pf-overlay');
     block.classList.remove('overlay');
   }
+
   for (let n = 0; n < rows.length; n += 1) {
-    const children = rows[n].children;
+    const { children } = rows[n];
     if (children.length > 0 && children[0].querySelector('ul')) {
       const pageLinks = children[0].querySelector('ul').querySelectorAll('a');
-      for (let i = 0; i < pageLinks.length; i += 1) {
-        if (pageLinks[i] && pageLinks[i].href && pageLinks[i].href.endsWith('.json')) {
-          const linksFromSpreadsheet = await loadPageFeedFromSpreadsheet(pageLinks[i].href);
-          if (linksFromSpreadsheet && linksFromSpreadsheet.length) {
-            for (let x = 0; x < linksFromSpreadsheet.length; x += 1) {
-              if (linksFromSpreadsheet[x].setting !== 'in_featured_pod') {
-                const card = await loadPageFeedCard(linksFromSpreadsheet[x].link);
-                if (card) cards.push(buildCard(card, overlay));
-              }
+      if (pageLinks[0] && pageLinks[0].href && pageLinks[0].href.endsWith('.json')) {
+        payload.loadFromJson = true;
+        const linksFromSpreadsheet = await loadPageFeedFromSpreadsheet(pageLinks[0].href);
+        payload.cardsToBuild = linksFromSpreadsheet.filter((link) => link && link.setting !== 'in_featured_pod');
+        if (payload.cardsToBuild && payload.cardsToBuild.length) {
+          const range = getFetchRange(payload);
+          for (let x = 0; x < range; x += 1) {
+            const card = await loadPageFeedCard(payload.cardsToBuild[x].link);
+            if (card) {
+              cards.push(buildCard(card, overlay));
+            } else {
+              undefinedCards.push(x);
             }
           }
-        } else if (pageLinks[i] && pageLinks[i].href) {
-          const card = await loadPageFeedCard(pageLinks[i]);
-          if (card) cards.push(buildCard(card, overlay));
+        }
+      } else {
+        payload.cardsToBuild = pageLinks;
+        payload.loadFromJson = false;
+        const range = getFetchRange(payload);
+        for (let i = 0; i < range; i += 1) {
+          if (pageLinks[i] && pageLinks[i].href) {
+            const card = await loadPageFeedCard(pageLinks[i]);
+            if (card) {
+              cards.push(buildCard(card, overlay));
+            } else {
+              undefinedCards.push(i);
+            }
+          }
         }
       }
     } else {
       cards.push(buildCard(rows[n], overlay));
     }
-  };
-  block.innerHTML = '';
-  let len = cards.length;
-  let odd = false;
-  if (cards.length === 1 || cards.length === 2 ) {
-    len = 2;
-  } else if (cards.length % 3 === 0) {
-    len = 3;
-  } else if (cards.length % 4 === 0) {
-    len = 4;
-  } else if (cards.length % 5 === 0) {
-    len = 5;
-  } else {
-    len = 4;
   }
-  if (cards.length === 5) {
-    block.classList.add(`col-3-pf-cards`);
-    const pfRowFive = createTag('div', { class: 'page-feed col-2-pf-cards' });
-    pfRowFive.append(cards[3]);
-    pfRowFive.append(cards[4]);
-    block.insertAdjacentElement('afterend', pfRowFive)
-  } else {
-    block.classList.add(`col-${len}-pf-cards`);
-  }
-  cards.forEach((card, index) => {
-    if (len != 5 || (len === 5 && index < 3)) {
-      block.append(card);
-    }
+
+  undefinedCards.forEach((index) => {
+    payload.cardsToBuild.splice(index, 1);
   });
+
+  block.innerHTML = '';
+  decorateCards(block, cards, payload);
 }

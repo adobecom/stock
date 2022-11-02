@@ -220,14 +220,14 @@ export async function gnavUnderline() {
   const links = document.querySelectorAll('.gnav-navitem > a');
   let currentActivePage;
   for (let i = 0; i < links.length; i += 1) {
-    if (relHref.startsWith(makeRelative(links[i].href)) && links[i].textContent !== 'Home') {
+    if (window.location.host === links[i].host && relHref.startsWith(makeRelative(links[i].href)) && !(relHref.endsWith('/pages/artisthub/'))) {
       currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
       if (currentActivePage) currentActivePage.classList.remove('active-page');
       links[i].classList.add('active-page');
     }
   }
   for (let x = 0; x < links.length; x += 1) {
-    if (makeRelative(links[x].href) === relHref) {
+    if (window.location.host === links[x].host && makeRelative(links[x].href) === relHref) {
       currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
       if (currentActivePage) currentActivePage.classList.remove('active-page');
       links[x].classList.add('active-page');
