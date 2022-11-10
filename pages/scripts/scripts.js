@@ -27,7 +27,7 @@ const CONFIG = {
   // imsClientId: 'college',
   contentRoot: '/pages',
   codeRoot: '/pages',
-  llocales: {
+  locales: {
     '': { ietf: 'en-US', tk: 'hah7vzn.css' },
     br: { ietf: 'pt-BR', tk: 'inq1xob.css' },
     es: { ietf: 'es-ES', tk: 'oln4yqj.css' },
