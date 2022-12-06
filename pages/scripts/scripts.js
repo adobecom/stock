@@ -19,6 +19,7 @@ import {
   externalLinks,
   gnavUnderline,
   handleAnchors,
+  handleIcons,
 } from './utils.js';
 
 const LIBS = 'https://milo.adobe.com/libs';
@@ -71,5 +72,6 @@ const { loadArea, loadDelayed, setConfig } = await import(`${miloLibs}/utils/uti
   customSpacings();
   gnavUnderline();
   handleAnchors();
+  handleIcons();
   loadDelayed();
 }());
