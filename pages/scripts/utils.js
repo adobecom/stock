@@ -68,6 +68,7 @@ export function handleAliases(scope = document) {
   Object.keys(aliases).forEach((alias) => {
     scope.querySelectorAll(`.${alias}`).forEach((el) => {
       el.classList.replace(alias, aliases[alias]);
+      if (el.classList.contains('z-pattern')) el.classList.add('large');
     });
   });
 }
