@@ -39,7 +39,7 @@ main h2 {
   line-height: var(--type-heading-xl-lh);
 }
 
-main p {
+main p:not(.icon-area) {
   margin: 0;
   padding-top: 8px;
   padding-bottom: 12px;
@@ -67,11 +67,11 @@ main p.detail-M + h4 {
   padding-top: 8px;
 }
 
-main p:not(.detail-M) + h1,
-main p:not(.detail-M) + h2,
-main p:not(.detail-M) + h3,
-main p:not(.detail-M) + h4
-main p:not(.detail-M) + p.detail-M {
+main p:not(.detail-M):not(.icon-area) + h1,
+main p:not(.detail-M):not(.icon-area) + h2,
+main p:not(.detail-M):not(.icon-area) + h3,
+main p:not(.detail-M):not(.icon-area) + h4
+main p:not(.detail-M):not(.icon-area) + p.detail-M {
   padding-top: var(--block-spacing-m);
 }
 
