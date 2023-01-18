@@ -11,7 +11,7 @@
  */
 
 import {
-  fetchPlaceholders,
+  replaceKey,
   loadBlockCSS,
   createTag,
   makeRelative,
@@ -348,19 +348,17 @@ async function buildPayload(block, payload) {
 }
 
 export default async function decorate(block) {
-  const results = await fetchPlaceholders((placeholders) => placeholders);
-
   const payload = {
     videoIndex: 0,
     tabs: [],
     videos: [],
     placeholders: {
-      'course-tab-description': results['course-tab-description'] ? results['course-tab-description'] : 'Description',
-      'course-tab-resources': results['course-tab-resources'] ? results['course-tab-resources'] : 'Resources',
-      'course-tab-takeaways': results['course-tab-takeaways'] ? results['course-tab-takeaways'] : 'Takeaways',
-      'course-tab-transcript': results['course-tab-transcript'] ? results['course-tab-transcript'] : 'Transcript',
-      'course-menu-heading': results['course-menu-heading'] ? results['course-menu-heading'] : 'Lessons',
-      'course-menu-share-heading': results['course-menu-share-heading'] ? results['course-menu-share-heading'] : 'Share this course:',
+      'course-tab-description': replaceKey('course-tab-description') ? replaceKey('course-tab-description') : 'Description',
+      'course-tab-resources': replaceKey('course-tab-resources') ? replaceKey('course-tab-resources') : 'Resources',
+      'course-tab-takeaways': replaceKey('course-tab-takeaways') ? replaceKey('course-tab-takeaways') : 'Takeaways',
+      'course-tab-transcript': replaceKey('course-tab-transcript') ? replaceKey('course-tab-transcript') : 'Transcript',
+      'course-menu-heading': replaceKey('course-menu-heading') ? replaceKey('course-menu-heading') : 'Lessons',
+      'course-menu-share-heading': replaceKey('course-menu-share-heading') ? replaceKey('course-menu-share-heading') : 'Share this course:',
     },
   };
 
