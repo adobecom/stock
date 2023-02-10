@@ -130,7 +130,7 @@ export function decorateButtons(scope = document) {
     return node.nodeName.toLowerCase() === name.toLowerCase();
   };
   scope.querySelectorAll(':scope a').forEach((a) => {
-    a.title = a.title || a.textContent || a.href;
+    a.title = a.title || a.href;
     const block = a.closest('div.section > div');
     const blockNames = [];
     if (block) {
