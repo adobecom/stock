@@ -10,23 +10,21 @@
  * governing permissions and limitations under the License.
  */
 
-import {
-  setLibs,
-  unwrapSingularFragments,
-  decorateButtons,
-  turnH6intoDetailM,
-  customSpacings,
-  externalLinks,
-  gnavUnderline,
-  handleAnchors,
-} from './utils.js';
+import { setLibs } from './utils.js';
 
-const LIBS = 'https://milo.adobe.com/libs';
+// Add project-wide style path here.
 const STYLES = '/pages/styles/styles.css';
+
+// Use '/libs' if your live site maps '/libs' to milo's origin.
+const LIBS = 'https://milo.adobe.com/libs';
+
+// Add any config options.
 const CONFIG = {
-  // imsClientId: 'college',
-  contentRoot: '/pages',
   codeRoot: '/pages',
+  contentRoot: '/pages',
+  // imsClientId: 'stock',
+  // geoRouting: 'off',
+  // fallbackRouting: 'off',
   locales: {
     '': { ietf: 'en-US', tk: 'hah7vzn.css' },
     br: { ietf: 'pt-BR', tk: 'inq1xob.css' },
@@ -35,9 +33,10 @@ const CONFIG = {
   },
 };
 
+// Load LCP image immediately
 (async function loadLCPImage() {
   const lcpImg = document.querySelector('img');
-  lcpImg?.setAttribute('loading', 'eager');
+  lcpImg?.removeAttribute('loading');
 }());
 
 /*
@@ -59,17 +58,48 @@ const miloLibs = setLibs(LIBS);
   });
 }());
 
-const { loadArea, loadDelayed, setConfig } = await import(`${miloLibs}/utils/utils.js`);
-
 (async function loadPage() {
+  const { loadArea, loadDelayed, setConfig } = await import(`${miloLibs}/utils/utils.js`);
+
   setConfig({ ...CONFIG, miloLibs });
-  decorateButtons();
-  turnH6intoDetailM();
   await loadArea();
-  unwrapSingularFragments();
-  externalLinks();
-  customSpacings();
-  gnavUnderline();
-  handleAnchors();
   loadDelayed();
 }());
+
+/*
+* ------------------------------------------------------------
+*/
+
+export function makeRelative(href) {
+  const projectName = 'stock--adobecom';
+  const productionDomains = ['stock.adobe.com'];
+  const fixedHref = href.replace(/\u2013|\u2014/g, '--');
+  const hosts = [`${projectName}.hlx.page`, `${projectName}.hlx.live`, ...productionDomains];
+  const url = new URL(fixedHref);
+  const relative = hosts.some((host) => url.hostname.includes(host))
+    || url.hostname === window.location.hostname;
+  return relative ? `${url.pathname}${url.search}${url.hash}` : href;
+}
+
+(function gnavUnderline() {
+  const { href } = window.location;
+  const relHref = makeRelative(href);
+  if (!relHref.includes('artisthub')) return;
+  const links = document.querySelectorAll('.gnav-navitem > a');
+  let currentActivePage;
+  for (let i = 0; i < links.length; i += 1) {
+    if (window.location.host === links[i].host && relHref.startsWith(makeRelative(links[i].href)) && !(relHref.endsWith('/pages/artisthub/'))) {
+      currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
+      if (currentActivePage) currentActivePage.classList.remove('active-page');
+      links[i].classList.add('active-page');
+    }
+  }
+  for (let x = 0; x < links.length; x += 1) {
+    if (window.location.host === links[x].host && makeRelative(links[x].href) === relHref) {
+      currentActivePage = document.querySelector('.gnav-navitem > a.active-page');
+      if (currentActivePage) currentActivePage.classList.remove('active-page');
+      links[x].classList.add('active-page');
+    }
+  }
+})();
+

@@ -7,7 +7,7 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Debug Helix",
+            "name": "Debug on Helix",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}"
         }
