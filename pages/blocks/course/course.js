@@ -10,12 +10,11 @@
  * governing permissions and limitations under the License.
  */
 
-import {
-  fetchPlaceholders,
-  loadBlockCSS,
-  createTag,
-  makeRelative,
-} from '../../scripts/utils.js';
+import { makeRelative } from '../../scripts/scripts.js';
+import { getLibs } from '../../scripts/utils.js';
+const libs = getLibs();
+const { createTag } = await import(`${libs}/scripts/utils.js`);
+const { replacekey } = await import(`${libs}/features/placeholders.js`);
 
 function handlize(string) {
   return string.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '');
@@ -76,7 +75,7 @@ async function buildCards(block, payload) {
   }
 
   if (tabCounts > 0) {
-    await loadBlockCSS('page-feed');
+    // await loadBlockCSS('page-feed');
     cardsTray.style.removeProperty('opacity');
     cardsTray.style.removeProperty('pointer-events');
   }
@@ -348,19 +347,17 @@ async function buildPayload(block, payload) {
 }
 
 export default async function decorate(block) {
-  const results = await fetchPlaceholders((placeholders) => placeholders);
-
   const payload = {
     videoIndex: 0,
     tabs: [],
     videos: [],
     placeholders: {
-      'course-tab-description': results['course-tab-description'] ? results['course-tab-description'] : 'Description',
-      'course-tab-resources': results['course-tab-resources'] ? results['course-tab-resources'] : 'Resources',
-      'course-tab-takeaways': results['course-tab-takeaways'] ? results['course-tab-takeaways'] : 'Takeaways',
-      'course-tab-transcript': results['course-tab-transcript'] ? results['course-tab-transcript'] : 'Transcript',
-      'course-menu-heading': results['course-menu-heading'] ? results['course-menu-heading'] : 'Lessons',
-      'course-menu-share-heading': results['course-menu-share-heading'] ? results['course-menu-share-heading'] : 'Share this course:',
+      'course-tab-description': await replacekey('description'),
+      'course-tab-resources': await replacekey('resources'),
+      'course-tab-takeaways': await replacekey('takeaways'),
+      'course-tab-transcript': await replacekey('transcript'),
+      'course-menu-heading': await replacekey('lessons'),
+      'course-menu-share-heading': await replacekey('share-this-course:'),
     },
   };
 

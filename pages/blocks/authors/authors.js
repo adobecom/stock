@@ -1,13 +1,15 @@
-import { getMetadata, createTag, fetchPlaceholders } from '../../scripts/utils.js';
+import { getLibs, getMetadata } from '../../scripts/utils.js';
+const libs = getLibs();
+const { createTag } = await import(`${libs}/scripts/utils.js`);
+const { replacekey } = await import(`${libs}/features/placeholders.js`);
 
 export default async function authors(block) {
   const metaAuthors = getMetadata('authors');
-  const placeholders = await fetchPlaceholders((placeholders) => placeholders);
 
   const heading = createTag('h3');
   const authors = createTag('p');
 
-  heading.textContent = `${placeholders['authors-block-heading']}:`;
+  heading.textContent = `${await replacekey('authors')}:`;
   authors.textContent = metaAuthors;
 
   block.append(heading, authors);

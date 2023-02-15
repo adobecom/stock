@@ -1,6 +1,6 @@
 main .authors {
-  border-top: solid 2px var(--color-gray-400);
-  border-bottom: solid 2px var(--color-gray-400);
+  border-top: 1px solid #cacaca;
+  border-bottom: 1px solid #cacaca;
   max-width: var(--grid-container-width);
   margin: 40px auto;
   padding: 8px 0;
