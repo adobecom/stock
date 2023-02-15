@@ -103,3 +103,17 @@ export function makeRelative(href) {
   }
 })();
 
+(function handleAnchors() {
+  const sectionToggles = Array.from(document.querySelectorAll('[data-anchor-section]'));
+  sectionToggles.forEach(async (toggleSection, index) => {
+    if (window.location.hash === toggleSection.getAttribute('data-anchor-section')) {
+      toggleSection.classList.add('anchor-section-toggle--active');
+      await delay(500);
+      window.scroll({ top: toggleSection.offsetTop - 97, left: 0, behavior: 'smooth' });
+    } else if (index === 0 && !window.location.hash) {
+      toggleSection.classList.add('anchor-section-toggle--active');
+    } else {
+      toggleSection.classList.add('anchor-section-toggle--hidden');
+    }
+  });
+})();
