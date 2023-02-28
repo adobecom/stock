@@ -2,9 +2,9 @@ import {
   transformLinkToAnimation,
   makeRelative,
   turnH6intoDetailM,
+  createTag,
   getConfig,
   replaceKey,
-  createTag,
   toSentenceCase,
 } from '../../scripts/utils.js';
 

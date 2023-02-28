@@ -3,6 +3,7 @@ import {
   createTag,
   getConfig,
   replaceKey,
+  toSentenceCase,
 } from '../../scripts/utils.js';
 
 export default async function authors(block) {
@@ -10,7 +11,7 @@ export default async function authors(block) {
   const heading = createTag('h3');
   const authors = createTag('p');
   const headingTitle = await replaceKey('authors', getConfig());
-  heading.textContent = headingTitle;
+  heading.textContent = toSentenceCase(headingTitle);
   authors.textContent = metaAuthors;
   block.append(heading, authors);
 }
