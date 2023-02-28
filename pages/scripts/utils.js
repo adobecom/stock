@@ -1,3 +1,6 @@
+/**
+ * The decision engine for where to get Milo's libs from.
+ */
 export const [setLibs, getLibs] = (() => {
   let libs;
   return [
@@ -7,19 +10,20 @@ export const [setLibs, getLibs] = (() => {
         && !hostname.includes('hlx.live')
         && !hostname.includes('localhost')) {
         libs = prodLibs;
-        return libs;
+      } else {
+        const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
+        if (branch === 'local') {
+          libs = 'http://localhost:6456/libs';
+        } else if (branch.indexOf('--') > -1) {
+          libs = `https://${branch}.hlx.live/libs`;
+        } else {
+          libs = `https://${branch}--milo--adobecom.hlx.live/libs`;
+        }
       }
-      const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
-      if (branch === 'local') return 'http://localhost:6456/libs';
-      if (branch.indexOf('--') > -1) return `https://${branch}.hlx.page/libs`;
-      return `https://${branch}--milo--adobecom.hlx.live/libs`;
+      return libs;
     }, () => libs,
   ];
 })();
-const LIBS = 'https://milo.adobe.com/libs';
-const miloLibs = setLibs(LIBS);
-const { getConfig } = await import(`${miloLibs}/utils/utils.js`);
-
 /*
 * ------------------------------------------------------------
 * Edit above at your own risk
