@@ -50,14 +50,14 @@ export async function fetchPlaceholders() {
   const localeRoot = locale.contentRoot;
   if (!window.placeholders) {
     try {
-      const resp = await fetch(`${localeRoot}/pages/artisthub/placeholders.json`);
+      const resp = await fetch(`${localeRoot}/artisthub/placeholders.json`);
       const json = await resp.json();
       window.placeholders = {};
       json.data.forEach((placeholder) => {
         window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
       });
     } catch {
-      const resp = await fetch('/pages/artisthub/placeholders.json');
+      const resp = await fetch('/artisthub/placeholders.json');
       const json = await resp.json();
       window.placeholders = {};
       json.data.forEach((placeholder) => {
