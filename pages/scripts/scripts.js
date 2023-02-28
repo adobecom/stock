@@ -21,12 +21,20 @@ import {
   handleAnchors,
 } from './utils.js';
 
-const LIBS = 'https://milo.adobe.com/libs';
+// Add project-wide style path here.
 const STYLES = '/pages/styles/styles.css';
+
+// Use '/libs' if your live site maps '/libs' to milo's origin.
+const LIBS = 'https://milo.adobe.com/libs';
+
+// Add any config options.
 const CONFIG = {
-  // imsClientId: 'college',
   contentRoot: '/pages',
   codeRoot: '/pages',
+  contentRoot: '/pages',
+  // imsClientId: 'stock',
+  // geoRouting: 'off',
+  // fallbackRouting: 'off',
   locales: {
     '': { ietf: 'en-US', tk: 'hah7vzn.css' },
     br: { ietf: 'pt-BR', tk: 'inq1xob.css' },
@@ -37,7 +45,7 @@ const CONFIG = {
 
 (async function loadLCPImage() {
   const lcpImg = document.querySelector('img');
-  lcpImg?.setAttribute('loading', 'eager');
+  lcpImg?.removeAttribute('loading');
 }());
 
 /*
