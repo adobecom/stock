@@ -35,6 +35,7 @@ const miloLibs = setLibs(LIBS);
 export const { createTag } = await import(`${miloLibs}/utils/utils.js`);
 export const { getConfig } = await import(`${miloLibs}/utils/utils.js`);
 export const { replaceKey } = await import(`${miloLibs}/features/placeholders.js`);
+export const { decorateBlockAnalytics } = await import(`${miloLibs}/martech/attributes.js`);
 
 export function toSentenceCase(str) {
   return (str && typeof str === 'string') ? str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => c.toUpperCase()) : '';

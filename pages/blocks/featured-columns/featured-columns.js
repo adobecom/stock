@@ -1,4 +1,8 @@
-import { transformLinkToAnimation, createTag } from '../../scripts/utils.js';
+import { 
+  transformLinkToAnimation,
+  createTag,
+  decorateBlockAnalytics,
+} from '../../scripts/utils.js';
 
 function lazyDecorateVideo(cell, a) {
   if (!a || (!a.href.endsWith('.mp4'))) return;
@@ -47,6 +51,7 @@ function lazyDecorateVideo(cell, a) {
 }
 
 export default function featuredColumns(block) {
+  decorateBlockAnalytics(block);
   const rows = Array.from(block.children);
   rows.forEach((row) => {
     row.classList.add('featured-row');

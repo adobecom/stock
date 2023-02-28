@@ -1,5 +1,4 @@
-import { getLibs } from '../../scripts/utils.js';
-const { decorateBlockAnalytics } = await import(`${getLibs()}/martech/attributes.js`);
+import { decorateBlockAnalytics } from '../../scripts/utils.js';
 
 export default function imageRows(block) {
   decorateBlockAnalytics(block);

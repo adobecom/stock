@@ -17,6 +17,7 @@ import {
   getConfig,
   replaceKey,
   toSentenceCase,
+  decorateBlockAnalytics,
 } from '../../scripts/utils.js';
 
 function handlize(string) {
@@ -350,6 +351,7 @@ async function buildPayload(block, payload) {
 }
 
 export default async function decorate(block) {
+  decorateBlockAnalytics(block);
   const config = getConfig();
   const tabDescription = await replaceKey('description', config);
   const tabResources = await replaceKey('resources', config);

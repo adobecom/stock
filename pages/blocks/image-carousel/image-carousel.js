@@ -1,7 +1,12 @@
 
-import { createSVG, createTag } from '../../scripts/utils.js';
+import { 
+  createSVG,
+  createTag,
+  decorateBlockAnalytics,
+} from '../../scripts/utils.js';
 
 function carouselAndLightbox(block) {
+  decorateBlockAnalytics(block);
   const wrapper = block.querySelector('.image-carousel-wrapper');
   const lightbox = block.querySelector('.image-carousel-lightbox');
   const expandButtons = wrapper.querySelectorAll('.image-carousel-expand');
