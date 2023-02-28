@@ -2,12 +2,11 @@ import {
   transformLinkToAnimation,
   makeRelative,
   turnH6intoDetailM,
-  fetchPlaceholders,
+  createTag,
+  getConfig,
+  replaceKey,
+  toSentenceCase,
 } from '../../scripts/utils.js';
-import { getLibs } from '../../scripts/utils.js';
-const { createTag } = await import(`${getLibs()}/utils/utils.js`);
-
-const placeholders = await fetchPlaceholders((result) => result);
 
 function getFetchRange(payload) {
   let range;
@@ -115,13 +114,14 @@ function buildCard(card, overlay = false) {
   return card;
 }
 
-function decorateLoadMoreButton(block) {
+async function decorateLoadMoreButton(block) {
   const loadMoreWrapper = createTag('div', { class: 'content' });
   const loadMoreContainer = createTag('p', { class: 'button-container' });
   const loadMore = document.createElement('a');
   loadMore.className = 'button transparent';
   loadMore.href = '#';
-  loadMore.textContent = placeholders['load-more'];
+  const placeholder = await replaceKey('load-more', getConfig());
+  loadMore.textContent = toSentenceCase(placeholder);
   loadMoreContainer.append(loadMore);
   loadMoreWrapper.append(loadMoreContainer);
   block.insertAdjacentElement('afterend', loadMoreWrapper);
