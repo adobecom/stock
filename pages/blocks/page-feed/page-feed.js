@@ -277,4 +277,9 @@ export default async function pageFeed(block) {
 
   block.innerHTML = '';
   decorateCards(block, cards, payload);
+  block.querySelectorAll('a.button').forEach((button) => {
+    if (button.textContent === '') {
+      button.classList.remove('button');
+    }
+  });
 }
