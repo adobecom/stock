@@ -1,8 +1,7 @@
 
-import { 
-  createTag,
-  createSVG,
-} from '../../scripts/utils.js';
+import { createSVG } from '../../scripts/utils.js';
+import { getLibs } from '../../scripts/utils.js';
+const { createTag } = await import(`${getLibs()}/utils/utils.js`);
 
 function carouselAndLightbox(block) {
   const wrapper = block.querySelector('.image-carousel-wrapper');

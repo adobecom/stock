@@ -1,10 +1,11 @@
 import {
-  createTag,
   transformLinkToAnimation,
   makeRelative,
   turnH6intoDetailM,
   fetchPlaceholders,
 } from '../../scripts/utils.js';
+import { getLibs } from '../../scripts/utils.js';
+const { createTag } = await import(`${getLibs()}/utils/utils.js`);
 
 const placeholders = await fetchPlaceholders((result) => result);
 
