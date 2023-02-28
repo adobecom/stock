@@ -14,9 +14,8 @@ import {
   fetchPlaceholders,
   loadBlockCSS,
   makeRelative,
+  createTag,
 } from '../../scripts/utils.js';
-import { getLibs } from '../../scripts/utils.js';
-const { createTag } = await import(`${getLibs()}/utils/utils.js`);
 
 function handlize(string) {
   return string.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '');

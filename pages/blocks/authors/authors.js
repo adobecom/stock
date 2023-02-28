@@ -1,6 +1,8 @@
-import { getMetadata, fetchPlaceholders } from '../../scripts/utils.js';
-import { getLibs } from '../../scripts/utils.js';
-const { createTag } = await import(`${getLibs()}/utils/utils.js`);
+import { 
+  getMetadata,
+  createTag,
+  fetchPlaceholders,
+} from '../../scripts/utils.js';
 
 export default async function authors(block) {
   const metaAuthors = getMetadata('authors');

@@ -1,6 +1,4 @@
-import { transformLinkToAnimation } from '../../scripts/utils.js';
-import { getLibs } from '../../scripts/utils.js';
-const { createTag } = await import(`${getLibs()}/utils/utils.js`);
+import { transformLinkToAnimation, createTag } from '../../scripts/utils.js';
 
 function lazyDecorateVideo(cell, a) {
   if (!a || (!a.href.endsWith('.mp4'))) return;

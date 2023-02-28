@@ -3,9 +3,8 @@ import {
   makeRelative,
   turnH6intoDetailM,
   fetchPlaceholders,
+  createTag,
 } from '../../scripts/utils.js';
-import { getLibs } from '../../scripts/utils.js';
-const { createTag } = await import(`${getLibs()}/utils/utils.js`);
 
 const placeholders = await fetchPlaceholders((result) => result);
 
