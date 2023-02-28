@@ -30,9 +30,11 @@ export const [setLibs, getLibs] = (() => {
 * ------------------------------------------------------------
 */
 
-const libs = setLibs();
-export const { createTag } = await import(`${libs}/utils/utils.js`);
-// export const { replaceKey } = await import(`${libs}/features/placeholders.js`);
+const LIBS = 'https://milo.adobe.com/libs';
+const miloLibs = setLibs(LIBS);
+export const { createTag } = await import(`${miloLibs}/utils/utils.js`);
+export const { getConfig } = await import(`${miloLibs}/utils/utils.js`);
+// export const { replaceKey } = await import(`${miloLibs}/features/placeholders.js`);
 
 export function toSentenceCase(str) {
   return (str && typeof str === 'string') ? str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => c.toUpperCase()) : '';
