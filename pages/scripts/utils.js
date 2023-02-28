@@ -32,7 +32,7 @@ export const [setLibs, getLibs] = (() => {
 
 const libs = setLibs();
 export const { createTag } = await import(`${libs}/utils/utils.js`);
-export const { replaceKey } = await import(`${libs}/features/placeholders.js`);
+// export const { replaceKey } = await import(`${libs}/features/placeholders.js`);
 
 export function toSentenceCase(str) {
   return (str && typeof str === 'string') ? str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => c.toUpperCase()) : '';
@@ -40,6 +40,30 @@ export function toSentenceCase(str) {
 
 export function toClassName(name) {
   return (name && typeof name === 'string') ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-') : '';
+}
+
+// should be replaced with replaceKey once the import works correctly
+export async function fetchPlaceholders() {
+  const { locale } = getConfig();
+  const localeRoot = locale.contentRoot;
+  if (!window.placeholders) {
+    try {
+      const resp = await fetch(`${localeRoot}/pages/artisthub/placeholders.json`);
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    } catch {
+      const resp = await fetch('/pages/artisthub/placeholders.json');
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    }
+  }
+  return window.placeholders;
 }
 
 export function transformLinkToAnimation(a) {
