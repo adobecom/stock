@@ -58,9 +58,6 @@ export default function featuredColumns(block) {
       const ps = cell.querySelectorAll('p');
       [...ps].forEach((p) => { if (p.childNodes.length === 0) p.remove() })
       cell.classList.add('featured-column');
-
-      console.log(cell.cloneNode(true))
-
       const a = cell.querySelector('a');
       if (a && cell.childNodes.length === 1 && (a.href.endsWith('.mp4'))) {
         lazyDecorateVideo(cell, a);
