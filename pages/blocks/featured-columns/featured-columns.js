@@ -58,13 +58,22 @@ export default function featuredColumns(block) {
       const ps = cell.querySelectorAll('p');
       [...ps].forEach((p) => { if (p.childNodes.length === 0) p.remove() })
       cell.classList.add('featured-column');
+
+      console.log(cell.cloneNode(true))
+
       const a = cell.querySelector('a');
       if (a && cell.childNodes.length === 1 && (a.href.endsWith('.mp4'))) {
         lazyDecorateVideo(cell, a);
-      } else if (cell.querySelector(':scope > .milo-video:first-child:last-child') 
-              || cell.querySelector(':scope > p.button-container:first-child:last-child > .milo-video')
-              || cell.querySelector(':scope > p.button-container:first-child:last-child > a[href*="youtu.be"]')
-              || cell.querySelector(':scope > p.button-container:first-child:last-child > a[href*="youtube.com"]')) {
+      } else if (
+           cell.querySelector(':scope > .milo-video:first-child:last-child') 
+        || cell.querySelector(':scope > p.button-container:first-child:last-child > .milo-video')
+        || cell.querySelector(':scope > a:first-child:last-child[href*="youtu.be"]')
+        || cell.querySelector(':scope > p.button-container:first-child:last-child > a[href*="youtu.be"]')
+        || cell.querySelector(':scope > a:first-child:last-child[href*="youtube.com"]')
+        || cell.querySelector(':scope > p.button-container:first-child:last-child > a[href*="youtube.com"]')
+        || cell.querySelector(':scope > a:first-child:last-child[href*="tv.adobe.com"]') 
+        || cell.querySelector(':scope > p.button-container:first-child:last-child > a[href*="tv.adobe.com"]')
+      ) {
         cell.classList.add('picture-column');
       } else {
         const pic = cell.querySelector('picture:first-child:last-child');
