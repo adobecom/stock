@@ -8,11 +8,13 @@ function fixMiloVideoClassNameOfContainerInFeaturedColumnsBlock() {
     if (col.querySelector('.milo-video')) col.classList.add('picture-column');
   })
 }
-await delay(50);
-fixMiloVideoClassNameOfContainerInFeaturedColumnsBlock();
-await delay(50);
-fixMiloVideoClassNameOfContainerInFeaturedColumnsBlock();
-await delay(50);
-fixMiloVideoClassNameOfContainerInFeaturedColumnsBlock();
-await delay(50);
-fixMiloVideoClassNameOfContainerInFeaturedColumnsBlock();
+let times = 10;
+while (times-- > 0) {
+  await delay(50);
+  fixMiloVideoClassNameOfContainerInFeaturedColumnsBlock();
+}
+let count = 10;
+while (count-- > 0) {
+  await delay(500);
+  fixMiloVideoClassNameOfContainerInFeaturedColumnsBlock();
+}
