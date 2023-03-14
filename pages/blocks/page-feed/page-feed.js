@@ -22,7 +22,7 @@ function getFetchRange(payload) {
 }
 
 export async function loadPageFeedCard(a) {
-  const href = (typeof (a) === 'string') ? a : a.href;
+  const href = (typeof (a) === 'string') ? a : a.textContent.trim();
   const path = makeRelative(href);
   if (!path.startsWith('/')) return null;
   const resp = await fetch(`${path}.plain.html`);
@@ -222,7 +222,7 @@ export default async function pageFeed(block) {
   };
   const undefinedCards = [];
   const rows = Array.from(block.children);
-  payload.cardsToBuild = rows;
+  payload.cardsToBuild = Array.from(rows);
   const cards = [];
   const overlay = (block.classList.contains('overlay'));
   payload.overlay = overlay;
@@ -254,7 +254,7 @@ export default async function pageFeed(block) {
           }
         }
       } else {
-        payload.cardsToBuild = pageLinks;
+        payload.cardsToBuild = Array.from(pageLinks);
         payload.loadFromJson = false;
         const range = getFetchRange(payload);
         for (let i = 0; i < range; i += 1) {
