@@ -224,7 +224,7 @@ export default async function pageFeed(block) {
   };
   const undefinedCards = [];
   const rows = Array.from(block.children);
-  payload.cardsToBuild = Array.from(rows);
+  payload.cardsToBuild = rows;
   const cards = [];
   const overlay = (block.classList.contains('overlay'));
   payload.overlay = overlay;
