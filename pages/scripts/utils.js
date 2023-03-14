@@ -31,6 +31,46 @@ export const { decorateBlockAnalytics } = await import(`${miloLibs}/martech/attr
 export const { decorateLinkAnalytics } = await import(`${miloLibs}/martech/attributes.js`);
 export const { createTag } = await import(`${miloLibs}/utils/utils.js`);
 
+export async function fetchPlaceholders() {
+  const { locale } = getConfig();
+  const localeRoot = locale.contentRoot;
+  if (!window.placeholders) {
+    try {
+      const resp = await fetch(`${localeRoot}/pages/artisthub/placeholders.json`);
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    } catch {
+      const resp = await fetch('/pages/artisthub/placeholders.json');
+      const json = await resp.json();
+      window.placeholders = {};
+      json.data.forEach((placeholder) => {
+        window.placeholders[toClassName(placeholder.Key)] = placeholder.Text;
+      });
+    }
+  }
+  return window.placeholders;
+}
+
+export function createTag(tag, attributes, html) {
+  const el = document.createElement(tag);
+  if (html) {
+    if (html instanceof HTMLElement || html instanceof SVGElement) {
+      el.append(html);
+    } else {
+      el.insertAdjacentHTML('beforeend', html);
+    }
+  }
+  if (attributes) {
+    Object.entries(attributes).forEach(([key, val]) => {
+      el.setAttribute(key, val);
+    });
+  }
+  return el;
+}
+
 export function toSentenceCase(str) {
   return (str && typeof str === 'string') ? str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => c.toUpperCase()) : '';
 }
