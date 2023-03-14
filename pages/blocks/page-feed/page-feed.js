@@ -22,7 +22,7 @@ function getFetchRange(payload) {
 }
 
 export async function loadPageFeedCard(a) {
-  const href = (typeof (a) === 'string') ? a : a.textContent.trim();
+  const href = (typeof (a) === 'string') ? a : a.href;
   const path = makeRelative(href);
   if (!path.startsWith('/')) return null;
   const resp = await fetch(`${path}.plain.html`);
@@ -210,6 +210,8 @@ function decorateCards(block, cards, payload) {
 
       decorateCards(block, newCards, payload);
     });
+
+    if (block.querySelectorAll('.pf-card').length <= 0) loadMoreObject.wrapper.remove();
   }
 }
 
