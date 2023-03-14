@@ -1,6 +1,10 @@
-import { createTag } from '../../scripts/utils.js';
+import { 
+  createTag,
+  decorateBlockAnalytics,
+} from '../../scripts/utils.js';
 
 export default function featuredColumns(block) {
+  decorateBlockAnalytics(block);
   const rows = Array.from(block.children);
   rows.forEach((row) => {
     row.classList.add('featured-row');

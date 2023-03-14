@@ -2,6 +2,7 @@
 import { 
   createTag,
   createSVG,
+  decorateBlockAnalytics,
 } from '../../scripts/utils.js';
 
 function carouselAndLightbox(block) {
@@ -186,6 +187,7 @@ function buildCarousel(imgSlides, block, aspectRatio = '50%') {
 }
 
 export default function imageCarousel(block) {
+  decorateBlockAnalytics(block);
   const imgs = block.querySelectorAll('picture');
   const imgSlides = [];
   let aspectRatio;
