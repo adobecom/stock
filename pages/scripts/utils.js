@@ -31,6 +31,10 @@ export const { decorateBlockAnalytics } = await import(`${miloLibs}/martech/attr
 export const { decorateLinkAnalytics } = await import(`${miloLibs}/martech/attributes.js`);
 export const { createTag } = await import(`${miloLibs}/utils/utils.js`);
 
+export function toClassName(name) {
+  return (name && typeof name === 'string') ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-') : '';
+}
+
 export async function fetchPlaceholders() {
   const { locale } = getConfig();
   const localeRoot = locale.contentRoot;
@@ -52,14 +56,6 @@ export async function fetchPlaceholders() {
     }
   }
   return window.placeholders;
-}
-
-export function toSentenceCase(str) {
-  return (str && typeof str === 'string') ? str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, (c) => c.toUpperCase()) : '';
-}
-
-export function toClassName(name) {
-  return (name && typeof name === 'string') ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-') : '';
 }
 
 export function transformLinkToAnimation(a) {
