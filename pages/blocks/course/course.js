@@ -149,7 +149,7 @@ function decorateTabbedArea($block, payload) {
 
   payload.tabs.forEach((tab, index) => {
     if (!isEmptyTab(tab)) {
-      const $tab = createTag('a', { class: `tab tab-${tab.heading.toLowerCase()}` });
+      const $tab = createTag('a', { class: 'tab' });
       if (index === 0) {
         $tab.classList.add('active');
       }
@@ -169,8 +169,7 @@ function decorateTabbedArea($block, payload) {
         }
       });
     } else if (index === 0) {
-      const tabName = payload.placeholders['course-tab-description'];
-      const $tab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
+      const $tab = createTag('a', { class: 'tab' });
       $tab.classList.add('active');
       $tab.textContent = tab.heading;
       $tabs.append($tab);
@@ -186,11 +185,11 @@ function decorateTabbedArea($block, payload) {
 
     if (index === 1) {
       const tabName = payload.placeholders['course-tab-transcript'];
-      const $transcriptTab = createTag('a', { class: `tab tab-${tabName.toLowerCase()}` });
+      const $transcriptTab = createTag('a', { class: 'tab' });
       $transcriptTab.textContent = tabName;
       $tabs.append($transcriptTab);
 
-      const paragraphs = payload.videos[payload.videoIndex][`${tabName}`].split('\n');
+      const paragraphs = payload.videos[payload.videoIndex].Transcript.split('\n');
       if (paragraphs.length <= 1 && paragraphs[0] === '') {
         $transcriptTab.style.display = 'none';
       }
