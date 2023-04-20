@@ -26,10 +26,10 @@ export const [setLibs, getLibs] = (() => {
 })();
 const LIBS = 'https://milo.adobe.com/libs';
 const miloLibs = setLibs(LIBS);
-export const { getConfig } = await import(`${miloLibs}/utils/utils.js`);
+export const { createTag, getConfig } = await import(`${miloLibs}/utils/utils.js`);
+export const { sampleRUM } = await import (`${miloLibs}/utils/samplerum.js`);
 export const { decorateBlockAnalytics } = await import(`${miloLibs}/martech/attributes.js`);
 export const { decorateLinkAnalytics } = await import(`${miloLibs}/martech/attributes.js`);
-export const { createTag } = await import(`${miloLibs}/utils/utils.js`);
 
 export function toClassName(name) {
   return (name && typeof name === 'string') ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-') : '';

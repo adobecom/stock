@@ -1,0 +1,190 @@
+.stock-404 .section {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  background: #1E1E1E;
+  display: flex;
+  flex-direction: column;
+  color: #FFF;
+  min-height: 600px;
+  height: 100vh;
+  text-align: center;
+  transition: opacity 0.2s ease-in-out, height 0.5s ease-in-out;
+}
+
+.stock-404 .gnav + main .section {
+  height: calc(100vh - 57px);
+}
+
+.stock-404 .section > div {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.stock-404 .error404-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  user-select: none;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.stock-404 .error404-background img,
+.stock-404 .error404-background video {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  min-height: 200px;
+}
+
+.stock-404 .error404-background a {
+  color: #FFF;
+}
+
+.stock-404 .error404-background video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 101%;
+  transform: translateX(-0.5%);
+  height: 100%;
+  object-fit: cover;
+}
+
+.stock-404 .error404-background p {
+  padding: 8px 2rem;
+  max-width: 360px;
+  margin: 0 auto;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.6);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-align: right;
+  height: auto;
+  white-space: nowrap;
+  width: 100%;
+  color: #FFF;
+  z-index: 1;
+  pointer-events: auto;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 300;
+}
+
+.stock-404 .error404-background-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  user-select: none;
+  overflow: hidden;
+  pointer-events: none;
+  background: rgba(0,0,0,0.4);
+}
+
+.stock-404 .error404-textwrapper {
+  position: relative;
+  max-width: 450px;
+}
+
+.stock-404 .error404-textwrapper h1 {
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.stock-404 .error404-textwrapper p {
+  font-size: 18px;
+}
+
+.stock-404 .error404-textwrapper p.button-container {
+  flex-direction: column;
+  align-items: center;
+}
+
+.stock-404 .error404-textwrapper p.button-container a,
+.stock-404 .error404-textwrapper p.button-container strong,
+.stock-404 .error404-textwrapper p.button-container em {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stock-404 .error404-textwrapper p.button-container a {
+  margin-top: 8px;
+  max-width: 350px;
+}
+
+.stock-404 .error404-textwrapper a.button.transparent:any-link {
+  color: #FFF;
+  border-color: #FFF;
+  background-color: rgba(0,0,0,0);
+}
+
+.stock-404 .error404-textwrapper hr {
+  border: 1px solid #FFF;
+  max-width: 350px;
+  margin: 1rem auto;
+}
+
+.stock-404 .error404-textwrapper a.button.transparent:any-link:hover {
+  color: #FFF;
+  border-color: #FFF;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.stock-404 .error404-textwrapper a.button.transparent:any-link:active {
+  color: #FFF;
+  border-color: #FFF;
+  background-color: rgba(0,0,0,0.2);
+}
+
+@media (min-width: 600px) { 
+  .stock-404 .error404-textwrapper p.button-container a,
+  .stock-404 .error404-textwrapper p.button-container strong,
+  .stock-404 .error404-textwrapper p.button-container em {
+    width: auto;
+  }
+}
+
+@media (min-width: 900px) { 
+  .stock-404 .gnav + main .section {
+    height: calc(100vh - 64px);
+  }
+
+  .stock-404 .error404-textwrapper h1 {
+    font-size: 48px;
+  }
+  
+  .stock-404 .error404-textwrapper p {
+    font-size: 20px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+
+  .stock-404 a.button:any-link {
+    font-size: 16px;
+  }
+
+  .stock-404 .error404-textwrapper {
+    max-width: 500px;
+  }
+
+  .stock-404 .error404-background p {
+    font-size: 18px;
+    padding: 24px 48px;
+  }
+}
