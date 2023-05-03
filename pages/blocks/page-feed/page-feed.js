@@ -210,6 +210,8 @@ function decorateCards(block, cards, payload) {
 
       decorateCards(block, newCards, payload);
     });
+
+    if (block.querySelectorAll('.pf-card').length <= 0) loadMoreObject.wrapper.remove();
   }
 }
 
@@ -254,7 +256,7 @@ export default async function pageFeed(block) {
           }
         }
       } else {
-        payload.cardsToBuild = pageLinks;
+        payload.cardsToBuild = Array.from(pageLinks);
         payload.loadFromJson = false;
         const range = getFetchRange(payload);
         for (let i = 0; i < range; i += 1) {
