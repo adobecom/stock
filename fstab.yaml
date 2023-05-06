@@ -1,2 +1,5 @@
 mountpoints:
   /: https://drive.google.com/drive/u/1/folders/1s_7gzWxicf6O379EKGv8yNt6U43-ODK_
+
+folders:
+  /pages/artisthub/authors/: /pages/artisthub/authors/author
