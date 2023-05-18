@@ -584,6 +584,10 @@ main .banner .banner-column.banner-image {
     max-height: var(--banner-height-md);
   }
 
+  main .banner.empty-content .background .milo-video {
+    height: var(--banner-height-md);
+    padding: unset;
+  }
 
   main .banner.small.empty-content,
   main .banner.small.empty-content .background,
@@ -593,12 +597,22 @@ main .banner .banner-column.banner-image {
     max-height: var(--banner-height-sm);
   }
 
+  main .banner.small.empty-content .background .milo-video {
+    height: var(--banner-height-sm);
+    padding: unset;
+  }
+
   main .banner.large.empty-content,
   main .banner.large.empty-content .background,
   main .banner.large.empty-content .background img,
   main .banner.large.empty-content .background video {
     position: relative;
     max-height: var(--banner-height-lg);
+  }
+
+  main .banner.large.empty-content .background .milo-video {
+    height: var(--banner-height-lg);
+    padding: unset;
   }
 
   main .banner .banner-column:not(.banner-image):not(:empty):first-child {
@@ -620,4 +634,22 @@ main .banner .banner-column.banner-image {
   main .banner .banner-column.banner-image:not(:empty) {
     width: 100%;
   }
+}
+
+main .banner .milo-video {
+  margin: 0;
+}
+
+main .banner .background > div > p:first-child {
+  position: absolute;
+  height: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+main .banner.empty-content .background > div,
+main .banner.empty-content .background > div > p:first-child {
+  height: auto;
+  position: relative;
+  transform: unset;
 }
