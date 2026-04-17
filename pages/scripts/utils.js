@@ -12,6 +12,7 @@ export const [setLibs, getLibs] = (() => {
         libs = prodLibs;
       } else {
         const branch = new URLSearchParams(window.location.search).get('milolibs') || 'main';
+        if (!/^[a-zA-Z0-9_-]+$/.test(branch)) throw new Error('Invalid branch name.');
         if (branch === 'local') {
           libs = 'http://localhost:6456/libs';
         } else if (branch.indexOf('--') > -1) {
